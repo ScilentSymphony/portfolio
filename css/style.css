@@ -1008,6 +1008,15 @@ body.services {
   --current-accent: var(--accent-gold);
 }
 
+/* Hero CTAs */
+.hero-cta {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
 .services-intro {
   max-width: 900px;
   margin: 0 auto 4rem;
@@ -1018,6 +1027,63 @@ body.services {
   font-size: 1.25rem;
   line-height: 1.8;
   color: var(--text-muted);
+}
+
+/* Credentials Section */
+.credentials {
+  padding: 3rem 2rem;
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 4rem;
+}
+
+.credentials-list {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.credential-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.credential-item strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--current-accent);
+  font-weight: 700;
+}
+
+.credential-item span {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.portfolio-links {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.portfolio-links p {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.portfolio-links a {
+  color: var(--current-accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-links a:hover {
+  opacity: 0.7;
 }
 
 /* Service Packages */
@@ -1231,6 +1297,21 @@ body.services {
   font-weight: 600;
 }
 
+/* Testimonial CTA */
+.testimonial-cta {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.testimonial-cta .cta-text {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
 /* Booking CTA */
 .booking-cta {
   margin-bottom: 6rem;
@@ -1250,7 +1331,7 @@ body.services {
 
 .cta-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
   gap: 3rem;
   margin-top: 3rem;
   text-align: left;
@@ -1339,6 +1420,14 @@ body.services {
   background: var(--bg-card);
 }
 
+/* Enhanced keyboard-only focus indicators */
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 3px solid var(--current-accent);
+  outline-offset: 3px;
+}
+
 .form-group textarea {
   resize: vertical;
   min-height: 120px;
@@ -1356,6 +1445,29 @@ body.services {
 .btn-large {
   padding: 1rem 2.5rem;
   font-size: 1.125rem;
+}
+
+/* Form Status Messages */
+.form-status {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  display: none;
+  font-size: 0.95rem;
+}
+
+.form-status.error {
+  display: block;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #fca5a5;
+}
+
+.form-status.success {
+  display: block;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
 }
 
 /* FAQ */
@@ -1392,6 +1504,32 @@ body.services {
   color: var(--text-muted);
   line-height: 1.7;
   margin: 0;
+}
+
+/* FAQ CTA */
+.faq-cta {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-cta h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.faq-cta p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
 }
 
 /* Responsive - Services Page */

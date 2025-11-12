@@ -60,6 +60,10 @@
     <section class="hero">
       <h1>Services</h1>
       <p class="page-subtitle">Commission work, consulting, and collaboration across music, research, and creative technology</p>
+      <div class="hero-cta">
+        <a href="#contact-form" class="btn btn-primary">Schedule Free Consultation</a>
+        <a href="#packages" class="btn btn-secondary">View Services & Pricing</a>
+      </div>
     </section>
 
     <!-- Services Introduction -->
@@ -67,8 +71,34 @@
       <p class="intro-text">I work with individuals, organizations, and creative teams on projects that blend musical expertise, academic rigor, and technical innovation. Whether you need original sound design, research collaboration, or creative technology consulting, I bring interdisciplinary thinking to every engagement.</p>
     </section>
 
+    <!-- Credentials & Portfolio Links -->
+    <section class="credentials">
+      <h2 class="visually-hidden">Professional Credentials</h2>
+      <div class="credentials-list">
+        <div class="credential-item">
+          <strong>20+</strong>
+          <span>Albums Released</span>
+        </div>
+        <div class="credential-item">
+          <strong>Honors Thesis</strong>
+          <span>Defended with Distinction</span>
+        </div>
+        <div class="credential-item">
+          <strong>Multi-Disciplinary</strong>
+          <span>Music, Research, & Tech</span>
+        </div>
+      </div>
+      <div class="portfolio-links">
+        <p>Explore my work:
+          <a href="research.html">Research</a> •
+          <a href="music.html">Music</a> •
+          <a href="tech.html">Technology</a>
+        </p>
+      </div>
+    </section>
+
     <!-- Service Packages -->
-    <section class="service-packages">
+    <section class="service-packages" id="packages">
       <h2>What I Offer</h2>
       <div class="packages-grid">
         <!-- Music Package -->
@@ -173,6 +203,12 @@
           <p class="testimonial-author">— [Producer Name], [Production Company]</p>
         </div>
       </div>
+
+      <!-- Testimonial CTA -->
+      <div class="testimonial-cta">
+        <p class="cta-text">Ready to start your project?</p>
+        <a href="#contact-form" class="btn btn-primary">Get in Touch</a>
+      </div>
     </section>
 
     <!-- Booking CTA -->
@@ -193,6 +229,9 @@
         <div class="option-form">
           <h3>Send an Inquiry</h3>
           <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="inquiry-form">
+            <!-- Form Status Messages -->
+            <div class="form-status" role="alert" aria-live="polite"></div>
+
             <div class="form-group">
               <label for="name">Name <span aria-label="required">*</span></label>
               <input type="text" id="name" name="name" required aria-required="true">
@@ -260,6 +299,13 @@
           <h3 class="faq-question">Do you offer student or non-profit rates?</h3>
           <p class="faq-answer">Yes, discounted rates are available for academic researchers, students, and registered non-profit organizations. Inquire for details.</p>
         </div>
+      </div>
+
+      <!-- FAQ CTA -->
+      <div class="faq-cta">
+        <h3>Still have questions?</h3>
+        <p>Let's talk about your specific needs</p>
+        <a href="#contact-form" class="btn btn-primary">Schedule a Call</a>
       </div>
     </section>
   </main>
