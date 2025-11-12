@@ -838,7 +838,7 @@ body.tech .btn-primary:hover {
 
 .project-card {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
   gap: 3rem;
   align-items: center;
 }
