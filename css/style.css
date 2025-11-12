@@ -1,0 +1,23 @@
+:root {
+  --bg-primary: #0A0A0A;
+  --text-primary: #E8E8E8;
+  --accent-gold: #D4AF37;
+  --accent-wine: #6B2737;
+  --accent-sage: #8B9D83;
+  --accent-steel: #4A5F7A;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
