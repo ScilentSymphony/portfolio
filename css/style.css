@@ -7,6 +7,17 @@
   --accent-steel: #4A5F7A;
   --font-display: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
+
+  /* Repeated RGBA values */
+  --bg-subtle: rgba(232, 232, 232, 0.02);
+  --bg-card: rgba(232, 232, 232, 0.03);
+  --bg-input: rgba(232, 232, 232, 0.05);
+  --bg-icon: rgba(232, 232, 232, 0.1);
+  --border-subtle: rgba(232, 232, 232, 0.1);
+  --border-input: rgba(232, 232, 232, 0.2);
+
+  /* Current page accent (overridden by page classes) */
+  --current-accent: var(--accent-gold);
 }
 
 * {
@@ -33,6 +44,41 @@ a {
   text-decoration: none;
   color: inherit;
   transition: all 0.3s ease;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reusable card base */
+.card-base {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* Reusable grid patterns */
+.grid-3col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -221,8 +267,8 @@ p {
 }
 
 .category-card {
-  background: rgba(232, 232, 232, 0.03);
-  border: 1px solid rgba(232, 232, 232, 0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 2rem;
   transition: all 0.3s ease;
@@ -298,8 +344,8 @@ footer {
 .email-signup input {
   flex: 1;
   padding: 0.8rem 1rem;
-  background: rgba(232, 232, 232, 0.05);
-  border: 1px solid rgba(232, 232, 232, 0.2);
+  background: var(--bg-input);
+  border: 1px solid var(--border-input);
   border-radius: 4px;
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -370,7 +416,7 @@ footer {
   width: 32px;
   height: 32px;
   border-radius: 4px;
-  background: rgba(232, 232, 232, 0.1);
+  background: var(--bg-icon);
 }
 
 .mobile-nav-item.active .nav-icon {
@@ -426,15 +472,15 @@ footer {
 
 /* ===== RESEARCH PAGE SPECIFIC ===== */
 body.research {
-  --page-accent: var(--accent-wine);
+  --current-accent: var(--accent-wine);
 }
 
 body.research h2 {
-  color: var(--accent-wine);
+  color: var(--current-accent);
 }
 
 body.research .btn-primary {
-  background: var(--accent-wine);
+  background: var(--current-accent);
 }
 
 body.research .btn-primary:hover {
@@ -465,15 +511,15 @@ body.research .btn-primary:hover {
 
 .thesis-image {
   aspect-ratio: 1;
-  background: rgba(232, 232, 232, 0.05);
-  border: 1px solid rgba(232, 232, 232, 0.1);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
 }
 
 .thesis-content h3 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
-  color: var(--accent-wine);
+  color: var(--current-accent);
 }
 
 .thesis-meta {
@@ -497,12 +543,12 @@ body.research .btn-primary:hover {
   content: '→';
   position: absolute;
   left: 0;
-  color: var(--accent-wine);
+  color: var(--current-accent);
 }
 
 .research-interests {
   padding: 4rem 2rem;
-  background: rgba(232, 232, 232, 0.02);
+  background: var(--bg-subtle);
 }
 
 .research-interests h2 {
@@ -520,14 +566,35 @@ body.research .btn-primary:hover {
 
 .interests-grid > div {
   padding: 2rem;
-  background: rgba(232, 232, 232, 0.03);
-  border: 1px solid rgba(232, 232, 232, 0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
 }
 
 .interests-grid h3 {
-  color: var(--accent-wine);
+  color: var(--current-accent);
   margin-bottom: 1rem;
+}
+
+/* CV Definition List Styling */
+.cv-list {
+  margin: 1rem 0 1.5rem;
+}
+
+.cv-list dt {
+  font-weight: 600;
+  color: var(--current-accent);
+  margin-top: 1rem;
+}
+
+.cv-list dt:first-child {
+  margin-top: 0;
+}
+
+.cv-list dd {
+  margin-left: 0;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
 }
 
 .academic-section {
@@ -570,15 +637,15 @@ body.research .btn-primary:hover {
 
 /* ===== MUSIC PAGE SPECIFIC ===== */
 body.music {
-  --page-accent: var(--accent-sage);
+  --current-accent: var(--accent-sage);
 }
 
 body.music h2 {
-  color: var(--accent-sage);
+  color: var(--current-accent);
 }
 
 body.music .btn-primary {
-  background: var(--accent-sage);
+  background: var(--current-accent);
   color: var(--bg-primary);
 }
 
@@ -606,8 +673,8 @@ body.music .btn-primary:hover {
 }
 
 .release-card {
-  background: rgba(232, 232, 232, 0.03);
-  border: 1px solid rgba(232, 232, 232, 0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s ease;
@@ -615,22 +682,22 @@ body.music .btn-primary:hover {
 
 .release-card:hover {
   transform: translateY(-8px);
-  border-color: var(--accent-sage);
+  border-color: var(--current-accent);
 }
 
 .album-art {
   aspect-ratio: 1;
-  background: rgba(232, 232, 232, 0.1);
+  background: var(--bg-icon);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  color: var(--accent-sage);
+  color: var(--current-accent);
 }
 
 .release-card h3 {
   padding: 1rem 1.5rem 0.5rem;
-  color: var(--accent-sage);
+  color: var(--current-accent);
 }
 
 .release-year {
@@ -654,21 +721,21 @@ body.music .btn-primary:hover {
 
 .release-links a {
   font-size: 0.9rem;
-  color: var(--accent-sage);
+  color: var(--current-accent);
   padding: 0.5rem 1rem;
-  border: 1px solid var(--accent-sage);
+  border: 1px solid var(--current-accent);
   border-radius: 4px;
   transition: all 0.3s ease;
 }
 
 .release-links a:hover {
-  background: var(--accent-sage);
+  background: var(--current-accent);
   color: var(--bg-primary);
 }
 
 .tools-process {
   padding: 4rem 2rem;
-  background: rgba(232, 232, 232, 0.02);
+  background: var(--bg-subtle);
 }
 
 .process-grid {
@@ -681,13 +748,13 @@ body.music .btn-primary:hover {
 
 .process-grid > div {
   padding: 2rem;
-  background: rgba(232, 232, 232, 0.03);
-  border: 1px solid rgba(232, 232, 232, 0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
 }
 
 .process-grid h3 {
-  color: var(--accent-sage);
+  color: var(--current-accent);
   margin-bottom: 1rem;
 }
 
@@ -706,8 +773,8 @@ body.music .btn-primary:hover {
 
 .player-placeholder {
   padding: 3rem;
-  background: rgba(232, 232, 232, 0.03);
-  border: 1px dashed rgba(232, 232, 232, 0.2);
+  background: var(--bg-card);
+  border: 1px dashed var(--border-input);
   border-radius: 8px;
   text-align: center;
   opacity: 0.7;
@@ -727,12 +794,13 @@ body.music .btn-primary:hover {
   max-width: 500px;
   margin: 2rem auto;
   text-align: left;
+  list-style: none;
 }
 
-.services-list div {
+.services-list li {
   padding: 0.75rem 1rem;
   margin-bottom: 0.5rem;
-  background: rgba(232, 232, 232, 0.03);
-  border-left: 3px solid var(--accent-sage);
+  background: var(--bg-card);
+  border-left: 3px solid var(--current-accent);
   border-radius: 4px;
 }

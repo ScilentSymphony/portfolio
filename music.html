@@ -32,6 +32,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
+  <!-- Page Prefetch -->
+  <link rel="prefetch" href="tech.html">
+  <link rel="prefetch" href="services.html">
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -42,7 +46,7 @@
       <a href="index.html" class="nav-logo">ZAKI</a>
       <ul class="nav-links">
         <li><a href="research.html">RESEARCH</a></li>
-        <li><a href="music.html" class="active">MUSIC</a></li>
+        <li><a href="music.html" class="active" aria-current="page">MUSIC</a></li>
         <li><a href="tech.html">TECH</a></li>
         <li><a href="services.html">SERVICES</a></li>
         <li><a href="about.html">ABOUT</a></li>
@@ -65,37 +69,37 @@
       <div class="releases-grid">
         <!-- Album 1 -->
         <div class="release-card">
-          <div class="album-art">♪</div>
+          <div class="album-art" aria-hidden="true" loading="lazy">♪</div>
           <h3>Album Title [Placeholder]</h3>
           <p class="release-year">2024</p>
           <p class="release-desc">Brief description of album aesthetic and approach</p>
           <div class="release-links">
-            <a href="#">Listen on Bandcamp</a>
-            <a href="#">Spotify</a>
+            <a href="#" aria-label="Listen to Album Title on Bandcamp">Listen on Bandcamp</a>
+            <a href="#" aria-label="Listen to Album Title on Spotify">Spotify</a>
           </div>
         </div>
 
         <!-- Album 2 -->
         <div class="release-card">
-          <div class="album-art">♪</div>
+          <div class="album-art" aria-hidden="true" loading="lazy">♪</div>
           <h3>Album Title [Placeholder]</h3>
           <p class="release-year">2024</p>
           <p class="release-desc">Brief description of album aesthetic and approach</p>
           <div class="release-links">
-            <a href="#">Listen on Bandcamp</a>
-            <a href="#">Spotify</a>
+            <a href="#" aria-label="Listen to Album Title on Bandcamp">Listen on Bandcamp</a>
+            <a href="#" aria-label="Listen to Album Title on Spotify">Spotify</a>
           </div>
         </div>
 
         <!-- Album 3 -->
         <div class="release-card">
-          <div class="album-art">♪</div>
+          <div class="album-art" aria-hidden="true" loading="lazy">♪</div>
           <h3>Album Title [Placeholder]</h3>
           <p class="release-year">2024</p>
           <p class="release-desc">Brief description of album aesthetic and approach</p>
           <div class="release-links">
-            <a href="#">Listen on Bandcamp</a>
-            <a href="#">Spotify</a>
+            <a href="#" aria-label="Listen to Album Title on Bandcamp">Listen on Bandcamp</a>
+            <a href="#" aria-label="Listen to Album Title on Spotify">Spotify</a>
           </div>
         </div>
       </div>
@@ -135,13 +139,13 @@
     <section class="music-services">
       <h2>Commission Work</h2>
       <p>Available for sound design, composition, and audio-reactive installation projects</p>
-      <div class="services-list">
-        <div>Film & media scoring</div>
-        <div>Podcast sound design</div>
-        <div>Interactive installations</div>
-        <div>Generative music systems</div>
-      </div>
-      <a href="services.html" class="btn btn-primary">View Services & Pricing</a>
+      <ul class="services-list">
+        <li>Film & media scoring</li>
+        <li>Podcast sound design</li>
+        <li>Interactive installations</li>
+        <li>Generative music systems</li>
+      </ul>
+      <a href="services.html" class="btn btn-primary" aria-label="View detailed services and pricing information">View Services & Pricing</a>
     </section>
   </main>
 
@@ -151,7 +155,8 @@
       <h3>Stay Connected</h3>
       <p>Join my mailing list for updates on new work</p>
       <form action="https://your-substack-url" method="post">
-        <input type="email" placeholder="your@email.com" required>
+        <label for="email-subscribe" class="visually-hidden">Email address</label>
+        <input id="email-subscribe" type="email" placeholder="your@email.com" required aria-label="Email address for newsletter">
         <button type="submit" class="btn btn-primary">Subscribe</button>
       </form>
       <p class="form-note">Powered by Substack</p>
@@ -171,25 +176,25 @@
   </footer>
 
   <!-- Mobile Navigation -->
-  <nav class="mobile-nav">
+  <nav class="mobile-nav" aria-label="Mobile navigation">
     <a href="index.html" class="mobile-nav-item">
-      <div class="nav-icon nav-icon-home"></div>
+      <div class="nav-icon nav-icon-home" aria-hidden="true"></div>
       <span>Home</span>
     </a>
     <a href="research.html" class="mobile-nav-item">
-      <div class="nav-icon nav-icon-research"></div>
+      <div class="nav-icon nav-icon-research" aria-hidden="true"></div>
       <span>Research</span>
     </a>
-    <a href="music.html" class="mobile-nav-item active">
-      <div class="nav-icon nav-icon-music"></div>
+    <a href="music.html" class="mobile-nav-item active" aria-current="page">
+      <div class="nav-icon nav-icon-music" aria-hidden="true"></div>
       <span>Music</span>
     </a>
     <a href="tech.html" class="mobile-nav-item">
-      <div class="nav-icon nav-icon-tech"></div>
+      <div class="nav-icon nav-icon-tech" aria-hidden="true"></div>
       <span>Tech</span>
     </a>
     <a href="contact.html" class="mobile-nav-item">
-      <div class="nav-icon nav-icon-contact"></div>
+      <div class="nav-icon nav-icon-contact" aria-hidden="true"></div>
       <span>Contact</span>
     </a>
   </nav>

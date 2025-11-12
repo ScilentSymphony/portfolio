@@ -32,6 +32,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
+  <!-- Page Prefetch for likely navigation -->
+  <link rel="prefetch" href="research.html">
+  <link rel="prefetch" href="music.html">
+  <link rel="prefetch" href="contact.html">
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -69,34 +74,34 @@
       <div class="categories-grid">
         <!-- Research Card -->
         <div class="category-card" data-category="research">
-          <div class="card-icon"></div>
+          <div class="card-icon" aria-hidden="true"></div>
           <h3>Research & Writing</h3>
           <p>Cross-cultural analysis of musical improvisation, examining temporal consciousness and cognitive architecture across jazz, Arabic maqam, and Javanese gamelan traditions.</p>
-          <a href="research.html">Explore →</a>
+          <a href="research.html" aria-label="Explore research and writing">Explore →</a>
         </div>
 
         <!-- Music Card -->
         <div class="category-card" data-category="music">
-          <div class="card-icon"></div>
+          <div class="card-icon" aria-hidden="true"></div>
           <h3>Music & Sound Design</h3>
           <p>Experimental sound works spanning 20+ albums, audio-reactive installations, and composition for media. Logic Pro, TouchDesigner, and AI-assisted creative workflows.</p>
-          <a href="music.html">Explore →</a>
+          <a href="music.html" aria-label="Explore music and sound design">Explore →</a>
         </div>
 
         <!-- Tech Card -->
         <div class="category-card" data-category="tech">
-          <div class="card-icon"></div>
+          <div class="card-icon" aria-hidden="true"></div>
           <h3>Creative Technology</h3>
           <p>Generative visual systems, AI applications in creative practice, and technical consulting for interdisciplinary projects combining sound, visuals, and interaction.</p>
-          <a href="tech.html">Explore →</a>
+          <a href="tech.html" aria-label="Explore creative technology">Explore →</a>
         </div>
 
         <!-- Teaching Card -->
         <div class="category-card" data-category="teaching">
-          <div class="card-icon"></div>
+          <div class="card-icon" aria-hidden="true"></div>
           <h3>Teaching & Speaking</h3>
           <p>Pedagogy development for entrepreneurship and creative practice, workshops on improvisation theory, and academic collaboration in ethnomusicology.</p>
-          <a href="about.html">Explore →</a>
+          <a href="about.html" aria-label="Explore teaching and speaking">Explore →</a>
         </div>
       </div>
     </section>
@@ -114,7 +119,8 @@
       <h3>Stay Connected</h3>
       <p>Join my mailing list for updates on new work</p>
       <form action="https://your-substack-url" method="post">
-        <input type="email" placeholder="your@email.com" required>
+        <label for="email-subscribe" class="visually-hidden">Email address</label>
+        <input id="email-subscribe" type="email" placeholder="your@email.com" required aria-label="Email address for newsletter">
         <button type="submit" class="btn btn-primary">Subscribe</button>
       </form>
       <p class="form-note">Powered by Substack</p>
@@ -134,25 +140,25 @@
   </footer>
 
   <!-- Mobile Navigation -->
-  <nav class="mobile-nav">
-    <a href="index.html" class="mobile-nav-item active">
-      <div class="nav-icon nav-icon-home"></div>
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav-item active" aria-current="page">
+      <div class="nav-icon nav-icon-home" aria-hidden="true"></div>
       <span>Home</span>
     </a>
     <a href="research.html" class="mobile-nav-item">
-      <div class="nav-icon nav-icon-research"></div>
+      <div class="nav-icon nav-icon-research" aria-hidden="true"></div>
       <span>Research</span>
     </a>
     <a href="music.html" class="mobile-nav-item">
-      <div class="nav-icon nav-icon-music"></div>
+      <div class="nav-icon nav-icon-music" aria-hidden="true"></div>
       <span>Music</span>
     </a>
     <a href="tech.html" class="mobile-nav-item">
-      <div class="nav-icon nav-icon-tech"></div>
+      <div class="nav-icon nav-icon-tech" aria-hidden="true"></div>
       <span>Tech</span>
     </a>
     <a href="contact.html" class="mobile-nav-item">
-      <div class="nav-icon nav-icon-contact"></div>
+      <div class="nav-icon nav-icon-contact" aria-hidden="true"></div>
       <span>Contact</span>
     </a>
   </nav>
