@@ -525,41 +525,16 @@ body.contact .nav-shape { color: var(--accent-gold); }
   overflow: hidden;
 }
 
-/* RESEARCH PAGE - Fractal Line Animation */
+/* RESEARCH PAGE - Flowfield Particle Animation */
 .research-animation {
-  opacity: 0.05;
+  opacity: 1;
 }
 
-.research-animation svg {
+.research-animation canvas {
   width: 100%;
   height: 100%;
-}
-
-.fractal-lines path {
-  stroke: var(--accent-wine);
-  stroke-width: 1;
-  fill: none;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: drawLine 8s ease-in-out infinite;
-  will-change: stroke-dashoffset;
-}
-
-.line-1 { animation-delay: 0s; }
-.line-2 { animation-delay: 0.5s; }
-.line-3 { animation-delay: 1s; }
-.line-4 { animation-delay: 1.5s; }
-.line-5 { animation-delay: 2s; }
-.line-6 { animation-delay: 2.5s; }
-.line-7 { animation-delay: 3s; }
-.line-8 { animation-delay: 3.5s; }
-.line-9 { animation-delay: 4s; }
-.line-10 { animation-delay: 4.5s; }
-
-@keyframes drawLine {
-  0%, 100% { stroke-dashoffset: 1000; opacity: 0; }
-  10%, 90% { opacity: 1; }
-  50% { stroke-dashoffset: 0; }
+  display: block;
+  filter: blur(0.3px);
 }
 
 /* MUSIC PAGE - Musical Note Animation */
@@ -643,7 +618,7 @@ body.contact .nav-shape { color: var(--accent-gold); }
 /* Mobile optimizations for page animations */
 @media (max-width: 768px) {
   .research-animation {
-    opacity: 0.03;
+    opacity: 0.7;
   }
 
   .note {
