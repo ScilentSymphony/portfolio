@@ -82,7 +82,7 @@
     <section class="hero">
       <!-- Tech Page Background Animation -->
       <div class="hero-bg-animation tech-animation">
-        <div class="grid-container"></div>
+        <canvas id="tech-grid"></canvas>
       </div>
 
       <h1>Creative Technology</h1>
@@ -265,5 +265,192 @@
 
   <!-- Main JavaScript (deferred for better page load performance) -->
   <script src="js/main.js" defer></script>
+
+  <!-- Tech Page Deforming Grid Background -->
+  <script>
+    (function() {
+      const canvas = document.getElementById("tech-grid");
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+      let width = 0;
+      let height = 0;
+      let dpr = window.devicePixelRatio || 1;
+
+      // Grid parameters
+      let cols = 0;
+      let rows = 0;
+      let gridPadding = 10;
+      const targetSpacing = 55;
+      const maxCols = 40;
+
+      // Deformation parameters
+      const amplitude = 26;
+      const timeScale = 0.00025;
+      const scale1 = 1.7;
+      const scale2 = 3.3;
+
+      // Steel/blue color palette for tech page
+      const mainColor = { r: 74, g: 95, b: 122 };      // steel blue (accent-steel)
+      const softColor = { r: 100, g: 120, b: 145 };    // lighter steel
+      const highlightColor = { r: 120, g: 150, b: 180 }; // bright steel highlight
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      // Simple layered trig-based pseudo-noise
+      function noise2(nx, ny, timeMs) {
+        const t = timeMs * timeScale;
+
+        const v1 =
+          Math.sin(nx * scale1 + t * 0.9) +
+          Math.cos(ny * scale1 * 1.1 - t * 0.6);
+
+        const v2 =
+          Math.sin((nx + ny) * scale2 + t * 0.45) +
+          Math.cos((nx - ny) * (scale2 * 0.6) - t * 0.35);
+
+        let v = (v1 + v2) * 0.25;
+        v = v * 0.5 + 0.5;
+        v = Math.pow(v, 1.4);
+        return v;
+      }
+
+      function displacePoint(x, y, timeMs) {
+        const nx = (x - gridPadding) / Math.max(1, width - gridPadding * 2);
+        const ny = (y - gridPadding) / Math.max(1, height - gridPadding * 2);
+
+        const n1 = noise2(nx * 2.1, ny * 2.1, timeMs);
+        const n2 = noise2(nx * 3.3 + 12.7, ny * 2.9 - 4.3, timeMs + 8000);
+
+        const angle1 = (n1 - 0.5) * Math.PI * 2;
+        const angle2 = (n2 - 0.5) * Math.PI * 2;
+
+        const mag1 = (n1 - 0.5) * 2;
+        const mag2 = (n2 - 0.5) * 2;
+
+        const dx = (Math.cos(angle1) * mag1 + Math.sin(angle2) * mag2) * amplitude * 0.7;
+        const dy = (Math.sin(angle1) * mag1 - Math.cos(angle2) * mag2) * amplitude;
+
+        // Edge falloff
+        const cx = 0.5;
+        const cy = 0.5;
+        const distFromCenter = Math.sqrt((nx - cx) ** 2 + (ny - cy) ** 2);
+        const falloff = lerp(1.0, 0.5, Math.min(distFromCenter * 1.4, 1.0));
+
+        return {
+          x: x + dx * falloff,
+          y: y + dy * falloff
+        };
+      }
+
+      function resize() {
+        dpr = window.devicePixelRatio || 1;
+        const parent = canvas.parentElement;
+        width = parent.offsetWidth;
+        height = parent.offsetHeight;
+
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const usableWidth = Math.max(1, width - gridPadding * 2);
+        const usableHeight = Math.max(1, height - gridPadding * 2);
+
+        cols = Math.min(maxCols, Math.max(6, Math.round(usableWidth / targetSpacing)));
+        rows = Math.max(4, Math.round(usableHeight / targetSpacing));
+      }
+
+      window.addEventListener("resize", resize);
+      resize();
+
+      function drawGrid(timeMs) {
+        ctx.clearRect(0, 0, width, height);
+
+        const usableWidth = width - gridPadding * 2;
+        const usableHeight = height - gridPadding * 2;
+
+        const dx = usableWidth / (cols - 1);
+        const dy = usableHeight / (rows - 1);
+
+        // Precompute displaced points
+        const points = [];
+        for (let j = 0; j < rows; j++) {
+          points[j] = [];
+          for (let i = 0; i < cols; i++) {
+            const x = gridPadding + i * dx;
+            const y = gridPadding + j * dy;
+            points[j][i] = displacePoint(x, y, timeMs);
+          }
+        }
+
+        // Draw horizontal lines
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
+        for (let j = 0; j < rows; j++) {
+          const strength = j / (rows - 1);
+          const mc = mainColor;
+          const sc = softColor;
+          const r = Math.round(lerp(sc.r, mc.r, strength));
+          const g = Math.round(lerp(sc.g, mc.g, strength));
+          const b = Math.round(lerp(sc.b, mc.b, strength));
+          const alpha = lerp(0.12, 0.32, strength);
+
+          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+          ctx.lineWidth = lerp(0.3, 1.0, strength);
+
+          ctx.beginPath();
+          for (let i = 0; i < cols; i++) {
+            const p = points[j][i];
+            if (i === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.stroke();
+        }
+
+        // Draw vertical lines
+        for (let i = 0; i < cols; i++) {
+          const strength = i / (cols - 1);
+          const mc = mainColor;
+          const sc = softColor;
+          const r = Math.round(lerp(sc.r, mc.r, strength));
+          const g = Math.round(lerp(sc.g, mc.g, strength));
+          const b = Math.round(lerp(sc.b, mc.b, strength));
+
+          // Occasional subtle highlight
+          const highlightFactor =
+            0.04 * Math.sin((timeMs * timeScale * 0.5) + i * 0.7);
+
+          const hr = Math.round(lerp(r, highlightColor.r, Math.max(0, highlightFactor)));
+          const hg = Math.round(lerp(g, highlightColor.g, Math.max(0, highlightFactor)));
+          const hb = Math.round(lerp(b, highlightColor.b, Math.max(0, highlightFactor)));
+
+          const alpha = lerp(0.10, 0.30, strength);
+
+          ctx.strokeStyle = `rgba(${hr}, ${hg}, ${hb}, ${alpha})`;
+          ctx.lineWidth = lerp(0.3, 0.9, strength);
+
+          ctx.beginPath();
+          for (let j = 0; j < rows; j++) {
+            const p = points[j][i];
+            if (j === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.stroke();
+        }
+      }
+
+      function loop(now) {
+        drawGrid(now);
+        requestAnimationFrame(loop);
+      }
+
+      requestAnimationFrame(loop);
+    })();
+  </script>
 </body>
 </html>
