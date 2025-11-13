@@ -535,6 +535,7 @@ body.contact .nav-shape { color: var(--accent-gold); }
   height: 100%;
   display: block;
   filter: blur(0.3px);
+  contain: layout style paint;
 }
 
 /* MUSIC PAGE - Musical Note Animation */
@@ -589,6 +590,7 @@ body.contact .nav-shape { color: var(--accent-gold); }
   height: 100%;
   display: block;
   filter: blur(0.25px);
+  contain: layout style paint;
 }
 
 /* SERVICES PAGE - Blurred Morphing Blobs Animation */
@@ -628,6 +630,56 @@ body:not(:focus-within) .blob {
 .blob--2 { background: var(--accent-wine); }
 .blob--3 { background: var(--accent-sage); }
 .blob--4 { background: var(--accent-steel); }
+
+/* Blob positioning via nth-child - cleaner than inline styles */
+.blob:nth-child(1) {
+  --x-start: -10vw; --y-start: -15vh;
+  --x-mid: -5vw; --y-mid: -5vh;
+  --x-end: 5vw; --y-end: -10vh;
+  animation-name: blobDriftA;
+  animation-duration: 42s;
+  animation-delay: -8s;
+}
+
+.blob:nth-child(2) {
+  --x-start: 35vw; --y-start: -20vh;
+  --x-mid: 40vw; --y-mid: -10vh;
+  --x-end: 30vw; --y-end: -5vh;
+  opacity: 0.65;
+  animation-name: blobDriftB;
+  animation-duration: 55s;
+  animation-delay: -18s;
+}
+
+.blob:nth-child(3) {
+  --x-start: 0vw; --y-start: 10vh;
+  --x-mid: -5vw; --y-mid: 15vh;
+  --x-end: 5vw; --y-end: 20vh;
+  opacity: 0.7;
+  animation-name: blobDriftA;
+  animation-duration: 60s;
+  animation-delay: -30s;
+}
+
+.blob:nth-child(4) {
+  --x-start: 25vw; --y-start: 40vh;
+  --x-mid: 20vw; --y-mid: 50vh;
+  --x-end: 30vw; --y-end: 55vh;
+  opacity: 0.75;
+  animation-name: blobDriftB;
+  animation-duration: 48s;
+  animation-delay: -12s;
+}
+
+.blob:nth-child(5) {
+  --x-start: -20vw; --y-start: 35vh;
+  --x-mid: -15vw; --y-mid: 45vh;
+  --x-end: -10vw; --y-end: 50vh;
+  opacity: 0.6;
+  animation-name: blobDriftA;
+  animation-duration: 70s;
+  animation-delay: -25s;
+}
 
 /* Blob drift animations */
 @keyframes blobDriftA {
