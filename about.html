@@ -49,8 +49,11 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="about">
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Desktop Navigation -->
-  <nav id="mainNav" class="nav-expanded">
+  <nav id="mainNav" class="nav-expanded" aria-label="Main navigation">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">ZAKI</a>
       <ul class="nav-links">
@@ -64,7 +67,7 @@
     </div>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- Hero Section -->
     <section class="hero">
       <h1>About</h1>
@@ -75,7 +78,7 @@
     <section class="about-intro">
       <div class="intro-content">
         <div class="about-image">
-          <div class="headshot-placeholder">[Professional headshot will go here - 400x400px]</div>
+          <div class="headshot-placeholder" role="img" aria-label="Professional headshot placeholder">[Professional headshot will go here - 400x400px]</div>
         </div>
 
         <div class="about-text">
@@ -200,9 +203,9 @@
 
     <!-- Social Links -->
     <div class="social-links">
-      <a href="#">LinkedIn</a>
-      <a href="#">Bandcamp</a>
-      <a href="#">GitHub</a>
+      <a href="#" aria-label="LinkedIn profile">LinkedIn</a>
+      <a href="#" aria-label="Bandcamp music">Bandcamp</a>
+      <a href="#" aria-label="GitHub projects">GitHub</a>
     </div>
 
     <!-- Copyright -->
