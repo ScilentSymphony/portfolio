@@ -672,6 +672,49 @@ body.contact .nav-shape { color: var(--accent-gold); }
   }
 }
 
+/* ABOUT PAGE - Living Typography Background */
+.bg-typography {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+  mix-blend-mode: lighten;
+}
+
+.bg-typography__word {
+  position: absolute;
+  font-family: "Playfair Display", "Times New Roman", "Georgia", serif;
+  font-size: clamp(10px, 0.9vw, 14px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.06;
+  white-space: nowrap;
+  color: var(--text-primary);
+  transform: translate3d(0, 0, 0);
+  animation-name: driftWord;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: var(--dur, 24s);
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+
+.bg-typography__word--accent {
+  opacity: 0.09;
+  color: var(--accent-gold);
+}
+
+@keyframes driftWord {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--tx, 10px), var(--ty, -10px), 0);
+  }
+}
+
 /* Mobile optimizations for page animations */
 @media (max-width: 768px) {
   .research-animation {
@@ -694,6 +737,15 @@ body.contact .nav-shape { color: var(--accent-gold); }
     min-height: 200px;
     filter: blur(30px);
     opacity: 0.6;
+  }
+
+  .bg-typography__word {
+    font-size: clamp(8px, 0.7vw, 11px);
+    opacity: 0.04;
+  }
+
+  .bg-typography__word--accent {
+    opacity: 0.06;
   }
 }
 

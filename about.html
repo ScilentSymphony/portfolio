@@ -77,6 +77,9 @@
     </div>
   </nav>
 
+  <!-- Living Typography Background -->
+  <div class="bg-typography" id="bg-typography"></div>
+
   <main id="main-content">
     <!-- Hero Section -->
     <section class="hero">
@@ -256,5 +259,113 @@
 
   <!-- Main JavaScript (deferred for better page load performance) -->
   <script src="js/main.js" defer></script>
+
+  <!-- Living Typography Background Script -->
+  <script>
+    (function() {
+      const WORDS = [
+        "improvisation",
+        "story",
+        "clouds",
+        "prefiguration",
+        "configuration",
+        "refiguration",
+        "narrative",
+        "listening",
+        "texture",
+        "silence",
+        "motion",
+        "breath",
+        "horizon",
+        "frame",
+        "voice",
+        "memory",
+        "interval",
+        "gesture",
+        "rhythm",
+        "space",
+        "reverie",
+        "contour",
+        "timbre",
+        "crescent",
+        "afterglow",
+        "weightlessness",
+        "semblance",
+        "glimmer",
+        "vanishing",
+        "cadence",
+        "counterpoint",
+        "rest",
+        "figment",
+        "stillness",
+        "evocation",
+        "grain",
+        "pulse",
+        "drift",
+        "shade",
+        "lilt",
+        "mimesis",
+        "threshold",
+        "periphery",
+        "imprint",
+        "echo",
+        "dusk",
+        "air",
+        "fold",
+        "origin",
+        "recall",
+        "arc",
+        "edges",
+        "shape",
+        "tension",
+        "softness",
+        "layer",
+        "delineation",
+        "subtext",
+        "immanence"
+      ];
+
+      const WORD_COUNT = 100;
+      const container = document.getElementById("bg-typography");
+
+      function rand(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      for (let i = 0; i < WORD_COUNT; i++) {
+        const span = document.createElement("span");
+        span.className = "bg-typography__word";
+
+        // Occasionally mark some as accent words
+        if (Math.random() < 0.12) {
+          span.classList.add("bg-typography__word--accent");
+        }
+
+        // Pick a word from the list
+        span.textContent = WORDS[i % WORDS.length];
+
+        // Random position in viewport
+        const x = rand(-10, 100);
+        const y = rand(-10, 100);
+
+        span.style.left = x + "vw";
+        span.style.top = y + "vh";
+
+        // Random drift vector (small)
+        const tx = rand(-20, 20);
+        const ty = rand(-30, 30);
+        span.style.setProperty("--tx", tx + "px");
+        span.style.setProperty("--ty", ty + "px");
+
+        // Random duration and delay
+        const duration = rand(8, 38);
+        const delay = rand(-30, 10);
+        span.style.setProperty("--dur", duration + "s");
+        span.style.setProperty("--delay", delay + "s");
+
+        container.appendChild(span);
+      }
+    })();
+  </script>
 </body>
 </html>
