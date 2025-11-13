@@ -525,41 +525,17 @@ body.contact .nav-shape { color: var(--accent-gold); }
   overflow: hidden;
 }
 
-/* RESEARCH PAGE - Fractal Line Animation */
+/* RESEARCH PAGE - Flowfield Particle Animation */
 .research-animation {
-  opacity: 0.05;
+  opacity: 1;
 }
 
-.research-animation svg {
+.research-animation canvas {
   width: 100%;
   height: 100%;
-}
-
-.fractal-lines path {
-  stroke: var(--accent-wine);
-  stroke-width: 1;
-  fill: none;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: drawLine 8s ease-in-out infinite;
-  will-change: stroke-dashoffset;
-}
-
-.line-1 { animation-delay: 0s; }
-.line-2 { animation-delay: 0.5s; }
-.line-3 { animation-delay: 1s; }
-.line-4 { animation-delay: 1.5s; }
-.line-5 { animation-delay: 2s; }
-.line-6 { animation-delay: 2.5s; }
-.line-7 { animation-delay: 3s; }
-.line-8 { animation-delay: 3.5s; }
-.line-9 { animation-delay: 4s; }
-.line-10 { animation-delay: 4.5s; }
-
-@keyframes drawLine {
-  0%, 100% { stroke-dashoffset: 1000; opacity: 0; }
-  10%, 90% { opacity: 1; }
-  50% { stroke-dashoffset: 0; }
+  display: block;
+  filter: blur(0.3px);
+  contain: layout style paint;
 }
 
 /* MUSIC PAGE - Musical Note Animation */
@@ -604,46 +580,209 @@ body.contact .nav-shape { color: var(--accent-gold); }
   100% { transform: translateY(0) rotate(0deg); opacity: 0.08; }
 }
 
-/* TECH PAGE - Geometric Grid Animation */
+/* TECH PAGE - Deforming Grid Animation */
 .tech-animation {
-  opacity: 0.1;
+  opacity: 1;
 }
 
-.grid-container {
+.tech-animation canvas {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  display: block;
+  filter: blur(0.25px);
+  contain: layout style paint;
 }
 
-.grid-container::before,
-.grid-container::after {
-  content: "";
+/* SERVICES PAGE - Blurred Morphing Blobs Animation */
+.services-animation {
+  overflow: hidden;
+}
+
+.blob {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 10%, var(--accent-steel) 10%, var(--accent-steel) calc(10% + 1px)),
-    repeating-linear-gradient(90deg, transparent, transparent 5%, var(--accent-steel) 5%, var(--accent-steel) calc(5% + 1px));
-  animation: gridPulse 3s ease-in-out infinite;
-  will-change: opacity;
+  width: 40vw;
+  height: 40vw;
+  max-width: 650px;
+  max-height: 650px;
+  min-width: 260px;
+  min-height: 260px;
+
+  border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
+  filter: blur(40px);
+  opacity: 0.75;
+  mix-blend-mode: screen;
+  transform-origin: center center;
+
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-play-state: running;
+  will-change: transform, border-radius;
 }
 
-.grid-container::after {
-  animation-delay: 1.5s;
-  animation-duration: 4s;
+/* Pause blobs when page is not visible */
+body:not(:focus-within) .blob {
+  animation-play-state: paused;
 }
 
-@keyframes gridPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
+/* Individual blob colors using portfolio accent colors */
+.blob--1 { background: var(--accent-gold); }
+.blob--2 { background: var(--accent-wine); }
+.blob--3 { background: var(--accent-sage); }
+.blob--4 { background: var(--accent-steel); }
+
+/* Blob positioning via nth-child - cleaner than inline styles */
+.blob:nth-child(1) {
+  --x-start: -10vw; --y-start: -15vh;
+  --x-mid: -5vw; --y-mid: -5vh;
+  --x-end: 5vw; --y-end: -10vh;
+  animation-name: blobDriftA;
+  animation-duration: 42s;
+  animation-delay: -8s;
+}
+
+.blob:nth-child(2) {
+  --x-start: 35vw; --y-start: -20vh;
+  --x-mid: 40vw; --y-mid: -10vh;
+  --x-end: 30vw; --y-end: -5vh;
+  opacity: 0.65;
+  animation-name: blobDriftB;
+  animation-duration: 55s;
+  animation-delay: -18s;
+}
+
+.blob:nth-child(3) {
+  --x-start: 0vw; --y-start: 10vh;
+  --x-mid: -5vw; --y-mid: 15vh;
+  --x-end: 5vw; --y-end: 20vh;
+  opacity: 0.7;
+  animation-name: blobDriftA;
+  animation-duration: 60s;
+  animation-delay: -30s;
+}
+
+.blob:nth-child(4) {
+  --x-start: 25vw; --y-start: 40vh;
+  --x-mid: 20vw; --y-mid: 50vh;
+  --x-end: 30vw; --y-end: 55vh;
+  opacity: 0.75;
+  animation-name: blobDriftB;
+  animation-duration: 48s;
+  animation-delay: -12s;
+}
+
+.blob:nth-child(5) {
+  --x-start: -20vw; --y-start: 35vh;
+  --x-mid: -15vw; --y-mid: 45vh;
+  --x-end: -10vw; --y-end: 50vh;
+  opacity: 0.6;
+  animation-name: blobDriftA;
+  animation-duration: 70s;
+  animation-delay: -25s;
+}
+
+/* Blob drift animations */
+@keyframes blobDriftA {
+  0% {
+    transform:
+      translate3d(var(--x-start), var(--y-start), 0)
+      scale(1)
+      rotate(0deg);
+    border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
+  }
+  50% {
+    transform:
+      translate3d(var(--x-mid, 0), var(--y-mid, 0), 0)
+      scale(1.07)
+      rotate(6deg);
+    border-radius: 45% 55% 50% 50% / 50% 45% 55% 50%;
+  }
+  100% {
+    transform:
+      translate3d(var(--x-end), var(--y-end), 0)
+      scale(0.98)
+      rotate(-4deg);
+    border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+  }
+}
+
+@keyframes blobDriftB {
+  0% {
+    transform:
+      translate3d(var(--x-start), var(--y-start), 0)
+      scale(1.05)
+      rotate(0deg);
+    border-radius: 55% 45% 55% 45% / 50% 55% 45% 50%;
+  }
+  50% {
+    transform:
+      translate3d(var(--x-mid, 0), var(--y-mid, 0), 0)
+      scale(1.15)
+      rotate(-8deg);
+    border-radius: 60% 40% 45% 55% / 55% 45% 55% 45%;
+  }
+  100% {
+    transform:
+      translate3d(var(--x-end), var(--y-end), 0)
+      scale(0.96)
+      rotate(5deg);
+    border-radius: 45% 55% 60% 40% / 40% 60% 45% 55%;
+  }
+}
+
+/* ABOUT PAGE - Living Typography Background */
+.bg-typography {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+  mix-blend-mode: lighten;
+}
+
+.bg-typography__word {
+  position: absolute;
+  font-family: "Playfair Display", "Times New Roman", "Georgia", serif;
+  font-size: clamp(10px, 0.9vw, 14px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.06;
+  white-space: nowrap;
+  color: var(--text-primary);
+  transform: translate3d(0, 0, 0);
+  animation-name: driftWord;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: var(--dur, 24s);
+  animation-delay: var(--delay, 0s);
+  animation-play-state: running;
+  will-change: transform;
+}
+
+/* Pause typography when page is not visible */
+body:not(:focus-within) .bg-typography__word {
+  animation-play-state: paused;
+}
+
+.bg-typography__word--accent {
+  opacity: 0.09;
+  color: var(--accent-gold);
+}
+
+@keyframes driftWord {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--tx, 10px), var(--ty, -10px), 0);
+  }
 }
 
 /* Mobile optimizations for page animations */
 @media (max-width: 768px) {
   .research-animation {
-    opacity: 0.03;
+    opacity: 0.7;
   }
 
   .note {
@@ -652,12 +791,77 @@ body.contact .nav-shape { color: var(--accent-gold); }
   }
 
   .tech-animation {
-    opacity: 0.07;
+    opacity: 0.8;
   }
 
-  .grid-container {
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+  .blob {
+    width: 50vw;
+    height: 50vw;
+    min-width: 200px;
+    min-height: 200px;
+    filter: blur(30px);
+    opacity: 0.6;
+  }
+
+  /* Hide some blobs on mobile for performance (3 instead of 5) */
+  .blob--mobile-hide {
+    display: none;
+  }
+
+  .bg-typography__word {
+    font-size: clamp(8px, 0.7vw, 11px);
+    opacity: 0.04;
+  }
+
+  .bg-typography__word--accent {
+    opacity: 0.06;
+  }
+}
+
+/* ===== ACCESSIBILITY: Reduced Motion Support ===== */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all background animations for users with motion sensitivity */
+  .research-animation,
+  .tech-animation,
+  .services-animation,
+  .bg-typography {
+    display: none;
+  }
+
+  /* Disable blob animations */
+  .blob {
+    animation: none !important;
+    opacity: 0.02 !important;
+  }
+
+  /* Disable typography drift */
+  .bg-typography__word {
+    animation: none !important;
+    opacity: 0.02 !important;
+  }
+
+  /* Disable musical note animations */
+  .note {
+    animation: none !important;
+    opacity: 0.02 !important;
+  }
+
+  /* Keep essential UI animations but reduce duration */
+  .category-card,
+  .project-card,
+  .release-card,
+  .package-card,
+  .testimonial-card,
+  .faq-item,
+  .about-card {
+    transition-duration: 0.05s !important;
+  }
+
+  /* Disable GSAP animations via CSS */
+  * {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01s !important;
   }
 }
 
@@ -688,15 +892,16 @@ body.contact .nav-shape { color: var(--accent-gold); }
   padding: 2rem;
   transition: all 0.3s ease;
   cursor: pointer;
-  will-change: transform; /* Performance optimization for animations */
   text-decoration: none;
   color: inherit;
 }
 
-.category-card:hover {
+.category-card:hover,
+.category-card:focus-within {
   transform: translateY(-8px);
   border-color: var(--accent-gold);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  will-change: transform; /* Only use when actively animating */
 }
 
 .card-icon {
@@ -1167,12 +1372,13 @@ body.music .btn-primary:hover {
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  will-change: transform; /* Performance optimization for animations */
 }
 
-.release-card:hover {
+.release-card:hover,
+.release-card:focus-within {
   transform: translateY(-8px);
   border-color: var(--current-accent);
+  will-change: transform; /* Only use when actively animating */
 }
 
 .album-art {
@@ -1621,12 +1827,13 @@ body.services {
   transition: transform 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
-  will-change: transform; /* Performance optimization for animations */
 }
 
-.package-card:hover {
+.package-card:hover,
+.package-card:focus-within {
   transform: translateY(-4px);
   border-color: var(--current-accent);
+  will-change: transform; /* Only use when actively animating */
 }
 
 .package-icon {
