@@ -898,6 +898,58 @@ body.research .btn-primary:hover {
   opacity: 0.9;
 }
 
+/* Creative Writing Section */
+.creative-writing {
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(232, 232, 232, 0.02);
+}
+
+.writing-feature {
+  background: rgba(232, 232, 232, 0.03);
+  border: 1px solid rgba(232, 232, 232, 0.1);
+  border-left: 4px solid var(--accent-wine);
+  border-radius: 8px;
+  padding: 2.5rem;
+}
+
+.writing-content h3 {
+  color: var(--accent-wine);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.writing-content h4 {
+  color: var(--accent-wine);
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.writing-highlights {
+  list-style: none;
+  margin: 1rem 0;
+}
+
+.writing-highlights li {
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  position: relative;
+}
+
+.writing-highlights li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent-gold);
+}
+
+.writing-approach {
+  margin-top: 1.5rem;
+  font-style: italic;
+  opacity: 0.95;
+}
+
 @media (max-width: 768px) {
   .thesis-feature {
     grid-template-columns: 1fr;
@@ -1376,7 +1428,17 @@ body.services {
 
 /* Service Packages */
 .service-packages {
-  margin-bottom: 6rem;
+  padding: 4rem 2rem;
+  max-width: 1300px;
+  margin: 0 auto 6rem;
+}
+
+.service-packages h2 {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .packages-grid {
@@ -1384,6 +1446,10 @@ body.services {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2.5rem;
   margin-top: 3rem;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
 }
 
 .package-card {
@@ -1509,7 +1575,17 @@ body.services {
 
 /* Work Process */
 .work-process {
-  margin-bottom: 6rem;
+  padding: 4rem 2rem;
+  max-width: 1300px;
+  margin: 0 auto 6rem;
+}
+
+.work-process h2 {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .process-steps {
@@ -1517,6 +1593,10 @@ body.services {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 3rem;
   margin-top: 3rem;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
 }
 
 .process-step {
@@ -1550,7 +1630,17 @@ body.services {
 
 /* Testimonials */
 .testimonials {
-  margin-bottom: 6rem;
+  padding: 4rem 2rem;
+  max-width: 1300px;
+  margin: 0 auto 6rem;
+}
+
+.testimonials h2 {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .testimonials-grid {
@@ -1558,6 +1648,10 @@ body.services {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2.5rem;
   margin-top: 3rem;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
 }
 
 .testimonial-card {
@@ -1603,12 +1697,19 @@ body.services {
 
 /* Booking CTA */
 .booking-cta {
-  margin-bottom: 6rem;
+  padding: 4rem 2rem;
+  max-width: 1300px;
+  margin: 0 auto 6rem;
   text-align: center;
 }
 
 .booking-cta h2 {
   margin-bottom: 1rem;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .booking-cta > p {
@@ -1761,12 +1862,23 @@ body.services {
 
 /* FAQ */
 .faq {
-  margin-bottom: 6rem;
+  padding: 4rem 2rem;
+  max-width: 1300px;
+  margin: 0 auto 6rem;
+}
+
+.faq h2 {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .faq-items {
-  max-width: 900px;
+  max-width: 1300px;
   margin: 3rem auto 0;
+  padding: 0 2rem;
 }
 
 .faq-item {
