@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Attach throttled scroll listener (checks every 50ms)
-  window.addEventListener('scroll', throttle(handleScroll, 50));
+  // Use { passive: true } for better scroll performance
+  window.addEventListener('scroll', throttle(handleScroll, 50), { passive: true });
 
 
   // ===== HERO ENTRANCE ANIMATIONS =====
@@ -126,6 +127,40 @@ document.addEventListener('DOMContentLoaded', function() {
     delay: 0.9
   });
 
-  console.log('Animations initialized');
+  // ===== INTERSECTION OBSERVER FOR LAZY ANIMATIONS =====
+  // More performant than scroll events for animating elements as they enter viewport
+
+  const observerOptions = {
+    threshold: 0.1, // Trigger when 10% of element is visible
+    rootMargin: '0px 0px -50px 0px' // Start animation slightly before element enters viewport
+  };
+
+  const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Add fade-in animation using GSAP
+        gsap.from(entry.target, {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          ease: 'power3.out'
+        });
+        // Stop observing after animation to prevent re-triggering
+        fadeInObserver.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all card elements for lazy animation
+  const animatedElements = document.querySelectorAll(
+    '.category-card, .project-card, .release-card, .package-card, ' +
+    '.testimonial-card, .faq-item, .thesis-feature, .about-card'
+  );
+
+  animatedElements.forEach(el => {
+    fadeInObserver.observe(el);
+  });
+
+  console.log('Animations initialized with Intersection Observer');
 
 });
