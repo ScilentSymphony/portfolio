@@ -445,9 +445,13 @@
       window.addEventListener("resize", resize);
       resize();
 
+      // Performance monitoring
+      performance.mark('flowfield-init-start');
+
       // Animation loop with page visibility control
       let lastTime = performance.now();
       let isPageVisible = !document.hidden;
+      let firstFrame = true;
 
       // Pause animation when tab is hidden to save battery
       document.addEventListener('visibilitychange', () => {
@@ -462,6 +466,13 @@
         if (!isPageVisible) return; // Pause when hidden
 
         try {
+          // Track first frame performance
+          if (firstFrame) {
+            performance.mark('flowfield-first-frame');
+            performance.measure('flowfield-init', 'flowfield-init-start', 'flowfield-first-frame');
+            firstFrame = false;
+          }
+
           const dt = now - lastTime;
           lastTime = now;
 

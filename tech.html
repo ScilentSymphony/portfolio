@@ -457,8 +457,12 @@
         }
       }
 
+      // Performance monitoring
+      performance.mark('grid-init-start');
+
       // Page visibility control for battery optimization
       let isPageVisible = !document.hidden;
+      let firstFrame = true;
 
       document.addEventListener('visibilitychange', () => {
         isPageVisible = !document.hidden;
@@ -471,6 +475,13 @@
         if (!isPageVisible) return; // Pause when hidden
 
         try {
+          // Track first frame performance
+          if (firstFrame) {
+            performance.mark('grid-first-frame');
+            performance.measure('grid-init', 'grid-init-start', 'grid-first-frame');
+            firstFrame = false;
+          }
+
           drawGrid(now);
           requestAnimationFrame(loop);
         } catch (err) {

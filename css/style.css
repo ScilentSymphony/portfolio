@@ -840,15 +840,16 @@ body:not(:focus-within) .bg-typography__word {
   padding: 2rem;
   transition: all 0.3s ease;
   cursor: pointer;
-  will-change: transform; /* Performance optimization for animations */
   text-decoration: none;
   color: inherit;
 }
 
-.category-card:hover {
+.category-card:hover,
+.category-card:focus-within {
   transform: translateY(-8px);
   border-color: var(--accent-gold);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  will-change: transform; /* Only use when actively animating */
 }
 
 .card-icon {
@@ -1319,12 +1320,13 @@ body.music .btn-primary:hover {
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  will-change: transform; /* Performance optimization for animations */
 }
 
-.release-card:hover {
+.release-card:hover,
+.release-card:focus-within {
   transform: translateY(-8px);
   border-color: var(--current-accent);
+  will-change: transform; /* Only use when actively animating */
 }
 
 .album-art {
@@ -1773,12 +1775,13 @@ body.services {
   transition: transform 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
-  will-change: transform; /* Performance optimization for animations */
 }
 
-.package-card:hover {
+.package-card:hover,
+.package-card:focus-within {
   transform: translateY(-4px);
   border-color: var(--current-accent);
+  will-change: transform; /* Only use when actively animating */
 }
 
 .package-icon {
