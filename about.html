@@ -29,6 +29,16 @@
   <!-- Additional SEO -->
   <link rel="canonical" href="https://scilentsymphony.github.io/portfolio/about.html">
 
+  <!-- Resource Hints for Performance -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+  <!-- Preload Critical Assets -->
+  <link rel="preload" href="css/style.css" as="style">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" as="style">
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -238,10 +248,10 @@
     </a>
   </nav>
 
-  <!-- GSAP -->
+  <!-- GSAP (loaded immediately - required by main.js) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-  <!-- Main JavaScript -->
-  <script src="js/main.js"></script>
+  <!-- Main JavaScript (deferred for better page load performance) -->
+  <script src="js/main.js" defer></script>
 </body>
 </html>

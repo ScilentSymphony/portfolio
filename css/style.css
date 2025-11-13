@@ -1,3 +1,23 @@
+/* ===== PERFORMANCE OPTIMIZATION ===== */
+
+/* Font loading optimization - prevent FOIT (Flash of Invisible Text) */
+@font-face {
+  font-family: 'Playfair Display';
+  font-display: swap; /* Show fallback font immediately, swap when custom font loads */
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+}
+
+/* TODO BEFORE LAUNCH: Minify CSS
+ * Use: https://cssminifier.com
+ * Or CLI: npx csso style.css -o style.min.css
+ * Update HTML links to style.min.css
+ */
+
+/* ===== CSS CUSTOM PROPERTIES ===== */
 :root {
   --bg-primary: #0A0A0A;
   --text-primary: #E8E8E8;
@@ -220,6 +240,7 @@ p {
   background: var(--bg-primary);
   border-bottom: 1px solid rgba(232, 232, 232, 0.1);
   transition: all 0.4s ease;
+  will-change: height; /* Performance optimization for collapse animation */
 }
 
 .nav-container {
@@ -346,6 +367,7 @@ p {
   padding: 2rem;
   transition: all 0.3s ease;
   cursor: pointer;
+  will-change: transform; /* Performance optimization for animations */
 }
 
 .category-card:hover {
@@ -751,6 +773,7 @@ body.music .btn-primary:hover {
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s ease;
+  will-change: transform; /* Performance optimization for animations */
 }
 
 .release-card:hover {
@@ -1179,6 +1202,7 @@ body.services {
   transition: transform 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
+  will-change: transform; /* Performance optimization for animations */
 }
 
 .package-card:hover {
