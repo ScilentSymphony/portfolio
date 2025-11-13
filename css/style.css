@@ -511,6 +511,156 @@ body.contact .nav-shape { color: var(--accent-gold); }
   80% { transform: translate(30px, -35px) rotate(-4deg); }
 }
 
+/* ===== PAGE-SPECIFIC HERO ANIMATIONS ===== */
+
+/* Base animation container */
+.hero-bg-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* RESEARCH PAGE - Fractal Line Animation */
+.research-animation {
+  opacity: 0.05;
+}
+
+.research-animation svg {
+  width: 100%;
+  height: 100%;
+}
+
+.fractal-lines path {
+  stroke: var(--accent-wine);
+  stroke-width: 1;
+  fill: none;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 8s ease-in-out infinite;
+  will-change: stroke-dashoffset;
+}
+
+.line-1 { animation-delay: 0s; }
+.line-2 { animation-delay: 0.5s; }
+.line-3 { animation-delay: 1s; }
+.line-4 { animation-delay: 1.5s; }
+.line-5 { animation-delay: 2s; }
+.line-6 { animation-delay: 2.5s; }
+.line-7 { animation-delay: 3s; }
+.line-8 { animation-delay: 3.5s; }
+.line-9 { animation-delay: 4s; }
+.line-10 { animation-delay: 4.5s; }
+
+@keyframes drawLine {
+  0%, 100% { stroke-dashoffset: 1000; opacity: 0; }
+  10%, 90% { opacity: 1; }
+  50% { stroke-dashoffset: 0; }
+}
+
+/* MUSIC PAGE - Musical Note Animation */
+.music-animation {
+  overflow: hidden;
+}
+
+.note {
+  position: absolute;
+  font-size: 3rem;
+  color: var(--accent-sage);
+  opacity: 0.08;
+  animation: floatNote 15s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.note:nth-child(odd) { animation-direction: alternate; }
+.note:nth-child(even) { animation-direction: alternate-reverse; }
+
+.note:nth-child(1) { animation-delay: 0s; animation-duration: 14s; }
+.note:nth-child(2) { animation-delay: 1s; animation-duration: 16s; }
+.note:nth-child(3) { animation-delay: 2s; animation-duration: 15s; }
+.note:nth-child(4) { animation-delay: 3s; animation-duration: 17s; }
+.note:nth-child(5) { animation-delay: 0.5s; animation-duration: 14.5s; }
+.note:nth-child(6) { animation-delay: 1.5s; animation-duration: 16.5s; }
+.note:nth-child(7) { animation-delay: 2.5s; animation-duration: 15.5s; }
+.note:nth-child(8) { animation-delay: 3.5s; animation-duration: 17.5s; }
+.note:nth-child(9) { animation-delay: 0.75s; animation-duration: 14.75s; }
+.note:nth-child(10) { animation-delay: 1.75s; animation-duration: 16.75s; }
+.note:nth-child(11) { animation-delay: 2.75s; animation-duration: 15.75s; }
+.note:nth-child(12) { animation-delay: 3.75s; animation-duration: 17.75s; }
+.note:nth-child(13) { animation-delay: 1.25s; animation-duration: 14.25s; }
+.note:nth-child(14) { animation-delay: 2.25s; animation-duration: 16.25s; }
+.note:nth-child(15) { animation-delay: 3.25s; animation-duration: 15.25s; }
+.note:nth-child(16) { animation-delay: 0.25s; animation-duration: 17.25s; }
+.note:nth-child(17) { animation-delay: 1.5s; animation-duration: 14.5s; }
+.note:nth-child(18) { animation-delay: 2.5s; animation-duration: 16.5s; }
+
+@keyframes floatNote {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.08; }
+  50% { transform: translateY(-50px) rotate(15deg); opacity: 0.12; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.08; }
+}
+
+/* TECH PAGE - Geometric Grid Animation */
+.tech-animation {
+  opacity: 0.1;
+}
+
+.grid-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.grid-container::before,
+.grid-container::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 10%, var(--accent-steel) 10%, var(--accent-steel) calc(10% + 1px)),
+    repeating-linear-gradient(90deg, transparent, transparent 5%, var(--accent-steel) 5%, var(--accent-steel) calc(5% + 1px));
+  animation: gridPulse 3s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.grid-container::after {
+  animation-delay: 1.5s;
+  animation-duration: 4s;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* Mobile optimizations for page animations */
+@media (max-width: 768px) {
+  .research-animation {
+    opacity: 0.03;
+  }
+
+  .note {
+    font-size: 2rem;
+    opacity: 0.06;
+  }
+
+  .tech-animation {
+    opacity: 0.07;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+  }
+}
+
 /* ===== WORK CATEGORIES ===== */
 .work-categories {
   padding: 6rem 2rem;
