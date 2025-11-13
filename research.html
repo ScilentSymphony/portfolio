@@ -243,7 +243,17 @@
       const canvas = document.getElementById("research-flowfield");
       if (!canvas) return;
 
+      // Feature detection and error handling
+      if (!canvas.getContext) {
+        console.warn('Canvas not supported');
+        return;
+      }
+
       const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        console.warn('Canvas 2D context not supported');
+        return;
+      }
       let width = 0;
       let height = 0;
       let dpr = window.devicePixelRatio || 1;
@@ -401,8 +411,12 @@
 
       function initParticles() {
         particles = [];
-        const base = (width * height) / 2000;
-        particleCount = Math.min(1800, Math.max(600, base));
+        // Reduce particle count on mobile for better performance
+        const isMobile = width < 768;
+        const base = (width * height) / (isMobile ? 3000 : 2000);
+        particleCount = isMobile
+          ? Math.min(800, Math.max(300, base))  // 300-800 on mobile
+          : Math.min(1800, Math.max(600, base)); // 600-1800 on desktop
 
         for (let i = 0; i < particleCount; i++) {
           particles.push(createParticle());
@@ -431,47 +445,65 @@
       window.addEventListener("resize", resize);
       resize();
 
-      // Animation loop
+      // Animation loop with page visibility control
       let lastTime = performance.now();
+      let isPageVisible = !document.hidden;
+
+      // Pause animation when tab is hidden to save battery
+      document.addEventListener('visibilitychange', () => {
+        isPageVisible = !document.hidden;
+        if (isPageVisible) {
+          lastTime = performance.now(); // Reset time to prevent jump
+          requestAnimationFrame(step);
+        }
+      });
 
       function step(now) {
-        const dt = now - lastTime;
-        lastTime = now;
+        if (!isPageVisible) return; // Pause when hidden
 
-        zOffset += dt * zOffsetSpeed;
+        try {
+          const dt = now - lastTime;
+          lastTime = now;
 
-        ctx.fillStyle = `rgba(10, 10, 10, ${trailFade})`;
-        ctx.fillRect(0, 0, width, height);
+          zOffset += dt * zOffsetSpeed;
 
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
+          ctx.fillStyle = `rgba(10, 10, 10, ${trailFade})`;
+          ctx.fillRect(0, 0, width, height);
 
-        for (let i = 0; i < particleCount; i++) {
-          const p = particles[i];
-          p.prevX = p.x;
-          p.prevY = p.y;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
 
-          const { vx, vy } = sampleFlowField(p.x, p.y, now);
-          p.x += vx * baseSpeed * p.speedMul;
-          p.y += vy * baseSpeed * p.speedMul;
+          for (let i = 0; i < particleCount; i++) {
+            const p = particles[i];
+            p.prevX = p.x;
+            p.prevY = p.y;
 
-          const margin = 30;
-          if (p.x < -margin || p.x > width + margin || p.y < -margin || p.y > height + margin) {
-            particles[i] = createParticle();
-            continue;
+            const { vx, vy } = sampleFlowField(p.x, p.y, now);
+            p.x += vx * baseSpeed * p.speedMul;
+            p.y += vy * baseSpeed * p.speedMul;
+
+            const margin = 30;
+            if (p.x < -margin || p.x > width + margin || p.y < -margin || p.y > height + margin) {
+              particles[i] = createParticle();
+              continue;
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(p.prevX, p.prevY);
+            ctx.lineTo(p.x, p.y);
+
+            const c = p.color;
+            ctx.strokeStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${p.alpha})`;
+            ctx.lineWidth = p.lineWidth;
+            ctx.stroke();
           }
 
-          ctx.beginPath();
-          ctx.moveTo(p.prevX, p.prevY);
-          ctx.lineTo(p.x, p.y);
-
-          const c = p.color;
-          ctx.strokeStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${p.alpha})`;
-          ctx.lineWidth = p.lineWidth;
-          ctx.stroke();
+          requestAnimationFrame(step);
+        } catch (err) {
+          console.error('Flowfield animation error:', err);
+          // Stop animation on error to prevent infinite error loop
+          return;
         }
-
-        requestAnimationFrame(step);
       }
 
       requestAnimationFrame(step);

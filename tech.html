@@ -272,7 +272,17 @@
       const canvas = document.getElementById("tech-grid");
       if (!canvas) return;
 
+      // Feature detection and error handling
+      if (!canvas.getContext) {
+        console.warn('Canvas not supported');
+        return;
+      }
+
       const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        console.warn('Canvas 2D context not supported');
+        return;
+      }
       let width = 0;
       let height = 0;
       let dpr = window.devicePixelRatio || 1;
@@ -360,8 +370,11 @@
         const usableWidth = Math.max(1, width - gridPadding * 2);
         const usableHeight = Math.max(1, height - gridPadding * 2);
 
-        cols = Math.min(maxCols, Math.max(6, Math.round(usableWidth / targetSpacing)));
-        rows = Math.max(4, Math.round(usableHeight / targetSpacing));
+        // Reduce grid resolution on mobile for better performance
+        const isMobile = width < 768;
+        const spacing = isMobile ? 70 : targetSpacing; // Larger spacing = fewer grid points
+        cols = Math.min(maxCols, Math.max(6, Math.round(usableWidth / spacing)));
+        rows = Math.max(4, Math.round(usableHeight / spacing));
       }
 
       window.addEventListener("resize", resize);
@@ -444,9 +457,27 @@
         }
       }
 
+      // Page visibility control for battery optimization
+      let isPageVisible = !document.hidden;
+
+      document.addEventListener('visibilitychange', () => {
+        isPageVisible = !document.hidden;
+        if (isPageVisible) {
+          requestAnimationFrame(loop);
+        }
+      });
+
       function loop(now) {
-        drawGrid(now);
-        requestAnimationFrame(loop);
+        if (!isPageVisible) return; // Pause when hidden
+
+        try {
+          drawGrid(now);
+          requestAnimationFrame(loop);
+        } catch (err) {
+          console.error('Grid animation error:', err);
+          // Stop animation on error to prevent infinite error loop
+          return;
+        }
       }
 
       requestAnimationFrame(loop);

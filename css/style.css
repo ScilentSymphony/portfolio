@@ -614,7 +614,13 @@ body.contact .nav-shape { color: var(--accent-gold); }
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  animation-play-state: running;
   will-change: transform, border-radius;
+}
+
+/* Pause blobs when page is not visible */
+body:not(:focus-within) .blob {
+  animation-play-state: paused;
 }
 
 /* Individual blob colors using portfolio accent colors */
@@ -698,7 +704,13 @@ body.contact .nav-shape { color: var(--accent-gold); }
   animation-direction: alternate;
   animation-duration: var(--dur, 24s);
   animation-delay: var(--delay, 0s);
+  animation-play-state: running;
   will-change: transform;
+}
+
+/* Pause typography when page is not visible */
+body:not(:focus-within) .bg-typography__word {
+  animation-play-state: paused;
 }
 
 .bg-typography__word--accent {
@@ -739,6 +751,11 @@ body.contact .nav-shape { color: var(--accent-gold); }
     opacity: 0.6;
   }
 
+  /* Hide some blobs on mobile for performance (3 instead of 5) */
+  .blob--mobile-hide {
+    display: none;
+  }
+
   .bg-typography__word {
     font-size: clamp(8px, 0.7vw, 11px);
     opacity: 0.04;
@@ -746,6 +763,53 @@ body.contact .nav-shape { color: var(--accent-gold); }
 
   .bg-typography__word--accent {
     opacity: 0.06;
+  }
+}
+
+/* ===== ACCESSIBILITY: Reduced Motion Support ===== */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all background animations for users with motion sensitivity */
+  .research-animation,
+  .tech-animation,
+  .services-animation,
+  .bg-typography {
+    display: none;
+  }
+
+  /* Disable blob animations */
+  .blob {
+    animation: none !important;
+    opacity: 0.02 !important;
+  }
+
+  /* Disable typography drift */
+  .bg-typography__word {
+    animation: none !important;
+    opacity: 0.02 !important;
+  }
+
+  /* Disable musical note animations */
+  .note {
+    animation: none !important;
+    opacity: 0.02 !important;
+  }
+
+  /* Keep essential UI animations but reduce duration */
+  .category-card,
+  .project-card,
+  .release-card,
+  .package-card,
+  .testimonial-card,
+  .faq-item,
+  .about-card {
+    transition-duration: 0.05s !important;
+  }
+
+  /* Disable GSAP animations via CSS */
+  * {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01s !important;
   }
 }
 
