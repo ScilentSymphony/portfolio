@@ -1268,6 +1268,29 @@ body.research .btn-primary:hover {
   opacity: 0.9;
 }
 
+/* Knowledge Base CTA */
+.knowledge-cta {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: rgba(212, 175, 55, 0.05);
+  border-top: 1px solid rgba(232, 232, 232, 0.1);
+}
+
+.knowledge-cta h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-gold);
+}
+
+.knowledge-cta p {
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Work Card Styles (for unified Featured Work section) */
 .work-card {
   background: rgba(232, 232, 232, 0.03);
