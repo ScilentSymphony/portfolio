@@ -66,6 +66,33 @@ a {
   transition: all 0.3s ease;
 }
 
+/* ===== IMAGE CONSTRAINTS ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.headshot-placeholder,
+.about-image img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+}
+
+.album-art,
+.project-media {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  aspect-ratio: 1; /* For album covers */
+  object-fit: cover; /* Prevent stretching */
+}
+
+.project-media {
+  aspect-ratio: 16/9; /* For project screenshots */
+}
+
 /* ===== UTILITY CLASSES ===== */
 .visually-hidden {
   position: absolute;
