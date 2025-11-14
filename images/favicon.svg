@@ -1,4 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#0A0A0A"/>
-  <path d="M8 8 L24 8 L24 11 L13 20 L24 20 L24 24 L8 24 L8 21 L19 12 L8 12 Z" fill="#D4AF37"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect x="4" y="4" width="56" height="56" rx="18" fill="#05070a"/>
+  
+  <!-- Primary diagonal slash -->
+  <path d="M20 48L44 16"
+        stroke="#D4AF37"
+        stroke-width="6"
+        stroke-linecap="round"/>
+
+  <!-- Secondary shorter line: mid-left → center -->
+  <path d="M16 32L32 32"
+        stroke="#f6f6f6"
+        stroke-width="5"
+        stroke-linecap="round"/>
 </svg>
