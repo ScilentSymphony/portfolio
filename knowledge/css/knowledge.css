@@ -820,3 +820,219 @@ body.knowledge {
     text-decoration-thickness: 2px;
   }
 }
+
+/* ===== ARTICLE ENHANCEMENTS ===== */
+
+/* Reading Progress Bar */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(232, 232, 232, 0.1);
+  z-index: 9999;
+}
+
+.reading-progress-bar {
+  height: 100%;
+  background: var(--page-accent);
+  width: 0%;
+  transition: width 0.1s ease;
+}
+
+/* Table of Contents */
+.article-toc {
+  position: sticky;
+  top: 100px;
+  background: rgba(232, 232, 232, 0.03);
+  border: 1px solid rgba(232, 232, 232, 0.1);
+  border-left: 4px solid var(--page-accent);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+
+.article-toc h3 {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 1rem 0;
+  color: var(--page-accent);
+}
+
+.article-toc ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.article-toc li {
+  margin-bottom: 0.5rem;
+}
+
+.article-toc a {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  display: block;
+  padding: 0.25rem 0;
+}
+
+.article-toc a:hover,
+.article-toc a.active {
+  opacity: 1;
+  color: var(--page-accent);
+  transform: translateX(4px);
+}
+
+/* Social Share Buttons */
+.share-buttons {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(232, 232, 232, 0.1);
+  text-align: center;
+}
+
+.share-buttons h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  color: var(--page-accent);
+}
+
+.share-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.share-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(232, 232, 232, 0.05);
+  border: 1px solid rgba(232, 232, 232, 0.2);
+  border-radius: 4px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.share-link:hover {
+  background: var(--page-accent);
+  color: var(--bg-primary);
+  border-color: var(--page-accent);
+  transform: translateY(-2px);
+}
+
+.share-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Article Navigation (Prev/Next) */
+.article-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(232, 232, 232, 0.1);
+}
+
+.nav-prev,
+.nav-next {
+  flex: 1;
+  padding: 1.5rem;
+  background: rgba(232, 232, 232, 0.02);
+  border: 1px solid rgba(232, 232, 232, 0.1);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-prev {
+  text-align: left;
+}
+
+.nav-next {
+  text-align: right;
+}
+
+.nav-prev:hover,
+.nav-next:hover {
+  background: rgba(232, 232, 232, 0.04);
+  border-color: var(--page-accent);
+  transform: translateY(-2px);
+}
+
+.nav-label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--page-accent);
+  opacity: 0.8;
+}
+
+.nav-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Release Card Link (for music.html album cards) */
+.release-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Mobile adjustments for new features */
+@media (max-width: 767px) {
+  .article-toc {
+    position: static;
+    margin-bottom: 2rem;
+  }
+
+  .article-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-next {
+    text-align: left;
+  }
+
+  .share-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .share-link {
+    justify-content: center;
+  }
+}
