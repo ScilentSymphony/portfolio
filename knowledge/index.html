@@ -246,45 +246,61 @@
       const filterButtons = document.querySelectorAll('.filter-btn');
       const postCards = document.querySelectorAll('.post-card');
 
-      // Check URL for filter parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const filterParam = urlParams.get('filter');
-
-      if (filterParam) {
-        // Find and activate the corresponding filter button
+      // Function to apply filter
+      function applyFilter(filterValue) {
+        // Update button states
         filterButtons.forEach(btn => {
-          if (btn.dataset.filter === filterParam) {
-            btn.click();
+          if (btn.dataset.filter === filterValue) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-pressed', 'true');
+          } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+        });
+
+        // Filter posts
+        postCards.forEach(card => {
+          if (filterValue === 'all' || card.dataset.category === filterValue) {
+            card.style.display = 'block';
+            // Trigger reflow for animation
+            card.style.animation = 'none';
+            setTimeout(() => {
+              card.style.animation = 'fadeIn 0.5s ease-in-out';
+            }, 10);
+          } else {
+            card.style.display = 'none';
           }
         });
       }
 
+      // Check URL for filter parameter on page load
+      const urlParams = new URLSearchParams(window.location.search);
+      const filterParam = urlParams.get('filter');
+
+      if (filterParam && ['research', 'music', 'tech', 'all'].includes(filterParam)) {
+        applyFilter(filterParam);
+      }
+
+      // Add click handlers to filter buttons
       filterButtons.forEach(button => {
         button.addEventListener('click', function() {
           const filter = this.dataset.filter;
+          applyFilter(filter);
 
-          // Update active state
-          filterButtons.forEach(btn => {
-            btn.classList.remove('active');
-            btn.setAttribute('aria-pressed', 'false');
-          });
-          this.classList.add('active');
-          this.setAttribute('aria-pressed', 'true');
-
-          // Filter posts
-          postCards.forEach(card => {
-            if (filter === 'all' || card.dataset.category === filter) {
-              card.style.display = 'block';
-              // Trigger reflow for animation
-              card.style.animation = 'none';
-              setTimeout(() => {
-                card.style.animation = 'fadeIn 0.5s ease-in-out';
-              }, 10);
-            } else {
-              card.style.display = 'none';
-            }
-          });
+          // Update URL without page reload
+          const newUrl = filter === 'all'
+            ? window.location.pathname
+            : window.location.pathname + '?filter=' + filter;
+          window.history.pushState({filter: filter}, '', newUrl);
         });
+      });
+
+      // Handle browser back/forward buttons
+      window.addEventListener('popstate', function(event) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const filterParam = urlParams.get('filter') || 'all';
+        applyFilter(filterParam);
       });
     });
   </script>

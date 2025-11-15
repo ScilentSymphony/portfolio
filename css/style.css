@@ -330,11 +330,16 @@ p {
 /* Nav shape indicator (shows in collapsed state) */
 .nav-shape {
   display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
   font-size: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
   margin-left: 0.5rem;
   opacity: 0;
   transform: scale(0.8);
   transition: all 0.3s ease;
+  vertical-align: middle;
 }
 
 #mainNav.nav-collapsed .nav-shape {
@@ -1061,10 +1066,15 @@ footer {
 }
 
 .mobile-nav .nav-icon {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
   font-size: 1.5rem;
-  line-height: 1;
+  line-height: 1.5rem;
+  text-align: center;
   opacity: 0.6;
   transition: all 0.3s ease;
+  vertical-align: middle;
 }
 
 .mobile-nav-item.active .nav-icon {
