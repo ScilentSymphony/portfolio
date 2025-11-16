@@ -1,0 +1,29 @@
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "New Era: Controlled Chaos and the Art of Strategic Restraint",
+  "alternativeHeadline": "An exploration of pushing sonic boundaries through controlled abrasiveness",
+  "description": "An exploration of pushing sonic boundaries through controlled abrasiveness. How strategic constraints enabled genuine chaos without collapse, and what happens when you ask: how harsh can music become while remaining compelling?",
+  "image": "https://scilentsymphony.github.io/portfolio/images/og-image.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Zaki Hutchinson",
+    "url": "https://scilentsymphony.github.io/portfolio/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Zaki Hutchinson",
+    "url": "https://scilentsymphony.github.io/portfolio/"
+  },
+  "datePublished": "2025-11-16",
+  "dateModified": "2025-11-16",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://scilentsymphony.github.io/portfolio/knowledge/new-era.html"
+  },
+  "keywords": ["music production", "sound design", "experimental music", "hyperpop", "industrial music", "Logic Pro", "synthesis", "creative constraints"],
+  "articleSection": "Music",
+  "wordCount": "4000",
+  "timeRequired": "PT16M",
+  "inLanguage": "en-US"
+}

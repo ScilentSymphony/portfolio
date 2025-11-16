@@ -43,4 +43,13 @@
   }
 
   container.appendChild(fragment);
+
+  // Handle page visibility to pause animations when tab is not visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      document.body.classList.add('page-hidden');
+    } else {
+      document.body.classList.remove('page-hidden');
+    }
+  });
 })();

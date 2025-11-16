@@ -813,9 +813,11 @@ body:not(:focus-within) .blob {
   will-change: transform;
 }
 
-/* Pause typography when page is not visible */
-body:not(:focus-within) .bg-typography__word {
-  animation-play-state: paused;
+/* Pause typography when page is not visible (document hidden API) */
+@media (prefers-reduced-motion: no-preference) {
+  body.page-hidden .bg-typography__word {
+    animation-play-state: paused;
+  }
 }
 
 .bg-typography__word--accent {
