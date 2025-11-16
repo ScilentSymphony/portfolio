@@ -13,7 +13,7 @@
   <meta name="robots" content="index, follow">
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://assets.calendly.com; frame-src https://calendly.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://assets.calendly.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://assets.calendly.com; frame-src https://calendly.com;">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -215,27 +215,6 @@
   <script src="js/main.js" defer></script>
 
   <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Zaki",
-    "url": "https://scilentsymphony.github.io/portfolio/",
-    "jobTitle": "Entrepreneur, Creative & Technologist",
-    "description": "Interdisciplinary entrepreneur exploring musical innovation, experimental sound, and creative technology",
-    "alumniOf": {
-      "@type": "Organization",
-      "name": "Florida Gulf Coast University"
-    },
-    "knowsAbout": ["Musical Improvisation", "Sound Design", "Creative Technology", "TouchDesigner", "Experimental Music", "Business Innovation", "Creative Consulting"],
-    "sameAs": [
-      "https://www.linkedin.com/in/zaki-h-32036b279/",
-      "https://scilentsymphony.bandcamp.com/",
-      "https://github.com/ScilentSymphony/portfolio",
-      "https://open.spotify.com/artist/3cI0Hpat9J59d5WY8vdqsn",
-      "https://www.youtube.com/@zakih.8815"
-    ]
-  }
-  </script>
+  <script type="application/ld+json" src="data/person.json"></script>
 </body>
 </html>

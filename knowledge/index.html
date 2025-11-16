@@ -13,7 +13,7 @@
   <meta name="robots" content="index, follow">
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://assets.calendly.com; frame-src https://calendly.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://assets.calendly.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://assets.calendly.com; frame-src https://calendly.com;">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -241,52 +241,6 @@
   <script src="../js/main.js" defer></script>
 
   <!-- Filter Functionality -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const postCards = document.querySelectorAll('.post-card');
-
-      // Check URL for filter parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const filterParam = urlParams.get('filter');
-
-      if (filterParam) {
-        // Find and activate the corresponding filter button
-        filterButtons.forEach(btn => {
-          if (btn.dataset.filter === filterParam) {
-            btn.click();
-          }
-        });
-      }
-
-      filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const filter = this.dataset.filter;
-
-          // Update active state
-          filterButtons.forEach(btn => {
-            btn.classList.remove('active');
-            btn.setAttribute('aria-pressed', 'false');
-          });
-          this.classList.add('active');
-          this.setAttribute('aria-pressed', 'true');
-
-          // Filter posts
-          postCards.forEach(card => {
-            if (filter === 'all' || card.dataset.category === filter) {
-              card.style.display = 'block';
-              // Trigger reflow for animation
-              card.style.animation = 'none';
-              setTimeout(() => {
-                card.style.animation = 'fadeIn 0.5s ease-in-out';
-              }, 10);
-            } else {
-              card.style.display = 'none';
-            }
-          });
-        });
-      });
-    });
-  </script>
+  <script src="../js/knowledge-filters.js" defer></script>
 </body>
 </html>

@@ -13,7 +13,7 @@
   <meta name="robots" content="index, follow">
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://assets.calendly.com; frame-src https://calendly.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://assets.calendly.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://assets.calendly.com; frame-src https://calendly.com;">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
@@ -60,35 +60,7 @@
   <link rel="stylesheet" href="css/knowledge.css">
 
   <!-- Structured Data (JSON-LD) for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Nothing New: The Technical and Emotional Logic of Creative Recycling",
-    "alternativeHeadline": "An exploration of constraint-based creativity through an album built entirely from past work",
-    "author": {
-      "@type": "Person",
-      "name": "Zaki Hutchinson",
-      "url": "https://scilentsymphony.github.io/portfolio/about.html"
-    },
-    "datePublished": "2025-11-14",
-    "dateModified": "2025-11-14",
-    "description": "An exploration of constraint-based creativity through an album built entirely from past work. How stripping away the option to create new materials unlocked new creative possibilities.",
-    "image": "https://scilentsymphony.github.io/portfolio/images/album-3.webp",
-    "publisher": {
-      "@type": "Person",
-      "name": "Zaki Hutchinson"
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://scilentsymphony.github.io/portfolio/knowledge/nothing-new.html"
-    },
-    "keywords": ["music production", "creative constraint", "sampling", "album production", "sound design", "Logic Pro", "creative process"],
-    "articleSection": "Music",
-    "wordCount": "3500",
-    "timeRequired": "PT14M"
-  }
-  </script>
+  <script type="application/ld+json" src="../data/knowledge-nothing-new.json"></script>
 </head>
 <body class="knowledge post-music">
   <!-- Reading Progress Bar -->
@@ -515,37 +487,6 @@
   <!-- Main JavaScript (deferred for better page load performance) -->
   <script src="../js/main.js" defer></script>
 
-  <!-- Reading Progress & TOC Active State -->
-  <script>
-    // Reading progress bar
-    window.addEventListener('scroll', () => {
-      const winScroll = document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById("progressBar").style.width = scrolled + "%";
-    });
-
-    // Table of Contents active state based on scroll position
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const id = entry.target.getAttribute('id');
-        const tocLink = document.querySelector(`.article-toc a[href="#${id}"]`);
-
-        if (tocLink) {
-          if (entry.isIntersecting) {
-            document.querySelectorAll('.article-toc a').forEach(link => link.classList.remove('active'));
-            tocLink.classList.add('active');
-          }
-        }
-      });
-    }, {
-      rootMargin: '-20% 0px -70% 0px'
-    });
-
-    // Observe all headings with IDs
-    document.querySelectorAll('h2[id], h3[id]').forEach(heading => {
-      observer.observe(heading);
-    });
-  </script>
+  <script src="../js/knowledge-article.js" defer></script>
 </body>
 </html>

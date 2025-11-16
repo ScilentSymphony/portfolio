@@ -13,7 +13,7 @@
   <meta name="robots" content="index, follow">
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://assets.calendly.com; frame-src https://calendly.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://assets.calendly.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://assets.calendly.com; frame-src https://calendly.com;">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -264,93 +264,6 @@
   <!-- Main JavaScript (deferred for better page load performance) -->
   <script src="js/main.js" defer></script>
 
-  <!-- Living Typography Background Script -->
-  <script>
-    (function() {
-      const WORDS = [
-        "improvisation",
-        "story",
-        "clouds",
-        "prefiguration",
-        "configuration",
-        "refiguration",
-        "narrative",
-        "listening",
-        "texture",
-        "silence",
-        "motion",
-        "breath",
-        "horizon",
-        "frame",
-        "voice",
-        "memory",
-        "interval",
-        "gesture",
-        "rhythm",
-        "space",
-        "reverie",
-        "contour",
-        "timbre",
-        "crescent",
-        "afterglow",
-        "weightlessness",
-        "semblance",
-        "glimmer",
-        "vanishing",
-        "cadence",
-        "counterpoint",
-        "rest",
-        "figment",
-        "stillness",
-        "evocation",
-        "grain",
-        "pulse",
-        "drift",
-        "shade",
-        "lilt",
-        "mimesis",
-        "threshold",
-        "periphery",
-        "imprint",
-        "echo",
-        "dusk",
-        "air",
-        "fold",
-        "origin",
-        "recall",
-        "arc",
-        "edges",
-        "shape",
-        "tension",
-        "softness",
-        "layer",
-        "delineation",
-        "subtext",
-        "immanence"
-      ];
-
-      const WORD_COUNT = 100;
-      const container = document.getElementById("bg-typography");
-      const rand = (min, max) => Math.random() * (max - min) + min;
-
-      // Generate all words as HTML string for faster DOM insertion
-      const wordsHTML = Array.from({ length: WORD_COUNT }, (_, i) => {
-        const isAccent = Math.random() < 0.12;
-        const word = WORDS[i % WORDS.length];
-        const x = rand(-10, 100);
-        const y = rand(-10, 100);
-        const tx = rand(-20, 20);
-        const ty = rand(-30, 30);
-        const dur = rand(8, 38);
-        const delay = rand(-30, 10);
-
-        return `<span class="bg-typography__word ${isAccent ? 'bg-typography__word--accent' : ''}"
-          style="left:${x}vw;top:${y}vh;--tx:${tx}px;--ty:${ty}px;--dur:${dur}s;--delay:${delay}s"
-          >${word}</span>`;
-      }).join('');
-
-      container.innerHTML = wordsHTML;
-    })();
-  </script>
+  <script src="js/about-typography.js" defer></script>
 </body>
 </html>
