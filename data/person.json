@@ -4,19 +4,27 @@
   "name": "Zaki",
   "url": "https://scilentsymphony.github.io/portfolio/",
   "jobTitle": "Entrepreneur, Creative & Technologist",
-  "description": "Interdisciplinary entrepreneur exploring musical innovation, experimental sound, and creative technology",
+  "description": "Interdisciplinary entrepreneur and analytical thinker specializing in creative technology, systems analysis, and cross-domain research",
   "alumniOf": {
     "@type": "Organization",
     "name": "Florida Gulf Coast University"
   },
   "knowsAbout": [
+    "Interdisciplinary Research",
+    "Systems Thinking",
+    "Framework Development",
+    "Business Analysis",
+    "Art Criticism",
+    "Strategic Synthesis",
     "Musical Improvisation",
     "Sound Design",
     "Creative Technology",
     "TouchDesigner",
     "Experimental Music",
     "Business Innovation",
-    "Creative Consulting"
+    "Creative Consulting",
+    "Narrative Architecture",
+    "Human-Centered Design"
   ],
   "sameAs": [
     "https://www.linkedin.com/in/zaki-h-32036b279/",
