@@ -3,15 +3,18 @@
 
 /* ===== COLOR SYSTEM ===== */
 /* Category-based accent colors */
-body.post-research {
+body.post-research,
+body[data-category="research"] {
   --page-accent: var(--accent-wine);
 }
 
-body.post-music {
+body.post-music,
+body[data-category="music"] {
   --page-accent: var(--accent-sage);
 }
 
-body.post-tech {
+body.post-tech,
+body[data-category="tech"] {
   --page-accent: var(--accent-steel);
 }
 

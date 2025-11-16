@@ -1,3 +1,27 @@
+// Apply category accent automatically based on post metadata
+(() => {
+  const normalizeCategory = (value) => {
+    if (!value) return null;
+    const normalized = value.toLowerCase();
+
+    if (normalized.includes('research')) return 'research';
+    if (normalized.includes('music')) return 'music';
+    if (normalized.includes('tech')) return 'tech';
+
+    return null;
+  };
+
+  const categoryHeader = document.querySelector('.post-category-header');
+  const headerCategory = normalizeCategory(categoryHeader?.dataset.category);
+  const labelCategory = normalizeCategory(categoryHeader?.querySelector('.category-label')?.textContent);
+  const detectedCategory = headerCategory || labelCategory;
+
+  if (detectedCategory) {
+    document.body.dataset.category = detectedCategory;
+    document.body.classList.add(`post-${detectedCategory}`);
+  }
+})();
+
 // Reading progress bar
 window.addEventListener('scroll', () => {
   const winScroll = document.documentElement.scrollTop;
