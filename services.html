@@ -145,7 +145,7 @@
             <li>Podcast sound design</li>
             <li>Experimental sound works</li>
           </ul>
-          <p class="package-pricing">Starting at <span class="price">$500</span> per project</p>
+          <p class="package-pricing">Starting at <span class="price">$250</span> per project</p>
           <p class="pricing-note">Custom quotes for extended projects</p>
           <a href="#contact-form" class="btn btn-primary">Request Quote</a>
         </div>
@@ -154,15 +154,16 @@
         <div class="package-card research-package">
           <div class="package-icon" aria-hidden="true"></div>
           <h3>Research & Academic Collaboration</h3>
-          <p class="package-description">Consulting, co-authorship, and research assistance in ethnomusicology, improvisation theory, and interdisciplinary studies.</p>
+          <p class="package-description">Interdisciplinary research consultation spanning cultural analysis, cognitive systems, business strategy, and creative theory. Co-authorship, methodology design, and curriculum development across multiple domains.</p>
           <ul class="package-includes">
-            <li>Literature review and analysis</li>
-            <li>Methodology consultation</li>
-            <li>Co-authorship opportunities</li>
-            <li>Guest lectures and presentations</li>
-            <li>Curriculum development</li>
+            <li>Cross-domain research design and methodology</li>
+            <li>Literature review and analytical frameworks</li>
+            <li>Co-authorship in cultural studies, business, or cognition</li>
+            <li>Guest lectures on improvisation, entrepreneurship, or interdisciplinary methods</li>
+            <li>Curriculum development for creative and analytical coursework</li>
+            <li>Thesis/dissertation consultation (any discipline requiring synthesis)</li>
           </ul>
-          <p class="package-pricing">Starting at <span class="price">$75/hour</span></p>
+          <p class="package-pricing">Starting at <span class="price">$50/hour</span></p>
           <p class="pricing-note">Project-based rates available</p>
           <a href="#contact-form" class="btn btn-primary">Discuss Project</a>
         </div>
@@ -170,17 +171,18 @@
         <!-- Tech Package -->
         <div class="package-card tech-package">
           <div class="package-icon" aria-hidden="true"></div>
-          <h3>Strategic Creative Consulting</h3>
-          <p class="package-description">Creative problem-solving and strategic consulting for entrepreneurs, organizations, and interdisciplinary projects requiring systems thinking and innovative approaches.</p>
+          <h3>Strategic Analysis & Creative Technology</h3>
+          <p class="package-description">Business model analysis, systems thinking, and creative technology consulting for entrepreneurs and organizations requiring rigorous analytical frameworks and innovative technical solutions.</p>
           <ul class="package-includes">
-            <li>Strategic planning and ideation</li>
-            <li>Systems design and integration</li>
-            <li>Creative process optimization</li>
-            <li>Tool selection and workflow design</li>
-            <li>Business model development</li>
+            <li>Business model analysis and strategic planning</li>
+            <li>Framework development and systems mapping</li>
+            <li>TouchDesigner and generative systems development</li>
+            <li>AI-assisted creative workflows</li>
+            <li>Audio-reactive visual installations</li>
+            <li>Process optimization and tool selection</li>
           </ul>
-          <p class="package-pricing"><span class="price">$100/hour</span> consultation</p>
-          <p class="pricing-note">Retainer options from $800/month</p>
+          <p class="package-pricing"><span class="price">$60/hour</span> consultation</p>
+          <p class="pricing-note">Ongoing engagement packages available for established clients</p>
           <a href="#contact-form" class="btn btn-primary">Book Consultation</a>
         </div>
       </div>
@@ -245,24 +247,14 @@
 
     <!-- Booking CTA -->
     <section class="booking-cta" id="contact-form">
-      <h2>Let's Start a Conversation</h2>
-      <p>Ready to work together? Fill out the form below or schedule a free 20-minute discovery call.</p>
+      <h2>Let's Talk</h2>
+      <p>Schedule a call or send a message about your project.</p>
 
       <div class="cta-options">
         <!-- Calendly Option -->
         <div class="option-calendly">
-          <h3>Office Hours</h3>
-          <p>Book office hours to discuss your project or get advice</p>
-          <!-- Calendly inline widget begin -->
-          <div class="calendly-inline-widget calendly-embed" data-url="https://calendly.com/aspendanee/office-hours?background_color=000000&text_color=d4af37"></div>
-          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-          <!-- Calendly inline widget end -->
-        </div>
-
-        <!-- Discovery Call Option -->
-        <div class="option-calendly">
-          <h3>Discovery Call</h3>
-          <p>Book a free discovery call to explore collaboration opportunities</p>
+          <h3>Book a Call</h3>
+          <p>Free 20-minute discovery call or office hours consultation</p>
           <!-- Calendly inline widget begin -->
           <div class="calendly-inline-widget calendly-embed" data-url="https://calendly.com/aspendanee/discovery?background_color=000000&text_color=d4af37"></div>
           <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -271,7 +263,7 @@
 
         <!-- Form Option -->
         <div class="option-form">
-          <h3>Send an Inquiry</h3>
+          <h3>Send a Message</h3>
           <form action="https://formspree.io/f/mdkylzjk" method="POST" class="inquiry-form">
             <!-- Form Status Messages -->
             <div class="form-status" role="alert" aria-live="polite"></div>
@@ -287,8 +279,8 @@
             </div>
 
             <div class="form-group">
-              <label for="service">Service Interest <span aria-label="required">*</span></label>
-              <select id="service" name="service" required aria-required="true">
+              <label for="service">Service Interest</label>
+              <select id="service" name="service">
                 <option value="">Select a service...</option>
                 <option value="music">Music & Sound Design</option>
                 <option value="research">Research Collaboration</option>
@@ -298,23 +290,11 @@
             </div>
 
             <div class="form-group">
-              <label for="budget">Estimated Budget (Optional)</label>
-              <select id="budget" name="budget">
-                <option value="">Select range...</option>
-                <option value="<1000">Under $1,000</option>
-                <option value="1000-3000">$1,000 - $3,000</option>
-                <option value="3000-5000">$3,000 - $5,000</option>
-                <option value="5000+">$5,000+</option>
-                <option value="flexible">Flexible / TBD</option>
-              </select>
+              <label for="message">Message <span aria-label="required">*</span></label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required aria-required="true"></textarea>
             </div>
 
-            <div class="form-group">
-              <label for="message">Project Details <span aria-label="required">*</span></label>
-              <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, timeline, and what you're hoping to achieve..." required aria-required="true"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-large">Send Inquiry</button>
+            <button type="submit" class="btn btn-primary btn-large">Send Message</button>
           </form>
         </div>
       </div>
@@ -369,6 +349,9 @@
 
     <!-- Social Links -->
     <div class="social-links">
+      <a href="contact.html" aria-label="Contact page">Contact</a>
+      <a href="about.html" aria-label="About page">About</a>
+      <a href="knowledge/" aria-label="Knowledge base">Knowledge</a>
       <a href="https://www.linkedin.com/in/zaki-h-32036b279/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">LinkedIn</a>
       <a href="https://scilentsymphony.bandcamp.com/" target="_blank" rel="noopener noreferrer" aria-label="Bandcamp music">Bandcamp</a>
       <a href="https://github.com/ScilentSymphony/portfolio" target="_blank" rel="noopener noreferrer" aria-label="GitHub projects">GitHub</a>
@@ -398,21 +381,9 @@
       <span class="nav-icon" aria-hidden="true">⬡</span>
       <span>Tech</span>
     </a>
-    <a href="knowledge/" class="mobile-nav-item">
-      <span class="nav-icon" aria-hidden="true">◆</span>
-      <span>Knowledge</span>
-    </a>
     <a href="services.html" class="mobile-nav-item active" aria-current="page">
       <span class="nav-icon" aria-hidden="true">⬟</span>
       <span>Services</span>
-    </a>
-    <a href="about.html" class="mobile-nav-item">
-      <span class="nav-icon" aria-hidden="true">◯</span>
-      <span>About</span>
-    </a>
-    <a href="contact.html" class="mobile-nav-item">
-      <span class="nav-icon" aria-hidden="true">●</span>
-      <span>Contact</span>
     </a>
   </nav>
 
