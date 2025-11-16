@@ -1009,6 +1009,13 @@ footer {
   color: var(--accent-gold);
 }
 
+/* Override for knowledge article pages to match article theme */
+body.post-research .email-signup h3,
+body.post-music .email-signup h3,
+body.post-tech .email-signup h3 {
+  color: var(--page-accent);
+}
+
 .email-signup form {
   display: flex;
   gap: 1rem;

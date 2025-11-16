@@ -83,14 +83,14 @@ body.knowledge {
 }
 
 .filter-btn:focus {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--page-accent);
   outline-offset: 2px;
 }
 
 .filter-btn.active {
-  background: var(--accent-gold);
+  background: var(--page-accent);
   color: var(--bg-primary);
-  border-color: var(--accent-gold);
+  border-color: var(--page-accent);
 }
 
 /* Posts Container */
@@ -192,7 +192,7 @@ body.knowledge {
 }
 
 .post-card:hover .post-title {
-  color: var(--accent-gold);
+  color: var(--page-accent);
 }
 
 /* Post Excerpt */
@@ -617,7 +617,7 @@ body.knowledge {
 }
 
 .related-post-card:hover .related-post-title {
-  color: var(--accent-gold);
+  color: var(--page-accent);
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
@@ -788,12 +788,12 @@ body.knowledge {
 
 /* Focus states */
 .post-card:focus-within {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--page-accent);
   outline-offset: 4px;
 }
 
 .related-post-card:focus-within {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--page-accent);
   outline-offset: 4px;
 }
 
