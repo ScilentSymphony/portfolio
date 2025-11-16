@@ -1054,10 +1054,20 @@ body.post-tech .email-signup h3 {
 .social-links a {
   color: var(--text-primary);
   transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .social-links a:hover {
   color: var(--accent-gold);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .copyright {
@@ -1201,6 +1211,13 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
 
   .social-links a {
     font-size: 0.85rem;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .social-icon {
+    width: 24px;
+    height: 24px;
   }
 
   /* Footer needs extra bottom padding for mobile nav */
