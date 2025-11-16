@@ -2,25 +2,25 @@
 /* Editorial minimalism: New Yorker meets Apple */
 
 /* ===== COLOR SYSTEM ===== */
-/* Category-based accent colors */
-body.post-research,
+/* Default for knowledge archive page */
+body.knowledge {
+  --page-accent: var(--accent-gold);
+}
+
+/* Category-based accent colors (higher specificity to override default) */
+body.knowledge.post-research,
 body[data-category="research"] {
   --page-accent: var(--accent-wine);
 }
 
-body.post-music,
+body.knowledge.post-music,
 body[data-category="music"] {
   --page-accent: var(--accent-sage);
 }
 
-body.post-tech,
+body.knowledge.post-tech,
 body[data-category="tech"] {
   --page-accent: var(--accent-steel);
-}
-
-/* Default for knowledge archive page */
-body.knowledge {
-  --page-accent: var(--accent-gold);
 }
 
 /* ===== ARCHIVE PAGE STYLES ===== */
