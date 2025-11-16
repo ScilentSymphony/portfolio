@@ -351,6 +351,13 @@ body.home .nav-shape { color: var(--accent-gold); }
 body.research .nav-shape { color: var(--accent-wine); }
 body.music .nav-shape { color: var(--accent-sage); }
 body.tech .nav-shape { color: var(--accent-steel); }
+body.knowledge .nav-shape { color: var(--accent-gold); }
+body.post-research .nav-shape,
+body[data-category="research"] .nav-shape { color: var(--accent-wine); }
+body.post-music .nav-shape,
+body[data-category="music"] .nav-shape { color: var(--accent-sage); }
+body.post-tech .nav-shape,
+body[data-category="tech"] .nav-shape { color: var(--accent-steel); }
 body.about .nav-shape { color: var(--accent-gold); }
 body.services .nav-shape { color: var(--accent-gold); }
 body.contact .nav-shape { color: var(--accent-gold); }
@@ -1096,13 +1103,23 @@ body.home .mobile-nav-item:nth-child(1) .nav-icon,
 body.research .mobile-nav-item:nth-child(2) .nav-icon,
 body.music .mobile-nav-item:nth-child(3) .nav-icon,
 body.tech .mobile-nav-item:nth-child(4) .nav-icon,
-body.contact .mobile-nav-item:nth-child(5) .nav-icon {
+body.knowledge .mobile-nav-item:nth-child(5) .nav-icon,
+body.services .mobile-nav-item:nth-child(6) .nav-icon,
+body.about .mobile-nav-item:nth-child(7) .nav-icon,
+body.contact .mobile-nav-item:nth-child(8) .nav-icon {
   color: var(--accent-gold);
 }
 
 body.research .mobile-nav-item:nth-child(2) .nav-icon { color: var(--accent-wine); }
 body.music .mobile-nav-item:nth-child(3) .nav-icon { color: var(--accent-sage); }
 body.tech .mobile-nav-item:nth-child(4) .nav-icon { color: var(--accent-steel); }
+body.knowledge .mobile-nav-item:nth-child(5) .nav-icon,
+body.post-research .mobile-nav-item:nth-child(5) .nav-icon,
+body[data-category="research"] .mobile-nav-item:nth-child(5) .nav-icon { color: var(--accent-gold); }
+body.post-music .mobile-nav-item:nth-child(5) .nav-icon,
+body[data-category="music"] .mobile-nav-item:nth-child(5) .nav-icon { color: var(--accent-sage); }
+body.post-tech .mobile-nav-item:nth-child(5) .nav-icon,
+body[data-category="tech"] .mobile-nav-item:nth-child(5) .nav-icon { color: var(--accent-steel); }
 
 /* ===== RESPONSIVE (MOBILE) ===== */
 @media (max-width: 768px) {
