@@ -1,0 +1,29 @@
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "When 'Making It Your Own' Transcends Culture",
+  "alternativeHeadline": "Finding universal cognitive architecture beneath cultural diversity in musical improvisation",
+  "description": "Finding universal cognitive architecture beneath cultural diversity in musical improvisation. How temporal consciousness frameworks reveal what makes improvisation work across jazz, Arabic music, and gamelan traditions.",
+  "image": "https://scilentsymphony.github.io/portfolio/images/og-image.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Zaki Hutchinson",
+    "url": "https://scilentsymphony.github.io/portfolio/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Zaki Hutchinson",
+    "url": "https://scilentsymphony.github.io/portfolio/"
+  },
+  "datePublished": "2025-11-16",
+  "dateModified": "2025-11-16",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://scilentsymphony.github.io/portfolio/knowledge/making-it-your-own.html"
+  },
+  "keywords": ["improvisation", "music cognition", "cross-cultural music", "temporal consciousness", "music education", "jazz", "Arabic music", "gamelan", "ethnomusicology"],
+  "articleSection": "Research",
+  "wordCount": "3000",
+  "timeRequired": "PT11M",
+  "inLanguage": "en-US"
+}
