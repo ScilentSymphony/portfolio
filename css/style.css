@@ -2896,13 +2896,23 @@ body.contact {
   background: var(--bg-input);
 }
 
-.social-icon {
+.social-link .social-icon {
   display: block;
   width: 50px;
   height: 50px;
+  margin: 0 auto 1rem;
+  object-fit: contain;
+}
+
+.social-link .social-icon-placeholder {
   background: var(--current-accent);
   border-radius: 50%;
-  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--bg-primary);
 }
 
 .social-label {
