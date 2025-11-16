@@ -1191,6 +1191,18 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
     flex-direction: column;
   }
 
+  /* Social links - compact grid for mobile */
+  .social-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .social-links a {
+    font-size: 0.85rem;
+  }
+
   /* Footer needs extra bottom padding for mobile nav */
   footer {
     padding-bottom: 6rem;
