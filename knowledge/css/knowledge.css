@@ -504,6 +504,12 @@ body.knowledge {
   margin-bottom: 1rem;
 }
 
+.bandcamp-embed {
+  border: 0;
+  width: 100%;
+  height: 120px;
+}
+
 .audio-caption {
   font-family: var(--font-body);
   font-size: 0.9rem;

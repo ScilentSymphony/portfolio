@@ -1,0 +1,23 @@
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Nothing New: The Technical and Emotional Logic of Creative Recycling",
+  "alternativeHeadline": "An exploration of constraint-based creativity through an album built entirely from past work",
+  "author": {
+    "@type": "Person",
+    "name": "Zaki Hutchinson",
+    "url": "https://scilentsymphony.github.io/portfolio/about.html"
+  },
+  "datePublished": "2025-11-14",
+  "dateModified": "2025-11-14",
+  "description": "An exploration of constraint-based creativity through an album built entirely from past work. How stripping away the option to create new materials unlocked new creative possibilities.",
+  "image": "https://scilentsymphony.github.io/portfolio/images/album-3.webp",
+  "publisher": {
+    "@type": "Person",
+    "name": "Zaki Hutchinson"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://scilentsymphony.github.io/portfolio/knowledge/nothing-new.html"
+  }
+}

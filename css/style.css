@@ -601,6 +601,25 @@ body.contact .nav-shape { color: var(--accent-gold); }
 .note:nth-child(17) { animation-delay: 1.5s; animation-duration: 14.5s; }
 .note:nth-child(18) { animation-delay: 2.5s; animation-duration: 16.5s; }
 
+.note-pos-1 { top: 10%; left: 5%; }
+.note-pos-2 { top: 30%; left: 15%; }
+.note-pos-3 { top: 50%; left: 8%; }
+.note-pos-4 { top: 70%; left: 12%; }
+.note-pos-5 { top: 20%; right: 10%; }
+.note-pos-6 { top: 45%; right: 5%; }
+.note-pos-7 { top: 65%; right: 15%; }
+.note-pos-8 { top: 85%; right: 8%; }
+.note-pos-9 { top: 15%; left: 40%; }
+.note-pos-10 { top: 35%; left: 50%; }
+.note-pos-11 { top: 55%; left: 45%; }
+.note-pos-12 { top: 75%; left: 55%; }
+.note-pos-13 { top: 25%; right: 35%; }
+.note-pos-14 { top: 60%; right: 40%; }
+.note-pos-15 { top: 80%; right: 45%; }
+.note-pos-16 { top: 40%; left: 25%; }
+.note-pos-17 { top: 90%; left: 70%; }
+.note-pos-18 { top: 5%; right: 60%; }
+
 @keyframes floatNote {
   0% { transform: translateY(0) rotate(0deg); opacity: 0.08; }
   50% { transform: translateY(-50px) rotate(15deg); opacity: 0.12; }
@@ -2175,6 +2194,11 @@ body.services {
   text-align: center;
   color: var(--text-muted);
   margin: 1.5rem 0;
+}
+
+.calendly-embed {
+  min-width: 320px;
+  height: 700px;
 }
 
 .embed-note {
