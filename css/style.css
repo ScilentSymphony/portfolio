@@ -1076,7 +1076,9 @@ body.post-tech .email-signup h3 {
   background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(232, 232, 232, 0.1);
-  padding: 0.75rem 0;
+  padding: 0.75rem max(0.75rem, env(safe-area-inset-left))
+    calc(0.75rem + env(safe-area-inset-bottom))
+    max(0.75rem, env(safe-area-inset-right));
   min-height: 70px;
   z-index: 1000;
   gap: 0.5rem;
@@ -1908,7 +1910,7 @@ body.services {
 
 /* Service Packages */
 .service-packages {
-  padding: 4rem 2rem;
+  padding: 4rem clamp(1.25rem, 4vw, 2rem);
   max-width: 1300px;
   margin: 0 auto 6rem;
 }
@@ -1917,19 +1919,18 @@ body.services {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
 }
 
 .packages-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 2rem;
+  padding: 0 clamp(1.25rem, 4vw, 2rem);
 }
 
 .package-card {
@@ -2056,7 +2057,7 @@ body.services {
 
 /* Work Process */
 .work-process {
-  padding: 4rem 2rem;
+  padding: 4rem clamp(1.25rem, 4vw, 2rem);
   max-width: 1300px;
   margin: 0 auto 6rem;
 }
@@ -2065,8 +2066,7 @@ body.services {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
 }
 
 .process-steps {
@@ -2077,7 +2077,7 @@ body.services {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 2rem;
+  padding: 0 clamp(1.25rem, 4vw, 2rem);
 }
 
 .process-step {
@@ -2111,7 +2111,7 @@ body.services {
 
 /* Testimonials */
 .testimonials {
-  padding: 4rem 2rem;
+  padding: 4rem clamp(1.25rem, 4vw, 2rem);
   max-width: 1300px;
   margin: 0 auto 6rem;
 }
@@ -2120,8 +2120,7 @@ body.services {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
 }
 
 .testimonials-grid {
@@ -2132,7 +2131,7 @@ body.services {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 2rem;
+  padding: 0 clamp(1.25rem, 4vw, 2rem);
 }
 
 .testimonial-card {
@@ -2178,7 +2177,7 @@ body.services {
 
 /* Booking CTA */
 .booking-cta {
-  padding: 4rem 2rem;
+  padding: 4rem clamp(1.25rem, 4vw, 2rem);
   max-width: 1300px;
   margin: 0 auto 6rem;
   text-align: center;
@@ -2189,8 +2188,7 @@ body.services {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
 }
 
 .booking-cta > p {
@@ -2348,7 +2346,7 @@ body.services {
 
 /* FAQ */
 .faq {
-  padding: 4rem 2rem;
+  padding: 4rem clamp(1.25rem, 4vw, 2rem);
   max-width: 1300px;
   margin: 0 auto 6rem;
 }
@@ -2357,14 +2355,13 @@ body.services {
   max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
 }
 
 .faq-items {
   max-width: 1300px;
   margin: 3rem auto 0;
-  padding: 0 2rem;
+  padding: 0 clamp(1.25rem, 4vw, 2rem);
 }
 
 .faq-item {
@@ -2436,6 +2433,59 @@ body.services {
 
   .testimonials-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .service-packages {
+    padding: 3rem 1.25rem;
+    margin-bottom: 4.5rem;
+  }
+
+  .packages-grid {
+    gap: 1.5rem;
+  }
+
+  .package-card {
+    padding: 1.75rem;
+    border-radius: 10px;
+  }
+
+  .package-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+  }
+
+  .package-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .package-description {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .package-includes {
+    margin: 1.25rem 0;
+  }
+
+  .package-includes li {
+    padding: 0.45rem 0 0.45rem 1.25rem;
+  }
+
+  .package-pricing {
+    font-size: 1.35rem;
+    margin: 1.5rem 0 0.35rem;
+  }
+
+  .package-pricing .price {
+    font-size: 1.75rem;
+  }
+
+  .pricing-note {
+    margin-bottom: 1.25rem;
   }
 }
 
