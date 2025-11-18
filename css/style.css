@@ -1161,6 +1161,11 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
   align-items: center;
   justify-content: center;
   margin-left: auto;
+  /* Ensure button is clickable on mobile */
+  position: relative;
+  z-index: 10;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hamburger-line {
@@ -1198,6 +1203,7 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
 }
 
 .slide-menu-overlay.active {
+  display: block;
   opacity: 1;
   pointer-events: auto;
 }
@@ -1220,6 +1226,7 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
 }
 
 .slide-menu.active {
+  display: block;
   transform: translateX(0);
   pointer-events: auto;
 }
