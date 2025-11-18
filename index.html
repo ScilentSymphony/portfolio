@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
   <!-- Preload Critical Assets -->
-  <link rel="preload" href="css/style.css" as="style">
+  <link rel="preload" href="css/style.min.css" as="style">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" as="style">
 
   <!-- Favicon -->
@@ -61,7 +61,7 @@
   <link rel="prefetch" href="contact.html">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.min.css">
 </head>
 <body class="home">
   <!-- Skip Link for Accessibility -->
@@ -231,12 +231,49 @@
   </nav>
 
   <!-- GSAP (loaded immediately - required by main.js) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer integrity="sha512-umP3Wd8vJDLqHi4grfMVZX1KniELmlWQo7F9w5X0bL9l6EIzBWLlQx7jdFJ2ks/HqPZjJa9cAHfSFadCF9R/Gg==" crossorigin="anonymous"></script>
 
   <!-- Main JavaScript (deferred for better page load performance) -->
   <script src="js/main.js" defer></script>
 
   <!-- Structured Data -->
-  <script type="application/ld+json" src="data/person.json"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Zaki",
+    "url": "https://scilentsymphony.github.io/portfolio/",
+    "jobTitle": "Entrepreneur, Creative & Technologist",
+    "description": "Interdisciplinary entrepreneur and analytical thinker specializing in creative technology, systems analysis, and cross-domain research",
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "Florida Gulf Coast University"
+    },
+    "knowsAbout": [
+      "Interdisciplinary Research",
+      "Systems Thinking",
+      "Framework Development",
+      "Business Analysis",
+      "Art Criticism",
+      "Strategic Synthesis",
+      "Musical Improvisation",
+      "Sound Design",
+      "Creative Technology",
+      "TouchDesigner",
+      "Experimental Music",
+      "Business Innovation",
+      "Creative Consulting",
+      "Narrative Architecture",
+      "Human-Centered Design"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/zaki-h-32036b279/",
+      "https://scilentsymphony.bandcamp.com/",
+      "https://github.com/ScilentSymphony/portfolio",
+      "https://open.spotify.com/artist/3cI0Hpat9J59d5WY8vdqsn",
+      "https://www.youtube.com/@zakih.8815"
+    ]
+  }
+  </script>
 </body>
 </html>

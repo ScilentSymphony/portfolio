@@ -12,11 +12,8 @@
 
   const WORD_COUNT = 100;
   const container = document.getElementById("bg-typography");
-  const stylesheet = Array.from(document.styleSheets).find(sheet =>
-    sheet.href && sheet.href.includes('css/style.css')
-  );
 
-  if (!container || !stylesheet) return;
+  if (!container) return;
 
   const rand = (min, max) => Math.random() * (max - min) + min;
 
@@ -32,13 +29,18 @@
     const dur = rand(8, 38);
     const delay = rand(-30, 10);
 
-    const className = `bg-typography__dynamic-${i}`;
-    const rule = `.${className}{left:${x}vw;top:${y}vh;--tx:${tx}px;--ty:${ty}px;--dur:${dur}s;--delay:${delay}s;}`;
-    stylesheet.insertRule(rule, stylesheet.cssRules.length);
-
     const span = document.createElement('span');
-    span.className = `bg-typography__word ${isAccent ? 'bg-typography__word--accent' : ''} ${className}`;
+    span.className = `bg-typography__word ${isAccent ? 'bg-typography__word--accent' : ''}`;
     span.textContent = word;
+
+    // Use inline styles instead of stylesheet.insertRule() for CSP compliance
+    span.style.left = `${x}vw`;
+    span.style.top = `${y}vh`;
+    span.style.setProperty('--tx', `${tx}px`);
+    span.style.setProperty('--ty', `${ty}px`);
+    span.style.setProperty('--dur', `${dur}s`);
+    span.style.setProperty('--delay', `${delay}s`);
+
     fragment.appendChild(span);
   }
 
