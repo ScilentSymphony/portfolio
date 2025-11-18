@@ -1198,6 +1198,7 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
 }
 
 .slide-menu-overlay.active {
+  display: block;
   opacity: 1;
   pointer-events: auto;
 }
@@ -1220,6 +1221,7 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
 }
 
 .slide-menu.active {
+  display: block;
   transform: translateX(0);
   pointer-events: auto;
 }
