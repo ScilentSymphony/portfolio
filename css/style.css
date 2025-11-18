@@ -1193,11 +1193,13 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
 .slide-menu-overlay.active {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .slide-menu {
