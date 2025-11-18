@@ -163,4 +163,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
   console.log('Animations initialized with Intersection Observer');
 
+  // ===== MOBILE HAMBURGER MENU =====
+  const hamburgerBtn = document.querySelector('.hamburger-btn');
+  const slideMenu = document.querySelector('.slide-menu');
+  const slideMenuOverlay = document.querySelector('.slide-menu-overlay');
+  const slideMenuClose = document.querySelector('.slide-menu-close');
+
+  function openMenu() {
+    hamburgerBtn.classList.add('active');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    slideMenu.classList.add('active');
+    slideMenuOverlay.classList.add('active');
+    slideMenuOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    hamburgerBtn.classList.remove('active');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    slideMenu.classList.remove('active');
+    slideMenuOverlay.classList.remove('active');
+    slideMenuOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', function() {
+      if (slideMenu.classList.contains('active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+  }
+
+  if (slideMenuClose) {
+    slideMenuClose.addEventListener('click', closeMenu);
+  }
+
+  if (slideMenuOverlay) {
+    slideMenuOverlay.addEventListener('click', closeMenu);
+  }
+
+  // Close menu on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && slideMenu && slideMenu.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+
+  // Close menu when clicking a link
+  const slideMenuLinks = document.querySelectorAll('.slide-menu-links a');
+  slideMenuLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  console.log('Mobile menu initialized');
+
 });
