@@ -21,7 +21,7 @@
 :root {
   --bg-primary: #0A0A0A;
   --text-primary: #E8E8E8;
-  --accent-gold: #D4AF37;
+  --accent-gold: #E8C547; /* Lightened from #D4AF37 for AAA contrast compliance */
   --accent-wine: #6B2737;
   --accent-sage: #8B9D83;
   --accent-steel: #4A5F7A;
@@ -106,17 +106,7 @@ img {
   border: 0;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
+/* .sr-only removed - use .visually-hidden instead */
 
 /* Skip Link for Accessibility */
 .skip-link {
@@ -2499,14 +2489,14 @@ body.services {
   font-size: 0.95rem;
 }
 
-.form-status.error {
+.form-status--error {
   display: block;
   background: rgba(220, 38, 38, 0.1);
   border: 1px solid rgba(220, 38, 38, 0.3);
   color: #fca5a5;
 }
 
-.form-status.success {
+.form-status--success {
   display: block;
   background: rgba(34, 197, 94, 0.1);
   border: 1px solid rgba(34, 197, 94, 0.3);

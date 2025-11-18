@@ -70,16 +70,30 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Throttle function to limit scroll event firing
-  // Only executes once every 'wait' milliseconds for performance
+  // Executes immediately, then at most once every 'wait' milliseconds
   function throttle(func, wait) {
-    let timeout;
+    let lastTime = 0;
+    let timeout = null;
     return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
+      const now = Date.now();
+      const remaining = wait - (now - lastTime);
+
+      if (remaining <= 0) {
+        // Execute immediately if enough time has passed
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        lastTime = now;
         func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+      } else if (!timeout) {
+        // Schedule trailing call
+        timeout = setTimeout(() => {
+          lastTime = Date.now();
+          timeout = null;
+          func(...args);
+        }, remaining);
+      }
     };
   }
 
@@ -219,5 +233,83 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   console.log('Mobile menu initialized');
+
+  // ===== FOCUS TRAP FOR MOBILE MENU =====
+  if (slideMenu) {
+    const focusableElements = slideMenu.querySelectorAll(
+      'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstFocusable = focusableElements[0];
+    const lastFocusable = focusableElements[focusableElements.length - 1];
+
+    slideMenu.addEventListener('keydown', function(e) {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
+      }
+    });
+  }
+
+  // ===== CONTACT FORM HANDLING =====
+  const contactForm = document.querySelector('.contact-form');
+  const formStatus = document.querySelector('.form-status');
+
+  if (contactForm && formStatus) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      formStatus.textContent = '';
+      formStatus.className = 'form-status';
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          formStatus.textContent = 'Message sent successfully! I\'ll respond within 1-2 business days.';
+          formStatus.classList.add('form-status--success');
+          contactForm.reset();
+        } else {
+          const data = await response.json();
+          if (data.errors) {
+            formStatus.textContent = data.errors.map(error => error.message).join(', ');
+          } else {
+            formStatus.textContent = 'Something went wrong. Please try again or email directly.';
+          }
+          formStatus.classList.add('form-status--error');
+        }
+      } catch (error) {
+        formStatus.textContent = 'Network error. Please check your connection and try again.';
+        formStatus.classList.add('form-status--error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    });
+  }
+
+  console.log('All scripts initialized');
 
 });
