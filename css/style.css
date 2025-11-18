@@ -1165,7 +1165,7 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
   display: none;
   position: fixed;
   top: 1rem;
-  left: 1rem;
+  right: 1rem;
   z-index: 1001;
   background: rgba(10, 10, 10, 0.9);
   border: 1px solid var(--border-subtle);
@@ -1221,14 +1221,14 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
   display: none;
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   width: 280px;
   max-width: 80vw;
   height: 100vh;
   background: var(--bg-primary);
-  border-right: 1px solid var(--border-subtle);
+  border-left: 1px solid var(--border-subtle);
   z-index: 1000;
-  transform: translateX(-100%);
+  transform: translateX(100%);
   transition: transform 0.3s ease;
   overflow-y: auto;
 }
