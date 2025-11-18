@@ -191,6 +191,7 @@
   // Page visibility control for battery optimization
   let isPageVisible = !document.hidden;
   let firstFrame = true;
+  let animationFrameId = null;
 
   document.addEventListener('visibilitychange', () => {
     isPageVisible = !document.hidden;
@@ -211,7 +212,7 @@
       }
 
       drawGrid(now);
-      requestAnimationFrame(loop);
+      animationFrameId = requestAnimationFrame(loop);
     } catch (err) {
       console.error('Grid animation error:', err);
       // Stop animation on error to prevent infinite error loop
@@ -219,5 +220,17 @@
     }
   }
 
-  requestAnimationFrame(loop);
+  animationFrameId = requestAnimationFrame(loop);
+
+  // Cleanup on page unload
+  function cleanup() {
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+    window.removeEventListener('resize', resize);
+  }
+
+  window.addEventListener('beforeunload', cleanup);
+  window.addEventListener('pagehide', cleanup);
 })();
