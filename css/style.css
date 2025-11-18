@@ -1163,11 +1163,7 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
 /* ===== HAMBURGER & SLIDE-OUT MENU ===== */
 .hamburger-btn {
   display: none;
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1001;
-  background: rgba(10, 10, 10, 0.9);
+  background: transparent;
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 0.75rem;
@@ -1178,6 +1174,7 @@ body.services .mobile-nav-item:nth-child(5) .nav-icon {
   height: 44px;
   align-items: center;
   justify-content: center;
+  margin-left: auto;
 }
 
 .hamburger-line {
