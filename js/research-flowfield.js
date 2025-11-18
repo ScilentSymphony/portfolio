@@ -207,6 +207,7 @@
   let lastTime = performance.now();
   let isPageVisible = !document.hidden;
   let firstFrame = true;
+  let animationFrameId = null;
 
   // Pause animation when tab is hidden to save battery
   document.addEventListener('visibilitychange', () => {
@@ -264,7 +265,7 @@
         ctx.stroke();
       }
 
-      requestAnimationFrame(step);
+      animationFrameId = requestAnimationFrame(step);
     } catch (err) {
       console.error('Flowfield animation error:', err);
       // Stop animation on error to prevent infinite error loop
@@ -272,5 +273,18 @@
     }
   }
 
-  requestAnimationFrame(step);
+  animationFrameId = requestAnimationFrame(step);
+
+  // Cleanup on page unload
+  function cleanup() {
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+    window.removeEventListener('resize', resize);
+    particles = [];
+  }
+
+  window.addEventListener('beforeunload', cleanup);
+  window.addEventListener('pagehide', cleanup);
 })();
