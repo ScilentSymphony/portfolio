@@ -68,10 +68,10 @@
 
   <!-- Slide-out Menu -->
   <div class="slide-menu-overlay" aria-hidden="true"></div>
-  <nav id="mobile-slide-menu" class="slide-menu" aria-label="Mobile navigation">
+  <nav id="mobile-slide-menu" class="slide-menu" aria-label="Mobile navigation" aria-hidden="true">
     <div class="slide-menu-header">
       <span class="slide-menu-logo">ZAKI</span>
-      <button class="slide-menu-close" aria-label="Close navigation menu">&times;</button>
+      <button class="slide-menu-close" data-menu-initial="true" aria-label="Close navigation menu">&times;</button>
     </div>
     <ul class="slide-menu-links">
       <li><a href="index.html">Home</a></li>
@@ -274,28 +274,6 @@
   </footer>
 
   <!-- Mobile Navigation -->
-  <nav class="mobile-nav" aria-label="Mobile navigation">
-    <a href="index.html" class="mobile-nav-item">
-      <span class="nav-icon" aria-hidden="true">●</span>
-      <span>Home</span>
-    </a>
-    <a href="research.html" class="mobile-nav-item">
-      <span class="nav-icon" aria-hidden="true">■</span>
-      <span>Research</span>
-    </a>
-    <a href="music.html" class="mobile-nav-item">
-      <span class="nav-icon" aria-hidden="true">▲</span>
-      <span>Music</span>
-    </a>
-    <a href="tech.html" class="mobile-nav-item active" aria-current="page">
-      <span class="nav-icon" aria-hidden="true">⬡</span>
-      <span>Tech</span>
-    </a>
-    <a href="services.html" class="mobile-nav-item">
-      <span class="nav-icon" aria-hidden="true">⬟</span>
-      <span>Services</span>
-    </a>
-  </nav>
 
   <!-- GSAP (loaded immediately - required by main.js) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer integrity="sha512-umP3Wd8vJDLqHi4grfMVZX1KniELmlWQo7F9w5X0bL9l6EIzBWLlQx7jdFJ2ks/HqPZjJa9cAHfSFadCF9R/Gg==" crossorigin="anonymous"></script>
