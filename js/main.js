@@ -182,47 +182,45 @@ document.addEventListener('DOMContentLoaded', function() {
   const slideMenu = document.querySelector('.slide-menu');
   const slideMenuOverlay = document.querySelector('.slide-menu-overlay');
   const slideMenuClose = document.querySelector('.slide-menu-close');
+  const slideMenuLinks = document.querySelectorAll('.slide-menu-links a');
 
   // Only initialize if all elements exist
   if (hamburgerBtn && slideMenu && slideMenuOverlay && slideMenuClose) {
+    let lastFocusedElement = null;
+    const focusableSelector = 'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-    function openMenu() {
-      hamburgerBtn.classList.add('active');
-      hamburgerBtn.setAttribute('aria-expanded', 'true');
-      slideMenu.classList.add('active');
-      slideMenuOverlay.classList.add('active');
-      slideMenuOverlay.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      // Focus the close button for accessibility
-      slideMenuClose.focus();
-    }
+    const setMenuState = (isOpen) => {
+      hamburgerBtn.classList.toggle('active', isOpen);
+      hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      slideMenu.classList.toggle('is-active', isOpen);
+      slideMenuOverlay.classList.toggle('is-active', isOpen);
+      slideMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      slideMenuOverlay.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      document.body.classList.toggle('menu-open', isOpen);
 
-    function closeMenu() {
-      hamburgerBtn.classList.remove('active');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
-      slideMenu.classList.remove('active');
-      slideMenuOverlay.classList.remove('active');
-      slideMenuOverlay.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      // Return focus to hamburger button
-      hamburgerBtn.focus();
-    }
-
-    function toggleMenu(e) {
-      e.preventDefault();
-      if (slideMenu.classList.contains('active')) {
-        closeMenu();
-      } else {
-        openMenu();
+      if (isOpen) {
+        lastFocusedElement = document.activeElement;
+        (slideMenu.querySelector('[data-menu-initial]') || slideMenuClose).focus();
+      } else if (lastFocusedElement) {
+        lastFocusedElement.focus({ preventScroll: true });
       }
-    }
+    };
+
+    const closeMenu = () => setMenuState(false);
+    const openMenu = () => setMenuState(true);
+
+    const toggleMenu = (event) => {
+      event.preventDefault();
+      const isOpen = slideMenu.classList.contains('is-active');
+      isOpen ? closeMenu() : openMenu();
+    };
 
     // Hamburger button - use click event (works for both mouse and touch)
     hamburgerBtn.addEventListener('click', toggleMenu);
 
     // Close button
-    slideMenuClose.addEventListener('click', function(e) {
-      e.preventDefault();
+    slideMenuClose.addEventListener('click', (event) => {
+      event.preventDefault();
       closeMenu();
     });
 
@@ -230,43 +228,43 @@ document.addEventListener('DOMContentLoaded', function() {
     slideMenuOverlay.addEventListener('click', closeMenu);
 
     // Close menu on escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && slideMenu.classList.contains('active')) {
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && slideMenu.classList.contains('is-active')) {
         closeMenu();
       }
     });
 
     // Close menu when clicking a link
-    const slideMenuLinks = document.querySelectorAll('.slide-menu-links a');
-    slideMenuLinks.forEach(function(link) {
+    slideMenuLinks.forEach((link) => {
       link.addEventListener('click', closeMenu);
     });
 
     // Focus trap for accessibility
-    const focusableElements = slideMenu.querySelectorAll(
-      'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
+    slideMenu.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab') return;
 
-    if (focusableElements.length > 0) {
+      const focusableElements = Array.from(
+        slideMenu.querySelectorAll(focusableSelector)
+      ).filter((el) => !el.hasAttribute('disabled'));
+
+      if (!focusableElements.length) return;
+
       const firstFocusable = focusableElements[0];
       const lastFocusable = focusableElements[focusableElements.length - 1];
 
-      slideMenu.addEventListener('keydown', function(e) {
-        if (e.key !== 'Tab') return;
-
-        if (e.shiftKey) {
-          if (document.activeElement === firstFocusable) {
-            e.preventDefault();
-            lastFocusable.focus();
-          }
-        } else {
-          if (document.activeElement === lastFocusable) {
-            e.preventDefault();
-            firstFocusable.focus();
-          }
+      if (event.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          event.preventDefault();
+          lastFocusable.focus();
         }
-      });
-    }
+      } else if (document.activeElement === lastFocusable) {
+        event.preventDefault();
+        firstFocusable.focus();
+      }
+    });
+
+    // Ensure menu starts in a closed state with correct aria
+    setMenuState(false);
 
     console.log('Mobile menu initialized');
   } else {
