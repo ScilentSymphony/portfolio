@@ -34,17 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // GSAP timeline for collapsing navigation
   const collapseTimeline = gsapInstance.timeline({ paused: true });
   collapseTimeline
-    .to(navLinks, {
-      opacity: 0,
-      duration: 0.3,
-      ease: 'power2.inOut'
-    })
     .to(navContainer, {
       paddingTop: '0.75rem',
       paddingBottom: '0.75rem',
       duration: 0.4,
       ease: 'power2.inOut'
-    }, '-=0.2')
+    })
     .to(navLogo, {
       fontSize: '1rem',
       duration: 0.4,
@@ -64,12 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fontSize: '1.5rem',
       duration: 0.4,
       ease: 'power2.inOut'
-    }, '-=0.4')
-    .to(navLinks, {
-      opacity: 1,
-      duration: 0.3,
-      ease: 'power2.inOut'
-    }, '-=0.2');
+    }, '-=0.4');
 
   // Scroll handler with threshold
   function handleScroll() {
@@ -81,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
         collapseTimeline.restart();
       } else {
         // Apply styles directly when GSAP is unavailable
-        navLinks.style.opacity = '0';
         navContainer.style.paddingTop = '0.75rem';
         navContainer.style.paddingBottom = '0.75rem';
         navLogo.style.fontSize = '1rem';
@@ -97,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
         navContainer.style.paddingTop = '1.5rem';
         navContainer.style.paddingBottom = '1.5rem';
         navLogo.style.fontSize = '1.5rem';
-        navLinks.style.opacity = '1';
       }
       nav.classList.remove('nav-collapsed');
       isCollapsed = false;

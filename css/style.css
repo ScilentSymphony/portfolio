@@ -308,11 +308,7 @@ p {
 
 /* Collapsed nav state */
 #mainNav.nav-collapsed {
-  /* Height and layout changes - let GSAP handle opacity and font-size */
-}
-
-#mainNav.nav-collapsed .nav-links {
-  pointer-events: none; /* Disable clicking while collapsed, but let GSAP handle opacity */
+  /* Height and layout changes handled by GSAP or JS fallback */
 }
 
 /* Nav shape indicator (shows in collapsed state) */
