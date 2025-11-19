@@ -4,6 +4,25 @@ console.log('Site loaded');
 // ===== WAIT FOR DOM AND GSAP TO LOAD =====
 document.addEventListener('DOMContentLoaded', function() {
 
+  const createNoopTimeline = () => ({
+    to() { return this; },
+    from() { return this; },
+    restart() {}
+  });
+
+  const createGsapFallback = () => ({
+    timeline: () => createNoopTimeline(),
+    from: () => {},
+    to: () => {}
+  });
+
+  const gsapAvailable = typeof window !== 'undefined' && typeof window.gsap !== 'undefined';
+  const gsapInstance = gsapAvailable ? window.gsap : createGsapFallback();
+
+  if (!gsapAvailable) {
+    console.warn('GSAP not found. Animations will be skipped but interactions remain active.');
+  }
+
   // ===== NAVIGATION COLLAPSE ANIMATION =====
   const nav = document.getElementById('mainNav');
   const navContainer = nav.querySelector('.nav-container');
@@ -13,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let isCollapsed = false;
 
   // GSAP timeline for collapsing navigation
-  const collapseTimeline = gsap.timeline({ paused: true });
+  const collapseTimeline = gsapInstance.timeline({ paused: true });
   collapseTimeline
     .to(navLinks, {
       opacity: 0,
@@ -33,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, '-=0.4');
 
   // GSAP timeline for expanding navigation
-  const expandTimeline = gsap.timeline({ paused: true });
+  const expandTimeline = gsapInstance.timeline({ paused: true });
   expandTimeline
     .to(navContainer, {
       paddingTop: '1.5rem',
@@ -106,76 +125,80 @@ document.addEventListener('DOMContentLoaded', function() {
   // Animate hero elements on page load with staggered timing
 
   // Main title - fade in from below
-  gsap.from('.hero h1', {
-    opacity: 0,
-    y: 30,
-    duration: 0.8,
-    ease: 'power3.out',
-    delay: 0.2
-  });
+  if (gsapAvailable) {
+    gsapInstance.from('.hero h1', {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      ease: 'power3.out',
+      delay: 0.2
+    });
 
-  // Tagline - follows title
-  gsap.from('.tagline', {
-    opacity: 0,
-    y: 20,
-    duration: 0.6,
-    ease: 'power3.out',
-    delay: 0.5
-  });
+    // Tagline - follows title
+    gsapInstance.from('.tagline', {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      ease: 'power3.out',
+      delay: 0.5
+    });
 
-  // Subtitle - follows tagline
-  gsap.from('.subtitle', {
-    opacity: 0,
-    y: 20,
-    duration: 0.6,
-    ease: 'power3.out',
-    delay: 0.7
-  });
+    // Subtitle - follows tagline
+    gsapInstance.from('.subtitle', {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      ease: 'power3.out',
+      delay: 0.7
+    });
 
-  // CTA buttons - last to appear
-  gsap.from('.hero-cta', {
-    opacity: 0,
-    y: 20,
-    duration: 0.6,
-    ease: 'power3.out',
-    delay: 0.9
-  });
+    // CTA buttons - last to appear
+    gsapInstance.from('.hero-cta', {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      ease: 'power3.out',
+      delay: 0.9
+    });
+  }
 
   // ===== INTERSECTION OBSERVER FOR LAZY ANIMATIONS =====
   // More performant than scroll events for animating elements as they enter viewport
 
-  const observerOptions = {
-    threshold: 0.1, // Trigger when 10% of element is visible
-    rootMargin: '0px 0px -50px 0px' // Start animation slightly before element enters viewport
-  };
+  if (gsapAvailable) {
+    const observerOptions = {
+      threshold: 0.1, // Trigger when 10% of element is visible
+      rootMargin: '0px 0px -50px 0px' // Start animation slightly before element enters viewport
+    };
 
-  const fadeInObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Add fade-in animation using GSAP
-        gsap.from(entry.target, {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          ease: 'power3.out'
-        });
-        // Stop observing after animation to prevent re-triggering
-        fadeInObserver.unobserve(entry.target);
-      }
+    const fadeInObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Add fade-in animation using GSAP
+          gsapInstance.from(entry.target, {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'power3.out'
+          });
+          // Stop observing after animation to prevent re-triggering
+          fadeInObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all card elements for lazy animation
+    const animatedElements = document.querySelectorAll(
+      '.category-card, .project-card, .release-card, .package-card, ' +
+      '.testimonial-card, .faq-item, .thesis-feature, .about-card'
+    );
+
+    animatedElements.forEach(el => {
+      fadeInObserver.observe(el);
     });
-  }, observerOptions);
 
-  // Observe all card elements for lazy animation
-  const animatedElements = document.querySelectorAll(
-    '.category-card, .project-card, .release-card, .package-card, ' +
-    '.testimonial-card, .faq-item, .thesis-feature, .about-card'
-  );
-
-  animatedElements.forEach(el => {
-    fadeInObserver.observe(el);
-  });
-
-  console.log('Animations initialized with Intersection Observer');
+    console.log('Animations initialized with Intersection Observer');
+  }
 
   // ===== MOBILE HAMBURGER MENU =====
   const hamburgerBtn = document.querySelector('.hamburger-btn');
