@@ -278,11 +278,15 @@ p {
   list-style: none;
   gap: 2rem;
   transition: opacity 0.3s ease;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .nav-links a {
   color: var(--text-primary);
   font-size: 0.95rem;
+  pointer-events: auto;
   letter-spacing: 0.5px;
   position: relative;
 }
