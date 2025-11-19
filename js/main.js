@@ -183,82 +183,94 @@ document.addEventListener('DOMContentLoaded', function() {
   const slideMenuOverlay = document.querySelector('.slide-menu-overlay');
   const slideMenuClose = document.querySelector('.slide-menu-close');
 
-  function openMenu() {
-    hamburgerBtn.classList.add('active');
-    hamburgerBtn.setAttribute('aria-expanded', 'true');
-    slideMenu.classList.add('active');
-    slideMenuOverlay.classList.add('active');
-    slideMenuOverlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
+  // Only initialize if all elements exist
+  if (hamburgerBtn && slideMenu && slideMenuOverlay && slideMenuClose) {
 
-  function closeMenu() {
-    hamburgerBtn.classList.remove('active');
-    hamburgerBtn.setAttribute('aria-expanded', 'false');
-    slideMenu.classList.remove('active');
-    slideMenuOverlay.classList.remove('active');
-    slideMenuOverlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
+    function openMenu() {
+      hamburgerBtn.classList.add('active');
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
+      slideMenu.classList.add('active');
+      slideMenuOverlay.classList.add('active');
+      slideMenuOverlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      // Focus the close button for accessibility
+      slideMenuClose.focus();
+    }
 
-  if (hamburgerBtn) {
-    hamburgerBtn.addEventListener('click', function() {
+    function closeMenu() {
+      hamburgerBtn.classList.remove('active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      slideMenu.classList.remove('active');
+      slideMenuOverlay.classList.remove('active');
+      slideMenuOverlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      // Return focus to hamburger button
+      hamburgerBtn.focus();
+    }
+
+    function toggleMenu(e) {
+      e.preventDefault();
       if (slideMenu.classList.contains('active')) {
         closeMenu();
       } else {
         openMenu();
       }
-    });
-  }
-
-  if (slideMenuClose) {
-    slideMenuClose.addEventListener('click', closeMenu);
-  }
-
-  if (slideMenuOverlay) {
-    slideMenuOverlay.addEventListener('click', closeMenu);
-  }
-
-  // Close menu on escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && slideMenu && slideMenu.classList.contains('active')) {
-      closeMenu();
     }
-  });
 
-  // Close menu when clicking a link
-  const slideMenuLinks = document.querySelectorAll('.slide-menu-links a');
-  slideMenuLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
+    // Hamburger button - use click event (works for both mouse and touch)
+    hamburgerBtn.addEventListener('click', toggleMenu);
 
-  console.log('Mobile menu initialized');
+    // Close button
+    slideMenuClose.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeMenu();
+    });
 
-  // ===== FOCUS TRAP FOR MOBILE MENU =====
-  if (slideMenu) {
+    // Overlay click to close
+    slideMenuOverlay.addEventListener('click', closeMenu);
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && slideMenu.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    // Close menu when clicking a link
+    const slideMenuLinks = document.querySelectorAll('.slide-menu-links a');
+    slideMenuLinks.forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Focus trap for accessibility
     const focusableElements = slideMenu.querySelectorAll(
       'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
-    const firstFocusable = focusableElements[0];
-    const lastFocusable = focusableElements[focusableElements.length - 1];
 
-    slideMenu.addEventListener('keydown', function(e) {
-      if (e.key !== 'Tab') return;
+    if (focusableElements.length > 0) {
+      const firstFocusable = focusableElements[0];
+      const lastFocusable = focusableElements[focusableElements.length - 1];
 
-      if (e.shiftKey) {
-        // Shift + Tab
-        if (document.activeElement === firstFocusable) {
-          e.preventDefault();
-          lastFocusable.focus();
+      slideMenu.addEventListener('keydown', function(e) {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusable) {
+            e.preventDefault();
+            lastFocusable.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusable) {
+            e.preventDefault();
+            firstFocusable.focus();
+          }
         }
-      } else {
-        // Tab
-        if (document.activeElement === lastFocusable) {
-          e.preventDefault();
-          firstFocusable.focus();
-        }
-      }
-    });
+      });
+    }
+
+    console.log('Mobile menu initialized');
+  } else {
+    console.warn('Mobile menu elements not found');
   }
 
   // ===== CONTACT FORM HANDLING =====
