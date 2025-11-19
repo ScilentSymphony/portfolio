@@ -262,6 +262,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: padding 0.4s ease;
 }
 
 .nav-logo {
@@ -269,12 +270,14 @@ p {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--accent-gold);
+  transition: font-size 0.4s ease;
 }
 
 .nav-links {
   display: flex;
   list-style: none;
   gap: 2rem;
+  transition: opacity 0.3s ease;
 }
 
 .nav-links a {

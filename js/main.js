@@ -77,12 +77,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (scrollTop > 100 && !isCollapsed) {
       // Collapse navigation
-      collapseTimeline.restart();
+      if (gsapAvailable) {
+        collapseTimeline.restart();
+      } else {
+        // Apply styles directly when GSAP is unavailable
+        navLinks.style.opacity = '0';
+        navContainer.style.paddingTop = '0.75rem';
+        navContainer.style.paddingBottom = '0.75rem';
+        navLogo.style.fontSize = '1rem';
+      }
       nav.classList.add('nav-collapsed');
       isCollapsed = true;
     } else if (scrollTop <= 100 && isCollapsed) {
       // Expand navigation
-      expandTimeline.restart();
+      if (gsapAvailable) {
+        expandTimeline.restart();
+      } else {
+        // Apply styles directly when GSAP is unavailable
+        navContainer.style.paddingTop = '1.5rem';
+        navContainer.style.paddingBottom = '1.5rem';
+        navLogo.style.fontSize = '1.5rem';
+        navLinks.style.opacity = '1';
+      }
       nav.classList.remove('nav-collapsed');
       isCollapsed = false;
     }
@@ -119,6 +135,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Attach throttled scroll listener (checks every 50ms)
   // Use { passive: true } for better scroll performance
   window.addEventListener('scroll', throttle(handleScroll, 50), { passive: true });
+
+  // Run once on load to handle page refreshes while scrolled down
+  handleScroll();
 
 
   // ===== HERO ENTRANCE ANIMATIONS =====
