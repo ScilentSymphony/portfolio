@@ -23,6 +23,12 @@
   const zOffsetSpeed = 0.00003;
   let zOffset = 0;
 
+  // Mouse interaction parameters
+  let mouseX = width / 2;
+  let mouseY = height / 2;
+  const mouseInfluenceRadius = 150;
+  const mouseRepelStrength = 2.5;
+
   // Particle parameters
   let particles = [];
   let particleCount = 0;
@@ -117,7 +123,7 @@
     return (lerp(y1, y2, w) + 1) * 0.5;
   }
 
-  // Sample flowfield vector
+  // Sample flowfield vector with mouse interaction
   function sampleFlowField(x, y, timeMs) {
     const t = timeMs * timeScale + zOffset;
     const nx = x * fieldScale;
@@ -126,8 +132,25 @@
     const angleNoise = noise3(nx, ny, t);
     const magNoise = noise3(nx + 100.5, ny - 123.8, t + 21.7);
 
-    const angle = angleNoise * Math.PI * 2;
-    const mag = 0.7 + magNoise * 0.8;
+    let angle = angleNoise * Math.PI * 2;
+    let mag = 0.7 + magNoise * 0.8;
+
+    // Calculate mouse influence
+    const dx = x - mouseX;
+    const dy = y - mouseY;
+    const distToMouse = Math.sqrt(dx * dx + dy * dy);
+
+    if (distToMouse < mouseInfluenceRadius && distToMouse > 0) {
+      // Calculate repulsion force
+      const influence = 1 - (distToMouse / mouseInfluenceRadius);
+      const repelAngle = Math.atan2(dy, dx);
+      const repelMag = influence * mouseRepelStrength;
+
+      // Add repulsion vector to the flowfield vector
+      const vx = Math.cos(angle) * mag + Math.cos(repelAngle) * repelMag;
+      const vy = Math.sin(angle) * mag + Math.sin(repelAngle) * repelMag;
+      return { vx, vy };
+    }
 
     const vx = Math.cos(angle) * mag;
     const vy = Math.sin(angle) * mag;
@@ -199,6 +222,19 @@
 
   window.addEventListener("resize", resize);
   resize();
+
+  // Track mouse position for interaction
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+
+  // Reset mouse position when leaving canvas
+  canvas.addEventListener('mouseleave', () => {
+    mouseX = width / 2;
+    mouseY = height / 2;
+  });
 
   // Performance monitoring
   performance.mark('flowfield-init-start');

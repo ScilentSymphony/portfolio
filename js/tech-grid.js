@@ -30,6 +30,12 @@
   const scale1 = 1.7;
   const scale2 = 3.3;
 
+  // Mouse interaction parameters
+  let mouseX = -1000;
+  let mouseY = -1000;
+  const mouseInfluenceRadius = 200;
+  const mouseDeformStrength = 30;
+
   // Steel/blue color palette for tech page
   const mainColor = {r:74,g:95,b:122}, softColor = {r:100,g:120,b:145}, highlightColor = {r:120,g:150,b:180};
 
@@ -68,8 +74,22 @@
     const mag1 = (n1 - 0.5) * 2;
     const mag2 = (n2 - 0.5) * 2;
 
-    const dx = (Math.cos(angle1) * mag1 + Math.sin(angle2) * mag2) * amplitude * 0.7;
-    const dy = (Math.sin(angle1) * mag1 - Math.cos(angle2) * mag2) * amplitude;
+    let dx = (Math.cos(angle1) * mag1 + Math.sin(angle2) * mag2) * amplitude * 0.7;
+    let dy = (Math.sin(angle1) * mag1 - Math.cos(angle2) * mag2) * amplitude;
+
+    // Mouse interaction - deform grid near cursor
+    const distToMouse = Math.sqrt((x - mouseX) ** 2 + (y - mouseY) ** 2);
+    if (distToMouse < mouseInfluenceRadius) {
+      const mouseInfluence = 1 - (distToMouse / mouseInfluenceRadius);
+      const mouseAngle = Math.atan2(y - mouseY, x - mouseX);
+
+      // Ripple effect - push away from mouse
+      const mouseDx = Math.cos(mouseAngle) * mouseInfluence * mouseDeformStrength;
+      const mouseDy = Math.sin(mouseAngle) * mouseInfluence * mouseDeformStrength;
+
+      dx += mouseDx;
+      dy += mouseDy;
+    }
 
     // Edge falloff
     const cx = 0.5;
@@ -107,6 +127,19 @@
 
   window.addEventListener("resize", resize);
   resize();
+
+  // Track mouse position for interaction
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+
+  // Reset mouse position when leaving canvas
+  canvas.addEventListener('mouseleave', () => {
+    mouseX = -1000;
+    mouseY = -1000;
+  });
 
   function drawGrid(timeMs) {
     ctx.clearRect(0, 0, width, height);

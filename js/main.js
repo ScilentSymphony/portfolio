@@ -350,6 +350,87 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // ===== MAGNETIC BUTTON MICRO-INTERACTIONS =====
+  const magneticButtons = document.querySelectorAll('.btn-primary');
+
+  magneticButtons.forEach(button => {
+    button.classList.add('magnetic');
+
+    button.addEventListener('mousemove', (e) => {
+      const rect = button.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      const maxDistance = 100; // Magnetic field radius
+
+      if (distance < maxDistance) {
+        const pull = 0.3; // How much the button moves toward cursor
+        const moveX = deltaX * pull;
+        const moveY = deltaY * pull;
+
+        if (gsapAvailable) {
+          gsapInstance.to(button, {
+            x: moveX,
+            y: moveY,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        } else {
+          button.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
+      }
+    });
+
+    button.addEventListener('mouseleave', () => {
+      if (gsapAvailable) {
+        gsapInstance.to(button, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: 'elastic.out(1, 0.5)'
+        });
+      } else {
+        button.style.transform = 'translate(0, 0)';
+      }
+    });
+  });
+
+  // ===== PARALLAX SCROLLING FOR IMAGES =====
+  const parallaxImages = document.querySelectorAll('.project-media img, .album-art, .about-image img');
+
+  if (parallaxImages.length > 0) {
+    const handleParallax = throttle(() => {
+      parallaxImages.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Only apply parallax if image is in viewport
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+          const parallaxOffset = (scrollProgress - 0.5) * 30; // Max 30px movement
+
+          if (gsapAvailable) {
+            gsapInstance.to(img, {
+              y: parallaxOffset,
+              duration: 0.1,
+              ease: 'none',
+              overwrite: true
+            });
+          } else {
+            img.style.transform = `translateY(${parallaxOffset}px)`;
+          }
+        }
+      });
+    }, 16); // Run at ~60fps
+
+    window.addEventListener('scroll', handleParallax, { passive: true });
+    handleParallax(); // Initial call
+  }
+
   console.log('All scripts initialized');
 
 });
