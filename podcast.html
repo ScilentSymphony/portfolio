@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ze Podcast | Meta-Critical Analysis</title>
+    <title>Ze Podcast - Zaki's Portfolio</title>
     <meta name="description" content="Improvised, minimal-edit commentary with receipts. Dissecting rhetoric, media, and communication.">
     
     <!-- Fonts -->
@@ -131,53 +131,59 @@
     <!-- Noise Background -->
     <div class="noise-bg"></div>
 
-    <div class="relative z-10 min-h-screen flex flex-col">
-        
-        <!-- Navbar -->
-        <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-5xl transition-all duration-500 bg-transparent py-6">
-            <div class="px-6 md:px-8 flex justify-between items-center">
-                <a href="#" class="text-xl font-serif font-bold tracking-tight flex items-center gap-2">
-                    <span class="w-8 h-8 bg-gold text-black rounded flex items-center justify-center font-bold text-sm">ZP</span>
-                    <span class="hidden md:inline nav-title transition-opacity duration-300">Ze Podcast</span>
-                </a>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8 bg-black/40 px-6 py-2 rounded-full border border-white/5 backdrop-blur-sm">
-                    <a href="#episodes" class="nav-link text-sm font-medium text-neutral-400 hover:text-gold transition-colors relative group">Work<span></span></a>
-                    <a href="#notebook" class="nav-link text-sm font-medium text-neutral-400 hover:text-gold transition-colors relative group">Notebook<span></span></a>
-                    <a href="#stack" class="nav-link text-sm font-medium text-neutral-400 hover:text-gold transition-colors relative group">Stack<span></span></a>
-                    <a href="#philosophy" class="nav-link text-sm font-medium text-neutral-400 hover:text-gold transition-colors relative group">Philosophy<span></span></a>
-                </div>
+    <!-- Portfolio Navigation -->
+    <link rel="stylesheet" href="css/style.min.css">
 
-                <div class="flex items-center gap-4">
-                    <a href="https://www.youtube.com/@zakih.8815" target="_blank" class="hidden md:flex text-xs font-mono uppercase tracking-widest hover:text-gold transition-colors items-center gap-2">
-                        <i data-lucide="youtube" class="w-4 h-4"></i> Subscribe
-                    </a>
-                    <button id="mobile-menu-btn" class="md:hidden text-white cursor-pointer">
-                        <i data-lucide="menu"></i>
-                    </button>
-                </div>
-            </div>
-        </nav>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link" style="position: absolute; top: -40px; left: 0; background: var(--accent-gold, #D4AF37); color: #000; padding: 8px; z-index: 100;">Skip to main content</a>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center gap-8 hidden animate-fade-in">
-            <button id="close-menu-btn" class="absolute top-8 right-8 text-white">
-                <i data-lucide="x" class="w-8 h-8"></i>
-            </button>
-            <a href="#episodes" class="mobile-link text-2xl font-serif hover:text-gold">Episodes</a>
-            <a href="#notebook" class="mobile-link text-2xl font-serif hover:text-gold">Notebook</a>
-            <a href="#stack" class="mobile-link text-2xl font-serif hover:text-gold">The Stack</a>
-            <a href="#philosophy" class="mobile-link text-2xl font-serif hover:text-gold">Philosophy</a>
-            <div class="mt-8">
-                <a href="https://www.youtube.com/@zakih.8815" target="_blank" class="bg-gold text-black px-8 py-3 rounded-full font-medium flex items-center gap-2">
-                    Subscribe on YouTube
-                </a>
-            </div>
+    <!-- Slide-out Menu -->
+    <div class="slide-menu-overlay" aria-hidden="true"></div>
+    <nav id="mobile-slide-menu" class="slide-menu" aria-label="Mobile navigation" aria-hidden="true">
+        <div class="slide-menu-header">
+            <span class="slide-menu-logo">ZAKI</span>
+            <button class="slide-menu-close" data-menu-initial="true" aria-label="Close navigation menu">&times;</button>
         </div>
+        <ul class="slide-menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="tech.html">Tech</a></li>
+            <li><a href="podcast.html" class="active">Podcast</a></li>
+            <li><a href="knowledge/">Knowledge</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Desktop Navigation -->
+    <nav id="mainNav" class="nav-expanded" aria-label="Main navigation" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px);">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ZAKI<span class="nav-shape" data-page="podcast">●</span></a>
+            <ul class="nav-links">
+                <li><a href="research.html">RESEARCH</a></li>
+                <li><a href="music.html">MUSIC</a></li>
+                <li><a href="tech.html">TECH</a></li>
+                <li><a href="podcast.html" style="color: var(--accent-gold, #D4AF37);">PODCAST</a></li>
+                <li><a href="knowledge/">KNOWLEDGE</a></li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+            <!-- Mobile Hamburger Menu -->
+            <button class="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-slide-menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="relative z-10 min-h-screen flex flex-col" style="padding-top: 80px;">
 
         <!-- Hero Section -->
-        <header class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20">
+        <header id="main-content" class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20">
             <!-- Background Gradients -->
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gold opacity-[0.04] blur-[120px] rounded-full pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 w-[800px] h-[800px] bg-purple-900 opacity-[0.03] blur-[120px] rounded-full pointer-events-none"></div>
@@ -549,8 +555,15 @@
                 
                 <div class="flex gap-12">
                     <div class="flex flex-col gap-4">
-                        <h4 class="font-mono text-xs text-gold uppercase tracking-widest">Sitemap</h4>
-                        <a href="#episodes" class="text-sm text-neutral-400 hover:text-white">Work</a>
+                        <h4 class="font-mono text-xs text-gold uppercase tracking-widest">Portfolio</h4>
+                        <a href="index.html" class="text-sm text-neutral-400 hover:text-white">Home</a>
+                        <a href="research.html" class="text-sm text-neutral-400 hover:text-white">Research</a>
+                        <a href="music.html" class="text-sm text-neutral-400 hover:text-white">Music</a>
+                        <a href="tech.html" class="text-sm text-neutral-400 hover:text-white">Tech</a>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h4 class="font-mono text-xs text-gold uppercase tracking-widest">Podcast</h4>
+                        <a href="#episodes" class="text-sm text-neutral-400 hover:text-white">Episodes</a>
                         <a href="#notebook" class="text-sm text-neutral-400 hover:text-white">Notebook</a>
                         <a href="#stack" class="text-sm text-neutral-400 hover:text-white">Stack</a>
                     </div>
@@ -558,7 +571,7 @@
                         <h4 class="font-mono text-xs text-gold uppercase tracking-widest">Connect</h4>
                         <a href="https://www.youtube.com/@zakih.8815" class="text-sm text-neutral-400 hover:text-white flex items-center gap-2"><i data-lucide="youtube" class="w-3 h-3"></i> YouTube</a>
                         <a href="https://scilent.substack.com/" class="text-sm text-neutral-400 hover:text-white flex items-center gap-2"><i data-lucide="book-open" class="w-3 h-3"></i> Substack</a>
-                        <a href="#" class="text-sm text-neutral-400 hover:text-white flex items-center gap-2"><i data-lucide="instagram" class="w-3 h-3"></i> Instagram</a>
+                        <a href="contact.html" class="text-sm text-neutral-400 hover:text-white">Contact</a>
                     </div>
                 </div>
             </div>
@@ -574,41 +587,38 @@
         // 1. Initialize Icons
         lucide.createIcons();
 
-        // 2. Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        const navTitle = document.querySelector('.nav-title');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-black/80', 'backdrop-blur-xl', 'border', 'border-white/10', 'rounded-full', 'py-3', 'shadow-2xl');
-                navbar.classList.remove('bg-transparent', 'py-6');
-                navTitle?.classList.remove('hidden');
-            } else {
-                navbar.classList.remove('bg-black/80', 'backdrop-blur-xl', 'border', 'border-white/10', 'rounded-full', 'py-3', 'shadow-2xl');
-                navbar.classList.add('bg-transparent', 'py-6');
-                navTitle?.classList.add('hidden');
-            }
-        });
+        // 2. Portfolio Navigation Menu
+        const hamburgerBtn = document.querySelector('.hamburger-btn');
+        const slideMenu = document.getElementById('mobile-slide-menu');
+        const slideMenuOverlay = document.querySelector('.slide-menu-overlay');
+        const slideMenuClose = document.querySelector('.slide-menu-close');
 
-        // 3. Mobile Menu Toggle
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        function toggleMenu() {
-            mobileMenu.classList.toggle('hidden');
+        function openSlideMenu() {
+            slideMenu.classList.add('active');
+            slideMenuOverlay.classList.add('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'true');
+            slideMenu.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
         }
 
-        menuBtn.addEventListener('click', toggleMenu);
-        closeMenuBtn.addEventListener('click', toggleMenu);
-        
-        // Close menu when a link is clicked
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
+        function closeSlideMenu() {
+            slideMenu.classList.remove('active');
+            slideMenuOverlay.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+            slideMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        hamburgerBtn?.addEventListener('click', openSlideMenu);
+        slideMenuClose?.addEventListener('click', closeSlideMenu);
+        slideMenuOverlay?.addEventListener('click', closeSlideMenu);
+
+        // Close menu when link clicked
+        document.querySelectorAll('.slide-menu-links a').forEach(link => {
+            link.addEventListener('click', closeSlideMenu);
         });
 
-        // 4. Spotlight Effect
+        // 3. Spotlight Effect
         const spotlightCards = document.querySelectorAll('.spotlight-card');
         
         spotlightCards.forEach(card => {
