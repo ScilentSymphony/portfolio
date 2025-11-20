@@ -190,10 +190,10 @@
 
             <div class="text-center max-w-5xl mx-auto space-y-8 relative z-10">
                 <div class="flex justify-center mb-6">
-                    <div class="px-4 py-1.5 rounded-full border border-gold/20 bg-black/50 text-gold text-xs font-mono uppercase tracking-[0.2em] backdrop-blur-md flex items-center gap-2 shadow-[0_0_15px_-3px_rgba(212,175,55,0.1)]">
+                    <a href="contact.html" class="px-4 py-1.5 rounded-full border border-gold/20 bg-black/50 text-gold text-xs font-mono uppercase tracking-[0.2em] backdrop-blur-md flex items-center gap-2 shadow-[0_0_15px_-3px_rgba(212,175,55,0.1)] hover:bg-gold/10 hover:border-gold/40 transition-all duration-300">
                         <span class="w-1.5 h-1.5 bg-gold rounded-full animate-pulse"></span>
-                        Available for Research & Commission
-                    </div>
+                        Available for Consulting & Commissions
+                    </a>
                 </div>
                 
                 <h1 class="text-6xl md:text-8xl lg:text-9xl font-serif font-medium tracking-tight leading-[0.9] text-white">
@@ -340,10 +340,10 @@
                             Newsletter
                         </div>
                         <h4 class="text-xl font-serif mb-4 text-white">Join the inner circle.</h4>
-                        <div class="flex gap-2">
-                            <input type="email" placeholder="Enter email address" class="flex-grow bg-white/5 border border-white/10 rounded px-4 py-3 text-sm focus:border-gold focus:outline-none transition-colors text-white placeholder-white/30">
-                            <button class="bg-gold text-black px-6 rounded font-medium hover:bg-[#C5A028] transition-colors">Subscribe</button>
-                        </div>
+                        <form action="https://scilent.substack.com/subscribe" method="post" target="_blank" class="flex gap-2">
+                            <input type="email" name="email" placeholder="Enter email address" required class="flex-grow bg-white/5 border border-white/10 rounded px-4 py-3 text-sm focus:border-gold focus:outline-none transition-colors text-white placeholder-white/30">
+                            <button type="submit" class="bg-gold text-black px-6 rounded font-medium hover:bg-[#C5A028] transition-colors">Subscribe</button>
+                        </form>
                     </div>
                 </div>
 
