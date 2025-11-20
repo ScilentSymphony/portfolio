@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ze Podcast | Meta-Critical Analysis</title>
+    <meta name="description" content="Improvised, minimal-edit commentary with receipts. Dissecting rhetoric, media, and communication.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#D4AF37',
+                        'bg-dark': '#000000',
+                        'bg-card': '#0A0A0A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --gold: #D4AF37;
+        }
+
+        body {
+            background-color: #000000;
+            color: #F6F6F6;
+            overflow-x: hidden;
+        }
+
+        /* Noise Overlay */
+        .noise-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.04;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        /* Spotlight Effect */
+        .spotlight-card {
+            position: relative;
+            overflow: hidden;
+            background-color: #0A0A0A;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.5s;
+        }
+
+        .spotlight-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .spotlight-card::before {
+            content: "";
+            border-radius: inherit;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: radial-gradient(
+                800px circle at var(--mouse-x) var(--mouse-y), 
+                rgba(212, 175, 55, 0.08),
+                transparent 40%
+            );
+            transition: opacity 0.5s;
+        }
+
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fade-in { animation: fade-in 0.3s ease-out forwards; }
+
+        /* Utility for nav underline hover */
+        .nav-link span {
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--gold);
+            transition: width 0.3s;
+        }
+        .nav-link:hover span {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Noise Background -->
+    <div class="noise-bg"></div>
+
+    <div class="relative z-10 min-h-screen flex flex-col">
+        
+        <!-- Navbar -->
+        <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-5xl transition-all duration-500 bg-transparent py-6">
+            <div class="px-6 md:px-8 flex justify-between items-center">
+                <a href="#" class="text-xl font-serif font-bold tracking-tight flex items-center gap-2">
+                    <span class="w-8 h-8 bg-gold text-black rounded flex items-center justify-center font-bold text-sm">ZP</span>
+                    <span class="hidden md:inline nav-title transition-opacity duration-300">Ze Podcast</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 bg-black/40 px-6 py-2 rounded-full border border-white/5 backdrop-blur-sm">
+                    <a href="#episodes" class="nav-link text-sm font-medium text-neutral-400 hover:text-gold transition-colors relative group">Work<span></span></a>
+                    <a href="#notebook" class="nav-link text-sm font-medium text-neutral-400 hover:text-gold transition-colors relative group">Notebook<span></span></a>
+                    <a href="#stack" class="nav-link text-sm font-medium text-neutral-400 hover:text-gold transition-colors relative group">Stack<span></span></a>
+                    <a href="#philosophy" class="nav-link text-sm font-medium text-neutral-400 hover:text-gold transition-colors relative group">Philosophy<span></span></a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="https://www.youtube.com/@zakih.8815" target="_blank" class="hidden md:flex text-xs font-mono uppercase tracking-widest hover:text-gold transition-colors items-center gap-2">
+                        <i data-lucide="youtube" class="w-4 h-4"></i> Subscribe
+                    </a>
+                    <button id="mobile-menu-btn" class="md:hidden text-white cursor-pointer">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center gap-8 hidden animate-fade-in">
+            <button id="close-menu-btn" class="absolute top-8 right-8 text-white">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <a href="#episodes" class="mobile-link text-2xl font-serif hover:text-gold">Episodes</a>
+            <a href="#notebook" class="mobile-link text-2xl font-serif hover:text-gold">Notebook</a>
+            <a href="#stack" class="mobile-link text-2xl font-serif hover:text-gold">The Stack</a>
+            <a href="#philosophy" class="mobile-link text-2xl font-serif hover:text-gold">Philosophy</a>
+            <div class="mt-8">
+                <a href="https://www.youtube.com/@zakih.8815" target="_blank" class="bg-gold text-black px-8 py-3 rounded-full font-medium flex items-center gap-2">
+                    Subscribe on YouTube
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <header class="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20">
+            <!-- Background Gradients -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gold opacity-[0.04] blur-[120px] rounded-full pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-[800px] h-[800px] bg-purple-900 opacity-[0.03] blur-[120px] rounded-full pointer-events-none"></div>
+
+            <div class="text-center max-w-5xl mx-auto space-y-8 relative z-10">
+                <div class="flex justify-center mb-6">
+                    <div class="px-4 py-1.5 rounded-full border border-gold/20 bg-black/50 text-gold text-xs font-mono uppercase tracking-[0.2em] backdrop-blur-md flex items-center gap-2 shadow-[0_0_15px_-3px_rgba(212,175,55,0.1)]">
+                        <span class="w-1.5 h-1.5 bg-gold rounded-full animate-pulse"></span>
+                        Available for Research & Commission
+                    </div>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-serif font-medium tracking-tight leading-[0.9] text-white">
+                    How ideas <br/>
+                    <span class="italic font-light text-gold">persuade.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed font-light">
+                    Metacritical analysis for the modern age. We dissect rhetoric, media, and culture through improvised commentary and rigorous receipt-checking.
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-6 justify-center pt-8">
+                    <a href="#episodes" class="relative group overflow-hidden px-8 py-3 rounded-full font-medium text-sm tracking-wide transition-all duration-300 flex items-center gap-2 w-fit bg-gold text-black hover:bg-[#C5A028] shadow-[0_0_20px_-5px_rgba(212,175,55,0.3)]">
+                        <span class="relative z-10 flex items-center gap-2">Watch Latest Deep Dive <i data-lucide="play" class="w-3 h-3 fill-current"></i></span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    </a>
+                    <a href="#philosophy" class="relative group overflow-hidden px-8 py-3 rounded-full font-medium text-sm tracking-wide transition-all duration-300 flex items-center gap-2 w-fit bg-white/5 border border-white/10 text-[#F6F6F6] hover:bg-white/10 hover:border-gold/50">
+                        <span class="relative z-10">Read The Manifesto</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 animate-bounce">
+                <span class="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
+                <div class="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
+            </div>
+        </header>
+
+        <!-- Episodes Section -->
+        <section id="episodes" class="py-32 px-6 max-w-7xl mx-auto">
+            <div class="flex items-end justify-between mb-16">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-serif mb-4 text-white">Selected Work</h2>
+                    <p class="text-neutral-400">Deep dives, autopsies, and technical explorations.</p>
+                </div>
+                <a href="https://www.youtube.com/@zakih.8815" class="hidden md:flex items-center gap-2 text-gold hover:text-white transition-colors border-b border-gold pb-1">
+                    View Full Archive <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
+                <!-- Large Card -->
+                <div class="spotlight-card group h-full flex flex-col md:col-span-2 rounded-2xl">
+                    <a href="https://www.youtube.com/watch?v=-uVYLpKZn1c" target="_blank" class="block h-full flex flex-col relative z-10">
+                        <div class="relative overflow-hidden aspect-video md:aspect-[21/9]">
+                            <img src="https://img.youtube.com/vi/-uVYLpKZn1c/maxresdefault.jpg" alt="Brother I am Troubled" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-out filter brightness-75 group-hover:brightness-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-90"></div>
+                            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                                <div class="w-10 h-10 rounded-full bg-gold/90 flex items-center justify-center text-black backdrop-blur-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                                    <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                </div>
+                                <span class="px-2 py-1 bg-black/80 backdrop-blur border border-white/10 rounded text-xs font-mono text-white/80">28:07</span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow bg-gradient-to-b from-[#0A0A0A] to-black">
+                            <div class="flex gap-2 mb-4">
+                                <span class="text-[10px] font-mono uppercase tracking-wider text-gold border border-gold/20 bg-gold/5 px-2 py-1 rounded">Analysis</span>
+                                <span class="text-[10px] font-mono uppercase tracking-wider text-gold border border-gold/20 bg-gold/5 px-2 py-1 rounded">Critique</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-[#F6F6F6] mb-3 group-hover:text-gold transition-colors leading-tight text-2xl md:text-3xl">Media Deep Dive: Brother, I am Troubled</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">A metacritical analysis of Burial Goods' masterpiece. We dissect how allegory weaponizes irony and how rhetoric becomes a form of resistance.</p>
+                            <div class="flex items-center text-white/40 text-xs font-mono uppercase tracking-widest group-hover:text-gold transition-colors mt-auto">
+                                Watch Video <i data-lucide="arrow-right" class="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Standard Card 1 -->
+                <div class="spotlight-card group h-full flex flex-col rounded-2xl">
+                    <a href="https://www.youtube.com/watch?v=oHAZxVkhpGg" target="_blank" class="block h-full flex flex-col relative z-10">
+                        <div class="relative overflow-hidden aspect-video">
+                            <img src="https://img.youtube.com/vi/oHAZxVkhpGg/maxresdefault.jpg" alt="Thesis Defense" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-out filter brightness-75 group-hover:brightness-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-90"></div>
+                            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                                <div class="w-10 h-10 rounded-full bg-gold/90 flex items-center justify-center text-black backdrop-blur-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                                    <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                </div>
+                                <span class="px-2 py-1 bg-black/80 backdrop-blur border border-white/10 rounded text-xs font-mono text-white/80">23:38</span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow bg-gradient-to-b from-[#0A0A0A] to-black">
+                            <div class="flex gap-2 mb-4">
+                                <span class="text-[10px] font-mono uppercase tracking-wider text-gold border border-gold/20 bg-gold/5 px-2 py-1 rounded">Public Speaking</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-[#F6F6F6] mb-3 group-hover:text-gold transition-colors leading-tight text-xl">Self-Scrutiny: My Thesis Defense</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">Applying my own techniques in a high-stakes academic setting.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Standard Card 2 -->
+                <div class="spotlight-card group h-full flex flex-col rounded-2xl">
+                    <a href="https://www.youtube.com/watch?v=FIUiLgHuT2E" target="_blank" class="block h-full flex flex-col relative z-10">
+                        <div class="relative overflow-hidden aspect-video">
+                            <img src="https://img.youtube.com/vi/FIUiLgHuT2E/maxresdefault.jpg" alt="AI Website" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-out filter brightness-75 group-hover:brightness-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-90"></div>
+                             <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                                <div class="w-10 h-10 rounded-full bg-gold/90 flex items-center justify-center text-black backdrop-blur-md transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                                    <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                </div>
+                                <span class="px-2 py-1 bg-black/80 backdrop-blur border border-white/10 rounded text-xs font-mono text-white/80">15:30</span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow bg-gradient-to-b from-[#0A0A0A] to-black">
+                            <div class="flex gap-2 mb-4">
+                                <span class="text-[10px] font-mono uppercase tracking-wider text-gold border border-gold/20 bg-gold/5 px-2 py-1 rounded">Workflow</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-[#F6F6F6] mb-3 group-hover:text-gold transition-colors leading-tight text-xl">Building an AI Portfolio in 24h</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">Documenting the process of building this very site using Claude Code.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Info Card -->
+                <div class="md:col-span-2 bg-gold rounded-2xl p-10 flex flex-col md:flex-row items-center justify-between relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-multiply"></div>
+                    <div class="relative z-10 text-black max-w-lg">
+                        <h3 class="text-3xl font-serif font-bold mb-4">The Media Autopsy</h3>
+                        <p class="font-medium opacity-80 mb-6">Our signature format. 15 minutes. One artifact. We dismantle the claim, show the receipts, and offer a transferrable fix.</p>
+                        <button class="px-6 py-3 bg-black text-gold rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2">
+                            Explore the Format <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="relative z-10 mt-8 md:mt-0">
+                        <i data-lucide="scissors" class="w-32 h-32 opacity-20 rotate-12 group-hover:rotate-0 transition-transform duration-700"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notebook Section -->
+        <section id="notebook" class="py-32 bg-[#050505] border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20">
+                <div class="space-y-8">
+                    <h2 class="text-4xl md:text-6xl font-serif text-white">The Notebook</h2>
+                    <p class="text-lg text-neutral-400 leading-relaxed">
+                        Thoughts that don't fit in a video. Essays on communication theory, quick rhetorical breakdowns, and updates from the lab.
+                    </p>
+                    
+                    <div class="p-8 bg-black border border-white/10 rounded-xl relative">
+                        <div class="absolute -top-3 left-8 px-3 py-1 bg-gold text-black text-[10px] font-bold uppercase tracking-widest rounded">
+                            Newsletter
+                        </div>
+                        <h4 class="text-xl font-serif mb-4 text-white">Join the inner circle.</h4>
+                        <div class="flex gap-2">
+                            <input type="email" placeholder="Enter email address" class="flex-grow bg-white/5 border border-white/10 rounded px-4 py-3 text-sm focus:border-gold focus:outline-none transition-colors text-white placeholder-white/30">
+                            <button class="bg-gold text-black px-6 rounded font-medium hover:bg-[#C5A028] transition-colors">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="flex items-center gap-4 mb-8">
+                        <i data-lucide="book-open" class="text-gold"></i>
+                        <span class="font-mono text-sm text-gold uppercase tracking-widest">Latest Notes</span>
+                    </div>
+                    
+                    <!-- Note 1 -->
+                    <a href="https://substack.com/@scilent/note/p-179463514" target="_blank" class="group block border-l border-white/10 pl-6 hover:border-gold transition-colors py-2">
+                        <div class="flex items-center gap-3 text-xs text-gold font-mono mb-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                            <span>Nov 2025</span>
+                            <span class="w-1 h-1 bg-current rounded-full"></span>
+                            <span>3 min</span>
+                        </div>
+                        <h4 class="text-lg font-medium text-[#F6F6F6] mb-2 group-hover:text-gold transition-colors">How to Tell If a TED Talk Is Actually Teaching You</h4>
+                        <p class="text-sm text-neutral-400 leading-relaxed line-clamp-2 group-hover:text-white/80 transition-colors">You finish watching. You feel smarter, inspired, maybe even moved. Two days later, you can’t remember the main idea, let alone apply it.</p>
+                    </a>
+
+                    <!-- Note 2 -->
+                    <a href="https://substack.com/@scilent/note/p-178191959" target="_blank" class="group block border-l border-white/10 pl-6 hover:border-gold transition-colors py-2">
+                        <div class="flex items-center gap-3 text-xs text-gold font-mono mb-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                            <span>Oct 2025</span>
+                            <span class="w-1 h-1 bg-current rounded-full"></span>
+                            <span>2 min</span>
+                        </div>
+                        <h4 class="text-lg font-medium text-[#F6F6F6] mb-2 group-hover:text-gold transition-colors">Why Adding More Evidence Makes Your Point Weaker</h4>
+                        <p class="text-sm text-neutral-400 leading-relaxed line-clamp-2 group-hover:text-white/80 transition-colors">You think five examples prove your case better than two. You’re wrong. Every weak receipt you add lowers the average strength of your argument.</p>
+                    </a>
+
+                     <!-- Note 3 -->
+                     <a href="https://substack.com/@scilent/note/p-178190787" target="_blank" class="group block border-l border-white/10 pl-6 hover:border-gold transition-colors py-2">
+                        <div class="flex items-center gap-3 text-xs text-gold font-mono mb-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                            <span>Oct 2025</span>
+                            <span class="w-1 h-1 bg-current rounded-full"></span>
+                            <span>4 min</span>
+                        </div>
+                        <h4 class="text-lg font-medium text-[#F6F6F6] mb-2 group-hover:text-gold transition-colors">The Receipts Are In: Autopsying My Own Thesis Defense</h4>
+                        <p class="text-sm text-neutral-400 leading-relaxed line-clamp-2 group-hover:text-white/80 transition-colors">I’ve spent months dissecting TED talks and viral videos. Time to turn the lens on myself and see where I left value on the table.</p>
+                    </a>
+
+                    <a href="https://scilent.substack.com/" class="inline-block mt-8 text-sm font-bold text-gold hover:underline">Read all notes on Substack &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stack Section -->
+        <section id="stack" class="py-32 px-6 max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5">
+                    <div class="inline-flex items-center gap-2 mb-6 text-gold">
+                        <i data-lucide="terminal" class="w-5 h-5"></i>
+                        <span class="font-mono text-xs uppercase tracking-widest">Production Pipeline</span>
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-serif mb-6 text-white">The Stack</h2>
+                    <p class="text-neutral-400 text-lg leading-relaxed mb-8">
+                        We don't just talk; we build. The production pipeline leverages procedural generation and code-based animation to visualize complex ideas with mathematical precision.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 group">
+                            <div class="p-2 bg-white/5 rounded-lg text-gold group-hover:bg-gold group-hover:text-black transition-all">
+                                <i data-lucide="video" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#F6F6F6]">Premiere Pro</h4>
+                                <p class="text-sm text-neutral-400">Main Assembly & MOGRTS</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div class="p-2 bg-white/5 rounded-lg text-gold group-hover:bg-gold group-hover:text-black transition-all">
+                                <i data-lucide="bar-chart" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#F6F6F6]">Cavalry</h4>
+                                <p class="text-sm text-neutral-400">Procedural Motion & Data Charts</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 group">
+                            <div class="p-2 bg-white/5 rounded-lg text-gold group-hover:bg-gold group-hover:text-black transition-all">
+                                <i data-lucide="code" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#F6F6F6]">Manim (Python)</h4>
+                                <p class="text-sm text-neutral-400">Math Plots & Timeline Builds</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal Visual -->
+                <div class="lg:col-span-7">
+                    <div class="relative bg-black border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+                        <div class="bg-[#0A0A0A] px-4 py-3 border-b border-white/5 flex items-center gap-4">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                            </div>
+                            <div class="font-mono text-xs text-neutral-600 flex-grow text-center">workflow_v01.json</div>
+                        </div>
+                        <div class="p-6 font-mono text-sm space-y-4 text-neutral-400">
+                             <div class="flex gap-4">
+                                <span class="text-gold w-6 shrink-0">1</span>
+                                <span><span class="text-purple-400">import</span> <span class="text-white">Manim</span> <span class="text-purple-400">as</span> <span class="text-white">mn</span></span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gold w-6 shrink-0">2</span>
+                                <span><span class="text-purple-400">class</span> <span class="text-yellow-300">MediaAutopsy</span>(<span class="text-white">mn.Scene</span>):</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gold w-6 shrink-0">3</span>
+                                <span class="ml-4"><span class="text-purple-400">def</span> <span class="text-blue-400">construct</span>(<span class="text-orange-300">self</span>):</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gold w-6 shrink-0">4</span>
+                                <span class="ml-8 text-gray-600"># Generate procedural rhetoric viz</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gold w-6 shrink-0">5</span>
+                                <span class="ml-8">claim = <span class="text-green-400">"Authenticity"</span></span>
+                            </div>
+                             <div class="flex gap-4">
+                                <span class="text-gold w-6 shrink-0">6</span>
+                                <span class="ml-8">self.play(Write(claim), run_time=<span class="text-orange-300">2.5</span>)</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <span class="text-gold w-6 shrink-0">7</span>
+                                <span class="ml-8 animate-pulse text-gold">_</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="py-32 px-6 bg-black relative overflow-hidden">
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 text-[20vw] font-serif font-bold text-white/[0.02] leading-none pointer-events-none">JTBD</div>
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="md:col-span-1">
+                        <h2 class="text-5xl font-serif mb-8 text-white">Philosophy</h2>
+                        <div class="space-y-12 border-l border-white/10 pl-8">
+                            <div>
+                                <h4 class="text-gold font-bold mb-2">The Problem</h4>
+                                <p class="text-neutral-400">Short-form fatigue. Weak meta-analysis. Lack of actionable rhetorical tools.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-gold font-bold mb-2">The Goal</h4>
+                                <p class="text-neutral-400">To recognize media's influence, apply techniques in teaching, and engage critically.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-gold font-bold mb-2">The Values</h4>
+                                <p class="text-neutral-400">Depth. Authenticity (Minimal Edit). Balance (Critique + Praise).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 grid gap-4">
+                        <!-- Card 1 -->
+                        <div class="spotlight-card p-8 flex items-start gap-6 rounded-2xl relative z-10">
+                            <div class="p-3 bg-white/5 rounded-lg text-gold">
+                                <i data-lucide="activity" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Situation</span>
+                                <h3 class="text-xl font-medium mt-1 text-[#F6F6F6]">When I watch cultural content...</h3>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="spotlight-card p-8 flex items-start gap-6 rounded-2xl relative z-10">
+                            <div class="p-3 bg-white/5 rounded-lg text-gold">
+                                <i data-lucide="search" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Motivation</span>
+                                <h3 class="text-xl font-medium mt-1 text-[#F6F6F6]">I want to understand the rhetorical devices, hooks, and delivery techniques...</h3>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="spotlight-card p-8 flex items-start gap-6 bg-gold/10 border-gold/20 rounded-2xl relative z-10">
+                            <div class="p-3 bg-gold rounded-lg text-black">
+                                <i data-lucide="zap" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono text-gold uppercase tracking-widest">Outcome</span>
+                                <h3 class="text-xl font-medium mt-1 text-[#F6F6F6]">So I can apply them in my own speaking and engage more critically.</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-20 border-t border-white/10 bg-black">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start gap-12">
+                <div>
+                    <a href="#" class="text-2xl font-serif font-bold tracking-tight flex items-center gap-2 mb-6">
+                        <span class="w-8 h-8 bg-gold text-black rounded flex items-center justify-center font-bold text-sm">ZP</span>
+                        Ze Podcast
+                    </a>
+                    <p class="text-neutral-400 max-w-xs text-sm leading-relaxed">
+                        Dissecting media, one frame at a time. Built for students, creators, and critical thinkers in Florida and beyond.
+                    </p>
+                </div>
+                
+                <div class="flex gap-12">
+                    <div class="flex flex-col gap-4">
+                        <h4 class="font-mono text-xs text-gold uppercase tracking-widest">Sitemap</h4>
+                        <a href="#episodes" class="text-sm text-neutral-400 hover:text-white">Work</a>
+                        <a href="#notebook" class="text-sm text-neutral-400 hover:text-white">Notebook</a>
+                        <a href="#stack" class="text-sm text-neutral-400 hover:text-white">Stack</a>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <h4 class="font-mono text-xs text-gold uppercase tracking-widest">Connect</h4>
+                        <a href="https://www.youtube.com/@zakih.8815" class="text-sm text-neutral-400 hover:text-white flex items-center gap-2"><i data-lucide="youtube" class="w-3 h-3"></i> YouTube</a>
+                        <a href="https://scilent.substack.com/" class="text-sm text-neutral-400 hover:text-white flex items-center gap-2"><i data-lucide="book-open" class="w-3 h-3"></i> Substack</a>
+                        <a href="#" class="text-sm text-neutral-400 hover:text-white flex items-center gap-2"><i data-lucide="instagram" class="w-3 h-3"></i> Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-white/5 flex justify-between items-center text-xs text-neutral-600 font-mono">
+                <span>&copy; 2025 Ze Podcast. All rights reserved.</span>
+                <span>Designed with &hearts; in Florida.</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts for Interactivity -->
+    <script>
+        // 1. Initialize Icons
+        lucide.createIcons();
+
+        // 2. Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        const navTitle = document.querySelector('.nav-title');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/80', 'backdrop-blur-xl', 'border', 'border-white/10', 'rounded-full', 'py-3', 'shadow-2xl');
+                navbar.classList.remove('bg-transparent', 'py-6');
+                navTitle?.classList.remove('hidden');
+            } else {
+                navbar.classList.remove('bg-black/80', 'backdrop-blur-xl', 'border', 'border-white/10', 'rounded-full', 'py-3', 'shadow-2xl');
+                navbar.classList.add('bg-transparent', 'py-6');
+                navTitle?.classList.add('hidden');
+            }
+        });
+
+        // 3. Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // 4. Spotlight Effect
+        const spotlightCards = document.querySelectorAll('.spotlight-card');
+        
+        spotlightCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
