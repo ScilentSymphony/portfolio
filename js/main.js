@@ -128,45 +128,73 @@ document.addEventListener('DOMContentLoaded', function() {
   handleScroll();
 
 
-  // ===== HERO ENTRANCE ANIMATIONS =====
-  // Animate hero elements on page load with staggered timing
+  // ===== HERO ENTRANCE ANIMATIONS WITH MASK REVEALS =====
+  // Premium reveal effect: elements slide up from behind a mask
 
-  // Main title - fade in from below
   if (gsapAvailable) {
-    gsapInstance.from('.hero h1', {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      ease: 'power3.out',
-      delay: 0.2
-    });
+    // Wrap hero text elements for mask reveal
+    const heroH1 = document.querySelector('.hero h1');
+    const heroTagline = document.querySelector('.tagline');
+    const heroSubtitle = document.querySelector('.subtitle');
+
+    // Apply mask reveal animation to hero elements
+    if (heroH1 && !heroH1.classList.contains('mask-reveal')) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'mask-reveal';
+      heroH1.parentNode.insertBefore(wrapper, heroH1);
+      wrapper.appendChild(heroH1);
+
+      gsapInstance.to(heroH1, {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power3.out',
+        delay: 0.3
+      });
+    } else if (heroH1) {
+      // Fallback to regular animation if mask setup fails
+      gsapInstance.from(heroH1, {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 0.2
+      });
+    }
 
     // Tagline - follows title
-    gsapInstance.from('.tagline', {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      ease: 'power3.out',
-      delay: 0.5
-    });
+    if (heroTagline) {
+      gsapInstance.from(heroTagline, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 0.6
+      });
+    }
 
     // Subtitle - follows tagline
-    gsapInstance.from('.subtitle', {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      ease: 'power3.out',
-      delay: 0.7
-    });
+    if (heroSubtitle) {
+      gsapInstance.from(heroSubtitle, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 0.9
+      });
+    }
 
     // CTA buttons - last to appear
-    gsapInstance.from('.hero-cta', {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      ease: 'power3.out',
-      delay: 0.9
-    });
+    const heroCTA = document.querySelector('.hero-cta');
+    if (heroCTA) {
+      gsapInstance.from(heroCTA, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 1.2
+      });
+    }
   }
 
   // ===== INTERSECTION OBSERVER FOR LAZY ANIMATIONS =====
@@ -348,6 +376,133 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.textContent = originalBtnText;
       }
     });
+  }
+
+  // ===== MAGNETIC BUTTON MICRO-INTERACTIONS =====
+  const magneticButtons = document.querySelectorAll('.btn-primary');
+
+  magneticButtons.forEach(button => {
+    button.classList.add('magnetic');
+
+    button.addEventListener('mousemove', (e) => {
+      const rect = button.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      const maxDistance = 100; // Magnetic field radius
+
+      if (distance < maxDistance) {
+        const pull = 0.3; // How much the button moves toward cursor
+        const moveX = deltaX * pull;
+        const moveY = deltaY * pull;
+
+        if (gsapAvailable) {
+          gsapInstance.to(button, {
+            x: moveX,
+            y: moveY,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        } else {
+          button.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
+      }
+    });
+
+    button.addEventListener('mouseleave', () => {
+      if (gsapAvailable) {
+        gsapInstance.to(button, {
+          x: 0,
+          y: 0,
+          duration: 0.5,
+          ease: 'elastic.out(1, 0.5)'
+        });
+      } else {
+        button.style.transform = 'translate(0, 0)';
+      }
+    });
+  });
+
+  // ===== MULTI-SPEED PARALLAX SCROLLING =====
+  // Different elements move at different speeds to create depth
+
+  // Layer 1: Background elements (slowest - 0.3x speed)
+  const bgElements = document.querySelectorAll('.hero-shapes .shape');
+  // Layer 2: Images (medium - 0.7x speed)
+  const parallaxImages = document.querySelectorAll('.project-media img, .album-art, .about-image img, .thesis-image img');
+  // Layer 3: Cards (subtle - 0.95x speed)
+  const parallaxCards = document.querySelectorAll('.category-card, .release-card, .package-card');
+
+  if (parallaxImages.length > 0 || bgElements.length > 0 || parallaxCards.length > 0) {
+    const handleParallax = throttle(() => {
+      const scrollY = window.pageYOffset;
+
+      // Background shapes - slowest movement (0.3x)
+      bgElements.forEach(shape => {
+        if (gsapAvailable) {
+          gsapInstance.to(shape, {
+            y: scrollY * 0.3,
+            duration: 0.1,
+            ease: 'none',
+            overwrite: true
+          });
+        } else {
+          shape.style.transform = `translateY(${scrollY * 0.3}px)`;
+        }
+      });
+
+      // Images - medium movement (0.7x)
+      parallaxImages.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Only apply parallax if image is in viewport
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+          const parallaxOffset = (scrollProgress - 0.5) * 40; // Increased to 40px
+
+          if (gsapAvailable) {
+            gsapInstance.to(img, {
+              y: parallaxOffset,
+              duration: 0.1,
+              ease: 'none',
+              overwrite: true
+            });
+          } else {
+            img.style.transform = `translateY(${parallaxOffset}px)`;
+          }
+        }
+      });
+
+      // Cards - subtle movement (0.95x)
+      parallaxCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+          const parallaxOffset = (scrollProgress - 0.5) * 8; // Subtle 8px movement
+
+          if (gsapAvailable) {
+            gsapInstance.to(card, {
+              y: parallaxOffset,
+              duration: 0.1,
+              ease: 'none',
+              overwrite: true
+            });
+          } else {
+            card.style.transform = `translateY(${parallaxOffset}px)`;
+          }
+        }
+      });
+    }, 16); // Run at ~60fps
+
+    window.addEventListener('scroll', handleParallax, { passive: true });
+    handleParallax(); // Initial call
   }
 
   console.log('All scripts initialized');
