@@ -1,0 +1,207 @@
+/* ===== PREMIUM UI COMPONENTS ===== */
+/* Reusable design components for portfolio-wide consistency */
+
+/* ===== SPOTLIGHT CARD EFFECT ===== */
+/* Mouse-tracking radial gradient effect for interactive cards */
+/* Usage: Add class="spotlight-card" to any card element */
+
+.spotlight-card {
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(232, 232, 232, 0.03);
+    border: 1px solid rgba(232, 232, 232, 0.05);
+    transition: border-color 0.5s ease;
+    border-radius: 12px;
+}
+
+.spotlight-card:hover {
+    border-color: rgba(232, 197, 71, 0.3); /* --accent-gold with transparency */
+}
+
+.spotlight-card::before {
+    content: "";
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y),
+        rgba(232, 197, 71, 0.08),
+        transparent 40%
+    );
+    transition: opacity 0.5s ease;
+}
+
+.spotlight-card:hover::before {
+    opacity: 1;
+}
+
+/* Ensure content stays above spotlight effect */
+.spotlight-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== STATUS BADGE ===== */
+/* Animated status indicator badge */
+/* Usage: <div class="status-badge">Available for Work</div> */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    border: 1px solid rgba(232, 197, 71, 0.2);
+    background-color: rgba(10, 10, 10, 0.5);
+    color: var(--accent-gold, #E8C547);
+    font-size: 0.75rem;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 15px -3px rgba(232, 197, 71, 0.1);
+}
+
+.status-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-gold, #E8C547);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+/* ===== GRADIENT GLOW BACKGROUND ===== */
+/* Subtle background glow effect */
+/* Usage: Add to sections that need atmospheric depth */
+
+.gradient-glow {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.04;
+}
+
+.gradient-glow-gold {
+    background-color: var(--accent-gold, #E8C547);
+}
+
+.gradient-glow-wine {
+    background-color: var(--accent-wine, #6B2737);
+}
+
+.gradient-glow-sage {
+    background-color: var(--accent-sage, #8B9D83);
+}
+
+/* ===== HOVER LIFT EFFECT ===== */
+/* Subtle lift on hover for interactive elements */
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== TAG PILL ===== */
+/* Small category/tag indicators */
+/* Usage: <span class="tag-pill">Analysis</span> */
+
+.tag-pill {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.625rem;
+    font-family: var(--font-body, 'Inter', sans-serif);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-gold, #E8C547);
+    border: 1px solid rgba(232, 197, 71, 0.2);
+    background: rgba(232, 197, 71, 0.05);
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* ===== GLASS CARD ===== */
+/* Frosted glass morphism effect */
+
+.glass-card {
+    background: rgba(232, 232, 232, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(232, 232, 232, 0.1);
+    border-radius: 12px;
+}
+
+/* ===== ANIMATED UNDERLINE ===== */
+/* Smooth expanding underline for links */
+
+.animated-underline {
+    position: relative;
+    display: inline-block;
+}
+
+.animated-underline::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-gold, #E8C547);
+    transition: width 0.3s ease;
+}
+
+.animated-underline:hover::after {
+    width: 100%;
+}
+
+/* ===== FADE-IN ANIMATION ===== */
+/* Smooth fade-in for dynamic content */
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+}
+
+/* Stagger fade-in for lists */
+.stagger-fade-in > * {
+    opacity: 0;
+    animation: fade-in 0.4s ease-out forwards;
+}
+
+.stagger-fade-in > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-fade-in > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-fade-in > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-fade-in > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-fade-in > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-fade-in > *:nth-child(6) { animation-delay: 0.6s; }
