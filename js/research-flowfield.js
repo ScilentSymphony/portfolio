@@ -35,9 +35,28 @@
   const baseSpeed = 0.5;
   const trailFade = 0.08;
 
-  // Red color palette (wine/burgundy theme)
+  // Color palette - read from CSS variables for theme consistency
+  // Converts hex color from CSS variable to RGB object
+  function hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : {r: 107, g: 39, b: 55}; // fallback to wine
+  }
+
+  // Read wine color from CSS variable (--accent-wine)
+  const wineColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-wine').trim();
+  const baseWine = hexToRgb(wineColor);
+
+  // Generate color variations based on base wine color
   const colors = [
-    {r:107,g:39,b:55}, {r:164,g:85,b:108}, {r:74,g:26,b:37}, {r:200,g:90,b:110}, {r:130,g:50,b:70}
+    baseWine, // Base wine from CSS
+    {r: Math.min(255, baseWine.r + 57), g: Math.min(255, baseWine.g + 46), b: Math.min(255, baseWine.b + 53)}, // Lighter
+    {r: Math.max(0, baseWine.r - 33), g: Math.max(0, baseWine.g - 13), b: Math.max(0, baseWine.b - 18)}, // Darker
+    {r: Math.min(255, baseWine.r + 93), g: Math.min(255, baseWine.g + 51), b: Math.min(255, baseWine.b + 55)}, // Bright
+    {r: Math.min(255, baseWine.r + 23), g: Math.min(255, baseWine.g + 11), b: Math.min(255, baseWine.b + 15)} // Mid-tone
   ];
 
   const rand = (min, max) => Math.random() * (max - min) + min;

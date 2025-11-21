@@ -36,8 +36,32 @@
   const mouseInfluenceRadius = 200;
   const mouseDeformStrength = 30;
 
-  // Steel/blue color palette for tech page
-  const mainColor = {r:74,g:95,b:122}, softColor = {r:100,g:120,b:145}, highlightColor = {r:120,g:150,b:180};
+  // Steel/blue color palette - read from CSS variables for theme consistency
+  // Converts hex color from CSS variable to RGB object
+  function hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : {r: 74, g: 95, b: 122}; // fallback to steel
+  }
+
+  // Read steel color from CSS variable (--accent-steel)
+  const steelColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-steel').trim();
+  const mainColor = hexToRgb(steelColor);
+
+  // Generate color variations based on base steel color
+  const softColor = {
+    r: Math.min(255, mainColor.r + 26),
+    g: Math.min(255, mainColor.g + 25),
+    b: Math.min(255, mainColor.b + 23)
+  };
+  const highlightColor = {
+    r: Math.min(255, mainColor.r + 46),
+    g: Math.min(255, mainColor.g + 55),
+    b: Math.min(255, mainColor.b + 58)
+  };
 
   function lerp(a, b, t) {
     return a + (b - a) * t;

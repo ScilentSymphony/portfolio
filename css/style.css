@@ -38,6 +38,16 @@
 
   /* Current page accent (overridden by page classes) */
   --current-accent: var(--accent-gold);
+
+  /* Z-Index Layer System - prevents stacking context conflicts */
+  --z-behind: -1;           /* Behind normal content */
+  --z-base: 0;              /* Base layer (backgrounds, decorative) */
+  --z-content: 1;           /* Normal content */
+  --z-content-elevated: 2;  /* Elevated content (spotlight effects) */
+  --z-content-high: 10;     /* High priority content (nav links, buttons) */
+  --z-navigation: 1000;     /* Site navigation */
+  --z-overlay: 9998;        /* Modal/menu overlays */
+  --z-modal: 9999;          /* Modals, slide menus, critical UI */
 }
 
 * {
@@ -72,7 +82,7 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   opacity: 0.04;
   pointer-events: none;
-  z-index: 9999;
+  z-index: var(--z-modal);
   mix-blend-mode: overlay;
   animation: grain 8s steps(10) infinite;
   will-change: transform;
@@ -113,7 +123,7 @@ img {
   transition: filter 0.5s ease;
 }
 
-.project-card:hover .project-media img,
+.project-item:hover .project-media img,
 .release-card:hover .album-art,
 .about-image:hover img,
 .thesis-feature:hover .thesis-image img {
@@ -165,7 +175,7 @@ img {
   padding: 0.75rem 1rem;
   text-decoration: none;
   font-weight: 600;
-  z-index: 1000;
+  z-index: var(--z-navigation);
   border-radius: 0 0 4px 0;
 }
 
@@ -346,7 +356,7 @@ p {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: var(--z-navigation);
   background: rgba(10, 10, 10, 0.7);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
@@ -379,7 +389,7 @@ p {
   gap: 2rem;
   transition: opacity 0.3s ease;
   position: relative;
-  z-index: 10;
+  z-index: var(--z-content-high);
   pointer-events: auto;
 }
 
@@ -498,13 +508,13 @@ body.contact .nav-shape { color: var(--accent-gold); }
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: var(--z-base);
   pointer-events: none;
 }
 
 .hero > * {
   position: relative;
-  z-index: 1;
+  z-index: var(--z-content);
 }
 
 .shape {
@@ -641,7 +651,7 @@ body.contact .nav-shape { color: var(--accent-gold); }
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: var(--z-base);
   pointer-events: none;
   overflow: hidden;
 }
@@ -873,7 +883,7 @@ body:not(:focus-within) .blob {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  z-index: -1;
+  z-index: var(--z-behind);
   pointer-events: none;
   mix-blend-mode: lighten;
 }
@@ -1219,7 +1229,7 @@ body.menu-open {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
-  z-index: 9998;
+  z-index: var(--z-overlay);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -1242,7 +1252,7 @@ body.menu-open {
   height: 100%;
   background: rgba(10, 10, 10, 0.95);
   border-left: 1px solid var(--border-subtle);
-  z-index: 9999;
+  z-index: var(--z-modal);
   transform: translateX(30px);
   opacity: 0;
   visibility: hidden;
@@ -1871,31 +1881,50 @@ body.tech .btn-primary:hover {
   margin-top: 3rem;
 }
 
-.project-card {
+/* Project item wrapper - contains image and card side-by-side */
+.project-item {
   display: grid;
   grid-template-columns: 2fr 3fr;
   gap: 3rem;
   align-items: center;
+  margin-bottom: 3rem;
 }
 
-.project-card:nth-child(even) {
+.project-item:nth-child(even) {
   direction: rtl;
 }
 
-.project-card:nth-child(even) > * {
+.project-item:nth-child(even) > * {
   direction: ltr;
 }
 
+/* Project card - now just the text content with spotlight effect */
+.project-card {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Project media - separate from card with rounded corners */
 .project-media {
   aspect-ratio: 16/9;
   background: rgba(232, 232, 232, 0.05);
   border: 1px solid rgba(232, 232, 232, 0.1);
-  border-radius: 8px;
+  border-radius: 16px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
   color: var(--current-accent);
+}
+
+.project-media img {
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .project-content h3 {
@@ -2021,12 +2050,12 @@ body.tech .btn-primary:hover {
 }
 
 @media (max-width: 768px) {
-  .project-card {
+  .project-item {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .project-card:nth-child(even) {
+  .project-item:nth-child(even) {
     direction: ltr;
   }
 
