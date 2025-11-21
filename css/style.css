@@ -1884,7 +1884,7 @@ body.tech .btn-primary:hover {
 /* Project item wrapper - contains image and card side-by-side */
 .project-item {
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
   margin-bottom: 3rem;
