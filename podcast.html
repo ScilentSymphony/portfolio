@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+<!--
+  ╔══════════════════════════════════════════════════════════════════════════════╗
+  ║                           ZE PODCAST PAGE                                     ║
+  ║                      TECH STACK & DESIGN DECISION                             ║
+  ╚══════════════════════════════════════════════════════════════════════════════╝
+
+  This page intentionally uses a DIFFERENT tech stack from the rest of the portfolio:
+
+  PODCAST PAGE USES:
+  - Tailwind CSS (CDN-based utility framework)
+  - Lucide Icons (modern icon library)
+  - Inline spotlight card implementation
+  - Custom Tailwind configuration
+
+  WHY DIFFERENT?
+  1. BRAND IDENTITY - The podcast has its own visual identity and requires
+     unique styling that doesn't fit the portfolio's design system
+
+  2. RAPID PROTOTYPING - Tailwind allows for fast iteration on podcast-specific
+     components without affecting global styles
+
+  3. ISOLATED UPDATES - Podcast design can evolve independently from portfolio
+
+  4. PERFORMANCE - Page-specific Tailwind config means no unused CSS from
+     the main portfolio stylesheet
+
+  NAVIGATION INTEGRATION:
+  - Uses portfolio navigation (style.min.css) for seamless site-wide browsing
+  - Replaces Tailwind nav with portfolio nav components
+  - Mobile menu integrates with portfolio's slide-out menu system
+
+  COMPONENT LIBRARY:
+  - Does NOT use css/components.css (has inline implementations)
+  - Does NOT use js/components.js (has inline JavaScript)
+  - This prevents conflicts and maintains page independence
+
+  See COMPONENTS.md for portfolio-wide component documentation.
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ze Podcast - Zaki's Portfolio</title>
     <meta name="description" content="Improvised, minimal-edit commentary with receipts. Dissecting rhetoric, media, and communication.">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
